@@ -10,4 +10,22 @@
 
 @interface ViewController : UIViewController
 
+{
+  __weak IBOutlet UIImageView *theImageView;
+  __weak IBOutlet UISwitch *useFilterSwitch;
+  __weak IBOutlet UISegmentedControl *positionSelector;
+  __weak IBOutlet UISlider *radiusSlider;
+  __weak IBOutlet UISlider *amountSlider;
+  
+  UIImage *imageToEdit;
+  CIImage *outputImage;
+  NSString *currentFilterName;
+  CIFilter *currentFilter;
+}
+
+- (IBAction)handleUseFilterSwitch:(UISwitch *)sender;
+- (IBAction)handlePositionSelector:(UISegmentedControl *)sender;
+- (IBAction)handleRadiusSlider:(UISlider *)sender;
+- (IBAction)handleAmountSlider:(UISlider *)sender;
+
 @end
