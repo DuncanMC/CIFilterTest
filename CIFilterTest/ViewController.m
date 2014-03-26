@@ -20,8 +20,8 @@
 
 - (void) listCIFilters;
 {
-  return;   //Skip this step
-  NSMutableSet *uniqueFilterNames = [NSMutableSet new];
+//  return;   //Skip this step
+  NSMutableArray *uniqueFilterNames = [NSMutableArray new];
   
   int duplicateCount = 0;
   BOOL listFilterKeys = YES;
@@ -118,36 +118,264 @@
   }
   //printf("Total of %d unique filters found. Skipped %d duplicates", uniqueFilterNames.count, duplicateCount);
 }
+//------------------------------------------------------------------------------------------------------
+- (void) addControlWithKey: (NSString *)aKey;
+{
+  int index = conrtrolIndex++;
+  sliderKeys[index] = aKey;
+  
+  int sliderTag = index + K_SLIDER_BASE_TAG;
+  UIView *containerView = [self.view viewWithTag: index + K_VIEW_BASE_TAG];
+
+  UISlider *aSlider = (UISlider *)[self.view viewWithTag: sliderTag];
+  UILabel *sliderLabel = (UILabel *)[self.view viewWithTag: index + K_LABEL_BASE_TAG];
+  UILabel *minLabel = (UILabel *)[self.view viewWithTag: index + K_MIN_BASE_TAG];
+  UILabel *maxLabel = (UILabel *)[self.view viewWithTag: index + K_MAX_BASE_TAG];
+  UITextView *currentValueTextView = (UITextView *)[self.view viewWithTag: index + K_VALUE_BASE_TAG];
+  if (!aSlider || ![aSlider isKindOfClass: [UISlider class]])
+  {
+    NSLog(@"No slider found with tag %d, ", sliderTag);
+    return;
+  }
+  if (aKey.length == 0)
+  {
+    containerView.hidden = YES;
+    return;
+  }
+  NSDictionary *attributes = currentFilter.attributes;
+  NSDictionary *thisAttribute = attributes[aKey];
+  if (!thisAttribute)
+  {
+    NSLog(@"can't find attribute");
+    containerView.hidden = YES;
+    return;
+  }
+  containerView.hidden = NO;
+
+  CGFloat minValue = [thisAttribute[@"CIAttributeSliderMin"] floatValue];
+  CGFloat maxValue = [thisAttribute[@"CIAttributeSliderMax"] floatValue];
+  CGFloat defaultValue  = [thisAttribute[@"CIAttributeDefault"] floatValue];
+  
+  aSlider.minimumValue = minValue;
+  aSlider.maximumValue = maxValue;
+  aSlider.value = defaultValue;
+  
+  sliderLabel.text = aKey;
+  
+  minLabel.text = [NSString stringWithFormat: @"%.2f", minValue];
+  maxLabel.text = [NSString stringWithFormat: @"%.2f", maxValue];
+  currentValueTextView.text = [NSString stringWithFormat: @"%.2f", defaultValue];
+
+}
+
+//------------------------------------------------------------------------------------------------------
 
 - (void) showImage;
 {
-  CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
-  
-  
-  [currentFilter setValue: sourceCIImage
-                   forKey: kCIInputImageKey];
+  CIImage *outputImage;
+  UIImage *outputUIImage;
+
   if (useFilterSwitch.isOn)
-    outputImage = [currentFilter valueForKey:kCIOutputImageKey];
+  {
+    outputImage = [currentFilter valueForKey: kCIOutputImageKey];
+    outputUIImage = [UIImage imageWithCIImage: outputImage];
+  }
   else
-    outputImage = sourceCIImage;
+  {
+    outputImage = [currentFilter valueForKey: kCIInputImageKey];
+    outputUIImage = imageToEdit;
+  }
   
-  
-  UIImage *outputUIImage = [UIImage imageWithCIImage: outputImage];
   theImageView.image = outputUIImage;
 }
 
+//------------------------------------------------------------------------------------------------------
+
+- (void) clearControls;
+{
+  conrtrolIndex = 0;
+  for (int index = 0; index < K_MAX_SLIDERS; index++)
+  {
+    UIView *controlsView = [self.view viewWithTag: K_VIEW_BASE_TAG + index];
+    controlsView.hidden = YES;
+    sliderKeys[index] = nil;
+  }
+}
+
+//------------------------------------------------------------------------------------------------------
+
 - (void) doSetup;
 {
-  imageToEdit = [UIImage imageNamed: @"Sample image"];
-  //CIHoleDistortion, CIBumpDistortion, CIBumpDistortionLinear
-  currentFilterName = @"CIBumpDistortion";
+  
+  
+  //CIHoleDistortion, CIBumpDistortion, CIBumpDistortionLinear, CIHoleDistortion, CIGaussianBlur, CIPinchDistortion, CIBarsSwipeTransition
+  
+  currentFilterName = @"CISwipeTransition";
+  
   currentFilter = [CIFilter filterWithName: currentFilterName];
   [currentFilter setDefaults];
   
-  id value = [currentFilter valueForKey: @"inputCenter"];
-  NSLog(@"After creating CIBumpDistortion filter, default inputCenter = %@", value);
+
+  
+  NSDictionary *attributes = currentFilter.attributes;
+  NSLog(@"Filter %@ attributes = %@", currentFilterName, attributes);
+  NSString *filterName = attributes[@"CIAttributeFilterDisplayName"];
+  filterNameLabel.text = filterName;
+
+  animateButton.enabled = [attributes objectForKey: @"inputTime"] != nil;
+
+  if ([attributes objectForKey: kCIInputImageKey])
+  {
+    imageToEdit = [UIImage imageNamed: @"Sample image"];
+    CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
+    [currentFilter setValue: sourceCIImage
+                     forKey: kCIInputImageKey];
+
+  }
+  //inputMaskImage
+  if ([attributes objectForKey: kCIInputMaskImageKey])
+  {
+    UIImage *maskImage = [UIImage imageNamed: @"Mask image"];
+    CIImage *maskCIImage = [CIImage imageWithCGImage: maskImage.CGImage];
+    
+    
+    [currentFilter setValue: maskCIImage
+                     forKey: kCIInputMaskImageKey];
+    
+  }
+
+  if ([attributes objectForKey: @"inputTargetImage"])
+  {
+    secondImage = [UIImage imageNamed: @"Sample image #2"];
+    CIImage *secondCIImage = [CIImage imageWithCGImage: secondImage.CGImage];
+    
+    
+    [currentFilter setValue: secondCIImage
+                     forKey: kCIInputTargetImageKey];
+
+  }
+  
+  [self clearControls];
+  if ([currentFilterName isEqualToString: @"CIBumpDistortion"] ||
+      [currentFilterName isEqualToString: @"CIBumpDistortionLinear"] ||
+      [currentFilterName isEqualToString: @"CIPinchDistortion"] ||
+      [currentFilterName isEqualToString: @"CIGaussianBlur"]      )
+  {
+    [self addControlWithKey: @"inputRadius"];
+    [self addControlWithKey: @"inputScale"];
+    [self addControlWithKey: @"inputAngle"];
+  }
+  else if ([currentFilterName isEqualToString: @"CISharpenLuminance"])
+  {
+    [self addControlWithKey: @"inputSharpness"];
+  }
+  else if ([currentFilterName isEqualToString: @"CIUnsharpMask"])
+  {
+    [self addControlWithKey: @"inputRadius"];
+    [self addControlWithKey: @"inputIntensity"];
+  }
+  else if ([currentFilterName isEqualToString: @"CIBarsSwipeTransition"] ||
+           [currentFilterName isEqualToString: @"CIDissolveTransition"]
+           )
+  {
+    [self addControlWithKey: @"inputTime"];
+    [self addControlWithKey: @"inputAngle"];
+    [self addControlWithKey: @"inputWidth"];
+    [self addControlWithKey: @"inputBarOffset"];
+  }
+  else if ([currentFilterName isEqualToString: @"CICopyMachineTransition"] ||
+           [currentFilterName isEqualToString: @"CISwipeTransition"]
+            )
+  {
+    [self addControlWithKey: @"inputTime"];
+    [self addControlWithKey: @"inputAngle"];
+    [self addControlWithKey: @"inputWidth"];
+    [self addControlWithKey: @"inputOpacity"];
+  }
+  else if ([currentFilterName isEqualToString: @"CIModTransition"])
+  {
+    [self addControlWithKey: @"inputTime"];
+    [self addControlWithKey: @"inputAngle"];
+    [self addControlWithKey: @"inputRadius"];
+    [self addControlWithKey: @"inputCompression"];
+  }
+  else if ([currentFilterName isEqualToString: @"CIDisintegrateWithMaskTransition"])
+  {
+    [self addControlWithKey: @"inputTime"];
+    [self addControlWithKey: @"inputShadowRadius"];
+    [self addControlWithKey: @"inputShadowDensity"];
+  }
+
+  if (![attributes objectForKey: @"inputCenter"])
+  {
+    positionSelector.enabled = NO;
+  }
+  else
+    defaultCenterPoinr = [currentFilter valueForKey: @"inputCenter"];
+  if ([currentFilterName isEqualToString: @"CIBumpDistortion"])
+    NSLog(@"After creating CIBumpDistortion filter, default inputCenter = %@\n", defaultCenterPoinr);
 }
 
+//------------------------------------------------------------------------------------------------------
+
+- (void) animate;
+{
+  int index = 0;
+  UITextField *valueField = (UITextField *)[self.view viewWithTag: index + K_VALUE_BASE_TAG];
+  valueField.text = [NSString stringWithFormat: @"%.2f", timeValue];
+  NSString *aKey = sliderKeys[index];
+  
+  valueField.text = [NSString stringWithFormat: @"%.2f", timeValue];
+  
+  start = [NSDate timeIntervalSinceReferenceDate];
+  [currentFilter setValue: @(timeValue) forKey: aKey];
+  
+  UISlider *slider = (UISlider *)[self.view viewWithTag: index + K_SLIDER_BASE_TAG];
+  slider.value = timeValue;
+  
+  [self showImage];
+  timeValue += .05;
+  if (timeValue < 1.05)
+    [self performSelector: @selector(next) withObject: nil afterDelay:0];
+  else
+  {
+    [self enableSliders: YES];
+    animateButton.enabled = YES;
+
+  }
+}
+
+- (void) next;
+{
+  NSTimeInterval delta;
+  delta = [NSDate timeIntervalSinceReferenceDate] - start;
+  
+//  NSLog(@"Processing time = %.6f", delta);
+  [self animate];
+}
+
+//------------------------------------------------------------------------------------------------------
+
+- (void) changeValue: (CGFloat) newValue forIndex: (int) index;
+{
+  NSString *aKey = sliderKeys[index];
+ [currentFilter setValue: @(newValue) forKey: aKey];
+  [self showImage];
+
+}
+
+//------------------------------------------------------------------------------------------------------
+
+- (void) enableSliders: (BOOL) enable;
+{
+  int tag;
+  for (int index = 0; index < K_MAX_SLIDERS; index++)
+  {
+    tag = K_SLIDER_BASE_TAG + index;
+    UISlider *aSlider = (UISlider *)[self.view viewWithTag: tag];
+    aSlider.enabled = enable;
+  }
+}
 //------------------------------------------------------------------------------------------------------
 #pragma mark - VC Lifecycle methods
 //------------------------------------------------------------------------------------------------------
@@ -156,15 +384,92 @@
 {
     [super viewDidLoad];
   [self doSetup];
-	// Do any additional setup after loading the view, typically from a nib.
+  showKeyboardNotificaiton = [[NSNotificationCenter defaultCenter] addObserverForName: UIKeyboardWillShowNotification
+                              
+                                                                               object: nil
+                                                                                queue: nil
+                                                                           usingBlock: ^(NSNotification *note)
+                              {
+                                CGRect keyboardFrame;
+                                NSDictionary* userInfo = note.userInfo;
+                                keyboardSlideDuration = [[userInfo objectForKey: UIKeyboardAnimationDurationUserInfoKey] floatValue];
+                                keyboardFrame = [[userInfo objectForKey: UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+                                keyboardAnimationCurve = [[userInfo objectForKey: UIKeyboardAnimationCurveUserInfoKey] integerValue]<<16;
+                                
+                                UIInterfaceOrientation theStatusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+                                
+                                CGFloat keyboardHeight;
+                                if UIInterfaceOrientationIsLandscape(theStatusBarOrientation)
+                                  keyboardHeight = keyboardFrame.size.width;
+                                else
+                                  keyboardHeight = keyboardFrame.size.height;
+                                
+                                CGRect fieldFrame = textFieldToEdit.bounds;
+                                fieldFrame = [self.view convertRect: fieldFrame fromView: textFieldToEdit];
+                                CGRect contentFrame = self.view.frame;
+                                CGFloat fieldBottom = fieldFrame.origin.y + fieldFrame.size.height;
+                                
+                                keyboardShiftAmount= 0;
+                                if (contentFrame.size.height - fieldBottom <keyboardHeight)
+                                {
+                                  keyboardShiftAmount = keyboardHeight - (contentFrame.size.height - fieldBottom);
+                                  
+                                  //                                  keyboardConstraint.constant -= keyboardShiftAmount;
+                                  //                                  keyboardBottomConstraint.constant += keyboardShiftAmount;
+                                  [UIView animateWithDuration: keyboardSlideDuration
+                                                        delay: 0
+                                                      options: keyboardAnimationCurve
+                                                   animations:
+                                   ^{
+                                     CGRect frame = self.view.frame;
+                                     frame.origin.y -= keyboardShiftAmount;
+                                     self.view.frame = frame;
+                                   }
+                                                   completion: nil
+                                   ];
+                                }
+                              }
+                              ];
+  hideKeyboardNotificaiton = [[NSNotificationCenter defaultCenter] addObserverForName: UIKeyboardWillHideNotification
+                                                                               object: nil
+                                                                                queue: nil
+                                                                           usingBlock: ^(NSNotification *note)
+                              {
+                                if (keyboardShiftAmount != 0)
+                                  [UIView animateWithDuration: keyboardSlideDuration
+                                                        delay: 0
+                                                      options: keyboardAnimationCurve
+                                                   animations:
+                                   ^{
+                                     CGRect frame = self.view.frame;
+                                     frame.origin.y += keyboardShiftAmount;
+                                     self.view.frame = frame;
+                                     
+                                     //                                     keyboardConstraint.constant += keyboardShiftAmount;
+                                     //                                     keyboardBottomConstraint.constant -= keyboardShiftAmount;
+                                     //                                     [self.view setNeedsUpdateConstraints];
+                                     //                                     [viewToShift layoutIfNeeded];
+                                   }
+                                                   completion: nil
+                                   ];
+                                
+                                
+                              }
+                              ];
+  
+
 }
 
+
+//------------------------------------------------------------------------------------------------------
 
 - (void) viewWillAppear:(BOOL)animated
 {
   [self listCIFilters];
   [self showImage];
 }
+
+//------------------------------------------------------------------------------------------------------
 
 - (void)didReceiveMemoryWarning
 {
@@ -179,6 +484,8 @@
   [self showImage];
 }
 
+//------------------------------------------------------------------------------------------------------
+
 - (IBAction)handlePositionSelector:(UISegmentedControl *)sender
 {
   CGFloat x = 0;
@@ -186,7 +493,9 @@
   switch (index)
   {
     case 0:
-      break;
+      [currentFilter setValue: defaultCenterPoinr forKey: @"inputCenter"];
+      [self showImage];
+      return;
     case 1:
       x = 0;
       break;
@@ -210,17 +519,76 @@
   [self showImage];
 }
 
-- (IBAction)handleRadiusSlider:(UISlider *)sender
+//------------------------------------------------------------------------------------------------------
+
+- (IBAction)handleSlider:(UISlider *)sender
 {
-  CGFloat radius = radiusSlider.value;
-  [currentFilter setValue: @(radius) forKey: @"inputRadius"];
-  [self showImage];
+  int index = sender.tag - K_SLIDER_BASE_TAG;
+  CGFloat newValue = sender.value;
+  
+  UITextField *valueField = (UITextField *)[self.view viewWithTag: index + K_VALUE_BASE_TAG];
+  valueField.text = [NSString stringWithFormat: @"%.2f", newValue];
+
+  start = [NSDate timeIntervalSinceReferenceDate];
+  [self changeValue: newValue forIndex: index];
 }
 
-- (IBAction)handleAmountSlider:(UISlider *)sender
+//------------------------------------------------------------------------------------------------------
+
+
+- (IBAction)handleAnimateButton:(UIButton *)sender
 {
-  CGFloat amount = amountSlider.value;
-  [currentFilter setValue: @(amount) forKey: @"inputScale"];
-  [self showImage];
+  timeValue = 0;
+  [self enableSliders: NO];
+  animateButton.enabled = NO;
+  [self animate];
 }
+
+//-----------------------------------------------------------------------------------------------------------
+#pragma mark -	UITextFieldDelegate methods
+//-----------------------------------------------------------------------------------------------------------
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+  return YES;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+  textFieldToEdit = textField;
+  return YES;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+  //dlog(0, @"Entering %s. text field = %@", __PRETTY_FUNCTION__, textField);
+  [textField resignFirstResponder];
+  return TRUE;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+  int index = textField.tag - K_VALUE_BASE_TAG;
+  int sliderTag = index + K_SLIDER_BASE_TAG;
+  UISlider *slider = (UISlider *)[self.view viewWithTag: sliderTag];
+  
+  NSString *input = textField.text;
+  CGFloat value = [input floatValue];
+  if (input.length > 0 && value >= slider.minimumValue && value <= slider.maximumValue)
+  {
+    slider.value = value;
+    [self changeValue: value forIndex: index];
+  }
+  else
+  {
+    textField.text = [NSString stringWithFormat: @"%0.2f", slider.value];
+  }
+}
+
 @end

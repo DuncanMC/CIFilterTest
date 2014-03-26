@@ -8,24 +8,53 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+#define K_VIEW_BASE_TAG   100
+#define K_LABEL_BASE_TAG  10
+#define K_VALUE_BASE_TAG  20
+#define K_MIN_BASE_TAG    30
+#define K_SLIDER_BASE_TAG 40
+#define K_MAX_BASE_TAG    50
+
+
+//---The number of defined settings sliders.
+#define K_MAX_SLIDERS 5
+
+@interface ViewController : UIViewController <UITextFieldDelegate>
 
 {
   __weak IBOutlet UIImageView *theImageView;
   __weak IBOutlet UISwitch *useFilterSwitch;
   __weak IBOutlet UISegmentedControl *positionSelector;
-  __weak IBOutlet UISlider *radiusSlider;
-  __weak IBOutlet UISlider *amountSlider;
+  __weak IBOutlet UISlider *slider1;
+  __weak IBOutlet UISlider *slider2;
+  __weak IBOutlet UILabel *filterNameLabel;
+  __weak IBOutlet UIButton *animateButton;
   
   UIImage *imageToEdit;
-  CIImage *outputImage;
+  UIImage *secondImage;
   NSString *currentFilterName;
   CIFilter *currentFilter;
+  NSString *sliderKeys[5];
+  NSTimeInterval start;
+  CIVector *defaultCenterPoinr;
+  CGFloat timeValue;
+  int conrtrolIndex;
+  
+  //iVars used to handle textField editing and keyboard animation
+  __weak UITextField* textFieldToEdit;
+
+  id showKeyboardNotificaiton;
+  id hideKeyboardNotificaiton;
+
+  CGFloat keyboardShiftAmount;
+  CGFloat keyboardSlideDuration;
+  NSUInteger keyboardAnimationCurve;
+
 }
 
 - (IBAction)handleUseFilterSwitch:(UISwitch *)sender;
 - (IBAction)handlePositionSelector:(UISegmentedControl *)sender;
-- (IBAction)handleRadiusSlider:(UISlider *)sender;
-- (IBAction)handleAmountSlider:(UISlider *)sender;
+- (IBAction)handleSlider:(UISlider *)sender;
+- (IBAction)handleAnimateButton:(UIButton *)sender;
 
 @end

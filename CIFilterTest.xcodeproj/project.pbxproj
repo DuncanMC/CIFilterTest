@@ -13,7 +13,6 @@
 		AE30882C18E0718500C90B4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE30882A18E0718500C90B4E /* InfoPlist.strings */; };
 		AE30882E18E0718500C90B4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE30882D18E0718500C90B4E /* main.m */; };
 		AE30883218E0718500C90B4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE30883118E0718500C90B4E /* AppDelegate.m */; };
-		AE30883518E0718500C90B4E /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE30883318E0718500C90B4E /* Main_iPhone.storyboard */; };
 		AE30883818E0718500C90B4E /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE30883618E0718500C90B4E /* Main_iPad.storyboard */; };
 		AE30883B18E0718500C90B4E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE30883A18E0718500C90B4E /* ViewController.m */; };
 		AE30883D18E0718500C90B4E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE30883C18E0718500C90B4E /* Images.xcassets */; };
@@ -45,7 +44,6 @@
 		AE30882F18E0718500C90B4E /* CIFilterTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CIFilterTest-Prefix.pch"; sourceTree = "<group>"; };
 		AE30883018E0718500C90B4E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AE30883118E0718500C90B4E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		AE30883418E0718500C90B4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 		AE30883718E0718500C90B4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		AE30883918E0718500C90B4E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		AE30883A18E0718500C90B4E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
@@ -116,7 +114,6 @@
 			children = (
 				AE30883018E0718500C90B4E /* AppDelegate.h */,
 				AE30883118E0718500C90B4E /* AppDelegate.m */,
-				AE30883318E0718500C90B4E /* Main_iPhone.storyboard */,
 				AE30883618E0718500C90B4E /* Main_iPad.storyboard */,
 				AE30883918E0718500C90B4E /* ViewController.h */,
 				AE30883A18E0718500C90B4E /* ViewController.m */,
@@ -233,7 +230,6 @@
 			files = (
 				AE30883818E0718500C90B4E /* Main_iPad.storyboard in Resources */,
 				AE30883D18E0718500C90B4E /* Images.xcassets in Resources */,
-				AE30883518E0718500C90B4E /* Main_iPhone.storyboard in Resources */,
 				AE30882C18E0718500C90B4E /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -284,14 +280,6 @@
 				AE30882B18E0718500C90B4E /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		AE30883318E0718500C90B4E /* Main_iPhone.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				AE30883418E0718500C90B4E /* Base */,
-			);
-			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
 		};
 		AE30883618E0718500C90B4E /* Main_iPad.storyboard */ = {
@@ -393,7 +381,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIFilterTest/CIFilterTest-Prefix.pch";
 				INFOPLIST_FILE = "CIFilterTest/CIFilterTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -406,7 +396,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIFilterTest/CIFilterTest-Prefix.pch";
 				INFOPLIST_FILE = "CIFilterTest/CIFilterTest-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -470,6 +462,7 @@
 				AE30885518E0718500C90B4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AE30885618E0718500C90B4E /* Build configuration list for PBXNativeTarget "CIFilterTestTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +471,7 @@
 				AE30885818E0718500C90B4E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
