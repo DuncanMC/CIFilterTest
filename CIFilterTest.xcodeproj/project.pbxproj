@@ -21,6 +21,13 @@
 		AE30884618E0718500C90B4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE30882518E0718500C90B4E /* UIKit.framework */; };
 		AE30884E18E0718500C90B4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE30884C18E0718500C90B4E /* InfoPlist.strings */; };
 		AE30885018E0718500C90B4E /* CIFilterTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE30884F18E0718500C90B4E /* CIFilterTestTests.m */; };
+		AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */; };
+		AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68118E3A35F00412EE6 /* SelectFromListViewController.m */; };
+		AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68218E3A35F00412EE6 /* SelectFromListViewController.xib */; };
+		AEF8F68718E3A39000412EE6 /* PopupListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68618E3A39000412EE6 /* PopupListItem.m */; };
+		AEF8F68C18E3A53F00412EE6 /* SelectFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68B18E3A53F00412EE6 /* SelectFilterController.m */; };
+		AEF8F68E18E3A54D00412EE6 /* SelectFilterController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68D18E3A54D00412EE6 /* SelectFilterController_iPad.xib */; };
+		AEF8F69018E3AA2600412EE6 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68F18E3AA2600412EE6 /* FilterCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +60,19 @@
 		AE30884B18E0718500C90B4E /* CIFilterTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CIFilterTestTests-Info.plist"; sourceTree = "<group>"; };
 		AE30884D18E0718500C90B4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE30884F18E0718500C90B4E /* CIFilterTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIFilterTestTests.m; sourceTree = "<group>"; };
+		AEF8F67C18E394D300412EE6 /* PopupMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMenuControl.h; sourceTree = "<group>"; };
+		AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMenuControl.m; sourceTree = "<group>"; };
+		AEF8F67E18E394D300412EE6 /* TableViewSelectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSelectionProtocol.h; sourceTree = "<group>"; };
+		AEF8F68018E3A35F00412EE6 /* SelectFromListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFromListViewController.h; sourceTree = "<group>"; };
+		AEF8F68118E3A35F00412EE6 /* SelectFromListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFromListViewController.m; sourceTree = "<group>"; };
+		AEF8F68218E3A35F00412EE6 /* SelectFromListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectFromListViewController.xib; sourceTree = "<group>"; };
+		AEF8F68518E3A39000412EE6 /* PopupListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupListItem.h; sourceTree = "<group>"; };
+		AEF8F68618E3A39000412EE6 /* PopupListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupListItem.m; sourceTree = "<group>"; };
+		AEF8F68818E3A3BB00412EE6 /* MyTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyTypes.h; sourceTree = "<group>"; };
+		AEF8F68A18E3A53F00412EE6 /* SelectFilterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFilterController.h; sourceTree = "<group>"; };
+		AEF8F68B18E3A53F00412EE6 /* SelectFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFilterController.m; sourceTree = "<group>"; };
+		AEF8F68D18E3A54D00412EE6 /* SelectFilterController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectFilterController_iPad.xib; sourceTree = "<group>"; };
+		AEF8F68F18E3AA2600412EE6 /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +134,7 @@
 			children = (
 				AE30883018E0718500C90B4E /* AppDelegate.h */,
 				AE30883118E0718500C90B4E /* AppDelegate.m */,
+				AEF8F68918E3A47C00412EE6 /* PopupMenuControl files */,
 				AE30883618E0718500C90B4E /* Main_iPad.storyboard */,
 				AE30883918E0718500C90B4E /* ViewController.h */,
 				AE30883A18E0718500C90B4E /* ViewController.m */,
@@ -150,6 +171,26 @@
 				AE30884C18E0718500C90B4E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AEF8F68918E3A47C00412EE6 /* PopupMenuControl files */ = {
+			isa = PBXGroup;
+			children = (
+				AEF8F68A18E3A53F00412EE6 /* SelectFilterController.h */,
+				AEF8F68B18E3A53F00412EE6 /* SelectFilterController.m */,
+				AEF8F68F18E3AA2600412EE6 /* FilterCell.xib */,
+				AEF8F68D18E3A54D00412EE6 /* SelectFilterController_iPad.xib */,
+				AEF8F68818E3A3BB00412EE6 /* MyTypes.h */,
+				AEF8F68518E3A39000412EE6 /* PopupListItem.h */,
+				AEF8F68618E3A39000412EE6 /* PopupListItem.m */,
+				AEF8F67E18E394D300412EE6 /* TableViewSelectionProtocol.h */,
+				AEF8F68018E3A35F00412EE6 /* SelectFromListViewController.h */,
+				AEF8F68118E3A35F00412EE6 /* SelectFromListViewController.m */,
+				AEF8F68218E3A35F00412EE6 /* SelectFromListViewController.xib */,
+				AEF8F67C18E394D300412EE6 /* PopupMenuControl.h */,
+				AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */,
+			);
+			name = "PopupMenuControl files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,7 +269,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEF8F68E18E3A54D00412EE6 /* SelectFilterController_iPad.xib in Resources */,
+				AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */,
 				AE30883818E0718500C90B4E /* Main_iPad.storyboard in Resources */,
+				AEF8F69018E3AA2600412EE6 /* FilterCell.xib in Resources */,
 				AE30883D18E0718500C90B4E /* Images.xcassets in Resources */,
 				AE30882C18E0718500C90B4E /* InfoPlist.strings in Resources */,
 			);
@@ -252,6 +296,10 @@
 				AE30883B18E0718500C90B4E /* ViewController.m in Sources */,
 				AE30883218E0718500C90B4E /* AppDelegate.m in Sources */,
 				AE30882E18E0718500C90B4E /* main.m in Sources */,
+				AEF8F68718E3A39000412EE6 /* PopupListItem.m in Sources */,
+				AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */,
+				AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */,
+				AEF8F68C18E3A53F00412EE6 /* SelectFilterController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -54,24 +54,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ogo-Vr-ia3">
-                                <rect key="frame" x="215" y="28" width="90" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3zs-MU-Ilv">
-                                <rect key="frame" x="313" y="28" width="221" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </label>
                             <view hidden="YES" tag="100" contentMode="scaleToFill" id="1jO-E5-E7v">
                                 <rect key="frame" x="150" y="767" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -297,13 +279,30 @@
                                     <action selector="handleAnimateButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ipj-tc-qhT"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="yWU-t1-SfN" customClass="PopupMenuControl">
+                                <rect key="frame" x="292" y="32" width="300" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="CICategoryHighDynamicRange">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="headerString" value="Filter type"/>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="popupVCClassName" value="SelectFilterController"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter type:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9w5-4F-hJI">
+                                <rect key="frame" x="195" y="36" width="81" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="animateButton" destination="tBJ-OC-nwT" id="73w-xW-IzA"/>
-                        <outlet property="filterNameLabel" destination="3zs-MU-Ilv" id="z9K-cN-tuF"/>
                         <outlet property="positionSelector" destination="dlS-E7-soB" id="mV2-Tb-wlE"/>
+                        <outlet property="theFilterTypePopup" destination="yWU-t1-SfN" id="YU1-c0-yaf"/>
                         <outlet property="theImageView" destination="X6s-sr-zAF" id="3yx-6N-9eG"/>
                         <outlet property="useFilterSwitch" destination="9Jr-GY-V9X" id="4EO-yV-HVX"/>
                     </connections>

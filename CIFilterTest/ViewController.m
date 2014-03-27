@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "PopupMenuControl.h"
 
 @interface ViewController ()
 
@@ -21,7 +22,7 @@
 - (void) listCIFilters;
 {
 //  return;   //Skip this step
-  NSMutableArray *uniqueFilterNames = [NSMutableArray new];
+  uniqueFilterNames = [NSMutableArray new];
   
   int duplicateCount = 0;
   BOOL listFilterKeys = YES;
@@ -210,7 +211,6 @@
   
   //CIHoleDistortion, CIBumpDistortion, CIBumpDistortionLinear, CIHoleDistortion, CIGaussianBlur, CIPinchDistortion, CIBarsSwipeTransition
   
-  currentFilterName = @"CISwipeTransition";
   
   currentFilter = [CIFilter filterWithName: currentFilterName];
   [currentFilter setDefaults];
@@ -223,6 +223,7 @@
   filterNameLabel.text = filterName;
 
   animateButton.enabled = [attributes objectForKey: @"inputTime"] != nil;
+  positionSelector.selectedSegmentIndex = 0;
 
   if ([attributes objectForKey: kCIInputImageKey])
   {
@@ -232,6 +233,33 @@
                      forKey: kCIInputImageKey];
 
   }
+
+  if ([attributes objectForKey: kCIInputColorKey])
+  {
+    CIColor *inputColor = [CIColor colorWithRed: 1.0 green: 0 blue: 0 alpha: 1.0];
+    [currentFilter setValue: inputColor
+                     forKey: kCIInputColorKey];
+    
+  }
+
+  if ([attributes objectForKey: @"inputColor0"])
+  {
+    CIColor *inputColor = [CIColor colorWithRed: 1.0 green: 0 blue: 0 alpha: 1.0];
+    [currentFilter setValue: inputColor
+                     forKey: @"inputColor0"];
+    
+  }
+
+  if ([attributes objectForKey: @"inputColor1"])
+  {
+    CIColor *inputColor = [CIColor colorWithRed: 0 green: 1.0 blue: 0 alpha: 1.0];
+    [currentFilter setValue: inputColor
+                     forKey: @"inputColor1"];
+    
+  }
+
+
+  
   //inputMaskImage
   if ([attributes objectForKey: kCIInputMaskImageKey])
   {
@@ -252,10 +280,34 @@
     
     [currentFilter setValue: secondCIImage
                      forKey: kCIInputTargetImageKey];
+    
+  }
+
+  if ([attributes objectForKey: @"inputPoint"])
+  {
+    
+    CIVector *imageCenterVector = [CIVector vectorWithX: imageToEdit.size.width/2.0
+                                                      Y: imageToEdit.size.height/2.0];
+    [currentFilter setValue: imageCenterVector
+                     forKey: @"inputPoint"];
+
+  }
+
+
+  [self clearControls];
+  
+  NSArray *inputKeys = [currentFilter inputKeys];
+  
+  for (NSString *thisKey in inputKeys)
+  {
+    NSDictionary *thisInputDict = [attributes objectForKey: thisKey];
+    //Find all keys that contain slider information add add them to the controls
+    if (thisInputDict[kCIAttributeSliderMax] != nil)
+      [self addControlWithKey: thisKey];
 
   }
   
-  [self clearControls];
+  /*
   if ([currentFilterName isEqualToString: @"CIBumpDistortion"] ||
       [currentFilterName isEqualToString: @"CIBumpDistortionLinear"] ||
       [currentFilterName isEqualToString: @"CIPinchDistortion"] ||
@@ -305,15 +357,20 @@
     [self addControlWithKey: @"inputShadowRadius"];
     [self addControlWithKey: @"inputShadowDensity"];
   }
+   */
 
   if (![attributes objectForKey: @"inputCenter"])
   {
     positionSelector.enabled = NO;
   }
   else
-    defaultCenterPoinr = [currentFilter valueForKey: @"inputCenter"];
+  {
+    positionSelector.enabled = YES;
+
+    defaultCenterPoint = [currentFilter valueForKey: @"inputCenter"];
+  }
   if ([currentFilterName isEqualToString: @"CIBumpDistortion"])
-    NSLog(@"After creating CIBumpDistortion filter, default inputCenter = %@\n", defaultCenterPoinr);
+    NSLog(@"After creating CIBumpDistortion filter, default inputCenter = %@\n", defaultCenterPoint);
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -321,6 +378,9 @@
 - (void) animate;
 {
   int index = 0;
+  for (index = 0; index < K_MAX_SLIDERS; index++)
+    if ([sliderKeys[index] isEqualToString: kCIInputTimeKey])
+         break;
   UITextField *valueField = (UITextField *)[self.view viewWithTag: index + K_VALUE_BASE_TAG];
   valueField.text = [NSString stringWithFormat: @"%.2f", timeValue];
   NSString *aKey = sliderKeys[index];
@@ -334,13 +394,14 @@
   slider.value = timeValue;
   
   [self showImage];
-  timeValue += .05;
-  if (timeValue < 1.05)
+  timeValue += 1.0/steps;
+  if (timeValue < 1+1.0/steps)
     [self performSelector: @selector(next) withObject: nil afterDelay:0];
   else
   {
     [self enableSliders: YES];
     animateButton.enabled = YES;
+    //NSLog(@"Ending animation");
 
   }
 }
@@ -349,14 +410,16 @@
 {
   NSTimeInterval delta;
   delta = [NSDate timeIntervalSinceReferenceDate] - start;
-  
-//  NSLog(@"Processing time = %.6f", delta);
-  [self animate];
+  //NSLog(@"Processing time = %.6f. stepDuration = %.6f", delta, stepDuration);
+  CGFloat delay = 0;
+  if (delta < stepDuration)
+    delay = stepDuration- delta;
+  [self performSelector: @selector(animate) withObject: nil afterDelay: delay];
 }
 
 //------------------------------------------------------------------------------------------------------
 
-- (void) changeValue: (CGFloat) newValue forIndex: (int) index;
+- (void) changeValue: (CGFloat) newValue forIndex: (NSInteger) index;
 {
   NSString *aKey = sliderKeys[index];
  [currentFilter setValue: @(newValue) forKey: aKey];
@@ -382,8 +445,7 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-  [self doSetup];
+  [super viewDidLoad];
   showKeyboardNotificaiton = [[NSNotificationCenter defaultCenter] addObserverForName: UIKeyboardWillShowNotification
                               
                                                                                object: nil
@@ -413,6 +475,9 @@
                                 if (contentFrame.size.height - fieldBottom <keyboardHeight)
                                 {
                                   keyboardShiftAmount = keyboardHeight - (contentFrame.size.height - fieldBottom);
+                                  if (theStatusBarOrientation == UIInterfaceOrientationPortraitUpsideDown ||
+                                      theStatusBarOrientation == UIInterfaceOrientationLandscapeRight)
+                                    keyboardShiftAmount *= -1;
                                   
                                   //                                  keyboardConstraint.constant -= keyboardShiftAmount;
                                   //                                  keyboardBottomConstraint.constant += keyboardShiftAmount;
@@ -466,6 +531,11 @@
 - (void) viewWillAppear:(BOOL)animated
 {
   [self listCIFilters];
+  theFilterTypePopup.choices = [uniqueFilterNames copy];
+  theFilterTypePopup.delegate = self;
+  theFilterTypePopup.selectedIndex = 77;
+  currentFilterName = uniqueFilterNames[77];
+  [self doSetup];
   [self showImage];
 }
 
@@ -489,11 +559,11 @@
 - (IBAction)handlePositionSelector:(UISegmentedControl *)sender
 {
   CGFloat x = 0;
-  int index = positionSelector.selectedSegmentIndex;
+  NSInteger index = positionSelector.selectedSegmentIndex;
   switch (index)
   {
     case 0:
-      [currentFilter setValue: defaultCenterPoinr forKey: @"inputCenter"];
+      [currentFilter setValue: defaultCenterPoint forKey: @"inputCenter"];
       [self showImage];
       return;
     case 1:
@@ -523,7 +593,7 @@
 
 - (IBAction)handleSlider:(UISlider *)sender
 {
-  int index = sender.tag - K_SLIDER_BASE_TAG;
+  NSInteger index = sender.tag - K_SLIDER_BASE_TAG;
   CGFloat newValue = sender.value;
   
   UITextField *valueField = (UITextField *)[self.view viewWithTag: index + K_VALUE_BASE_TAG];
@@ -538,12 +608,31 @@
 
 - (IBAction)handleAnimateButton:(UIButton *)sender
 {
+  //NSLog(@"Starting animation");
+  totalDuration = 3;
+  steps = 60;
+  stepDuration = totalDuration/steps;
+
   timeValue = 0;
   [self enableSliders: NO];
   animateButton.enabled = NO;
   [self animate];
 }
 
+//-----------------------------------------------------------------------------------------------------------
+#pragma mark -	TableViewSelectionProtocol methods
+//-----------------------------------------------------------------------------------------------------------
+//
+
+- (void) userSelectedRow: (NSInteger) row
+                  sender: (id) sender;
+{
+  NSLog(@"User selected row %ld (%@)", (long)row, uniqueFilterNames[row]);
+  currentFilterName = uniqueFilterNames[row];
+  [self doSetup];
+  [self showImage];
+
+}
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark -	UITextFieldDelegate methods
 //-----------------------------------------------------------------------------------------------------------
@@ -574,8 +663,8 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-  int index = textField.tag - K_VALUE_BASE_TAG;
-  int sliderTag = index + K_SLIDER_BASE_TAG;
+  NSInteger index = textField.tag - K_VALUE_BASE_TAG;
+  NSInteger sliderTag = index + K_SLIDER_BASE_TAG;
   UISlider *slider = (UISlider *)[self.view viewWithTag: sliderTag];
   
   NSString *input = textField.text;
