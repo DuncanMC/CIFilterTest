@@ -296,7 +296,19 @@
 
   [self clearControls];
   
-  NSArray *inputKeys = [currentFilter inputKeys];
+  NSMutableArray *inputKeys = [[currentFilter inputKeys] mutableCopy];
+  
+  //If this filter as an "inputTime" key, and it's not the first item, move it to the first position
+  NSUInteger index = [inputKeys indexOfObject: kCIInputTimeKey];
+  if (index != NSNotFound && index != 0)
+  {
+    NSString *key0 = inputKeys[0];
+    NSString *timeKey = inputKeys[index];
+    [inputKeys replaceObjectAtIndex: 0
+                         withObject: timeKey];
+    [inputKeys replaceObjectAtIndex: index
+                         withObject: key0];
+  }
   
   for (NSString *thisKey in inputKeys)
   {
