@@ -28,6 +28,9 @@
 		AEF8F68C18E3A53F00412EE6 /* SelectFilterController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68B18E3A53F00412EE6 /* SelectFilterController.m */; };
 		AEF8F68E18E3A54D00412EE6 /* SelectFilterController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68D18E3A54D00412EE6 /* SelectFilterController_iPad.xib */; };
 		AEF8F69018E3AA2600412EE6 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68F18E3AA2600412EE6 /* FilterCell.xib */; };
+		AEF8F69418E471E400412EE6 /* FiltersList.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F69318E471E400412EE6 /* FiltersList.m */; };
+		AEF8F69718E4728600412EE6 /* FilterCategoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F69618E4728600412EE6 /* FilterCategoryInfo.m */; };
+		AEF8F69A18E472D100412EE6 /* FilterRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F69918E472D100412EE6 /* FilterRecord.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,12 @@
 		AEF8F68B18E3A53F00412EE6 /* SelectFilterController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFilterController.m; sourceTree = "<group>"; };
 		AEF8F68D18E3A54D00412EE6 /* SelectFilterController_iPad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectFilterController_iPad.xib; sourceTree = "<group>"; };
 		AEF8F68F18E3AA2600412EE6 /* FilterCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
+		AEF8F69218E471E400412EE6 /* FiltersList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FiltersList.h; sourceTree = "<group>"; };
+		AEF8F69318E471E400412EE6 /* FiltersList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FiltersList.m; sourceTree = "<group>"; };
+		AEF8F69518E4728600412EE6 /* FilterCategoryInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterCategoryInfo.h; sourceTree = "<group>"; };
+		AEF8F69618E4728600412EE6 /* FilterCategoryInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCategoryInfo.m; sourceTree = "<group>"; };
+		AEF8F69818E472D100412EE6 /* FilterRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterRecord.h; sourceTree = "<group>"; };
+		AEF8F69918E472D100412EE6 /* FilterRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterRecord.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +143,7 @@
 			children = (
 				AE30883018E0718500C90B4E /* AppDelegate.h */,
 				AE30883118E0718500C90B4E /* AppDelegate.m */,
+				AEF8F69118E471B500412EE6 /* CIFilter info data structure classes */,
 				AEF8F68918E3A47C00412EE6 /* PopupMenuControl files */,
 				AE30883618E0718500C90B4E /* Main_iPad.storyboard */,
 				AE30883918E0718500C90B4E /* ViewController.h */,
@@ -191,6 +201,19 @@
 				AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */,
 			);
 			name = "PopupMenuControl files";
+			sourceTree = "<group>";
+		};
+		AEF8F69118E471B500412EE6 /* CIFilter info data structure classes */ = {
+			isa = PBXGroup;
+			children = (
+				AEF8F69218E471E400412EE6 /* FiltersList.h */,
+				AEF8F69318E471E400412EE6 /* FiltersList.m */,
+				AEF8F69518E4728600412EE6 /* FilterCategoryInfo.h */,
+				AEF8F69618E4728600412EE6 /* FilterCategoryInfo.m */,
+				AEF8F69818E472D100412EE6 /* FilterRecord.h */,
+				AEF8F69918E472D100412EE6 /* FilterRecord.m */,
+			);
+			name = "CIFilter info data structure classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,8 +320,11 @@
 				AE30883218E0718500C90B4E /* AppDelegate.m in Sources */,
 				AE30882E18E0718500C90B4E /* main.m in Sources */,
 				AEF8F68718E3A39000412EE6 /* PopupListItem.m in Sources */,
+				AEF8F69A18E472D100412EE6 /* FilterRecord.m in Sources */,
 				AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */,
+				AEF8F69418E471E400412EE6 /* FiltersList.m in Sources */,
 				AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */,
+				AEF8F69718E4728600412EE6 /* FilterCategoryInfo.m in Sources */,
 				AEF8F68C18E3A53F00412EE6 /* SelectFilterController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

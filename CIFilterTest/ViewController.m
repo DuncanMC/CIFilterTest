@@ -8,6 +8,9 @@
 
 #import "ViewController.h"
 #import "PopupMenuControl.h"
+#import "FiltersList.h"
+#import "FilterCategoryInfo.h"
+#import "FilterRecord.h"
 
 @interface ViewController ()
 
@@ -19,11 +22,75 @@
 #pragma mark - Custom instance methods
 //------------------------------------------------------------------------------------------------------
 
-- (void) listCIFilters;
+- (void) listCIFiltersAndShowInputKeys: (BOOL) listFilterKeys;
 {
-//  return;   //Skip this step
-  uniqueFilterNames = [NSMutableArray new];
   
+  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
+  for (FilterCategoryInfo *aCategory in theFiltersList.filterCategoriesExcludingDupes)
+  {
+    printf("Category %s:\n", [aCategory.categoryName cStringUsingEncoding: NSUTF8StringEncoding]);
+    for (FilterRecord *aFilterRecord in aCategory.filterRecordsWithNoDuplicates)
+
+    {
+      NSString *aFilterName = aFilterRecord.filterName;
+      NSString *aFilterDisplayName = aFilterRecord.filterDisplayName;
+      CIFilter *aFilter = [CIFilter filterWithName: aFilterName];
+      NSDictionary *attributes = [aFilter attributes];
+      printf ("\tfilter %s. (%s)", [aFilterName cStringUsingEncoding: NSUTF8StringEncoding], [aFilterDisplayName cStringUsingEncoding: NSUTF8StringEncoding]);
+      NSArray *categories = attributes[kCIAttributeFilterCategories];
+      if (categories.count > 1)
+      {
+        printf("\tCategories:  %s", [categories[0] cStringUsingEncoding: NSUTF8StringEncoding]);
+        for (int index = 1; index <categories.count; index++ )
+          printf(",  %s", [categories[index] cStringUsingEncoding: NSUTF8StringEncoding]);
+      }
+      printf("\n");
+      NSArray *inputKeys = [aFilter inputKeys];
+      if (listFilterKeys)
+      {
+        if (inputKeys.count)
+        {
+          printf("\t\tInput keys:");
+          for (NSString *anInputKey in inputKeys)
+          {
+            NSDictionary *attributes = [aFilter attributes];
+            //NSString *attributeDisplayName = attributes[anInputKey][kCIAttributeDisplayName];
+            NSString *attributeType = attributes[anInputKey][kCIAttributeType];
+            NSString *attributeClass = attributes[anInputKey][kCIAttributeClass];
+            
+            printf("\t%s (%s/%s)",
+                   [anInputKey cStringUsingEncoding: NSUTF8StringEncoding],
+                   [attributeType cStringUsingEncoding: NSUTF8StringEncoding],
+                   [attributeClass cStringUsingEncoding: NSUTF8StringEncoding]
+                   );
+          }
+        }
+        NSArray *outputKeys = [aFilter outputKeys];
+        if (outputKeys.count)
+        {
+          if (outputKeys.count >= 1 && ![outputKeys[0] isEqualToString: @"outputImage"])
+          {
+            NSLog(@"output keys!");
+            printf("\t\tOutput keys:");
+            for (NSString *anOutputKey in outputKeys)
+            {
+              printf("\t%s", [anOutputKey cStringUsingEncoding: NSUTF8StringEncoding]);
+            }
+          }
+          printf("\n");
+        }
+      }
+    }
+  }
+  printf("\n");
+
+  }
+
+
+/*
+
+  NSMutableArray *uniqueFilterNames = [NSMutableArray new];
+
   int duplicateCount = 0;
   BOOL listFilterKeys = YES;
   
@@ -119,6 +186,8 @@
   }
   //printf("Total of %d unique filters found. Skipped %d duplicates", uniqueFilterNames.count, duplicateCount);
 }
+ */
+
 //------------------------------------------------------------------------------------------------------
 - (void) addControlWithKey: (NSString *)aKey;
 {
@@ -218,7 +287,7 @@
 
   
   NSDictionary *attributes = currentFilter.attributes;
-  NSLog(@"Filter %@ attributes = %@", currentFilterName, attributes);
+  //NSLog(@"Filter %@ attributes = %@", currentFilterName, attributes);
   NSString *filterName = attributes[@"CIAttributeFilterDisplayName"];
   filterNameLabel.text = filterName;
 
@@ -542,11 +611,12 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-  [self listCIFilters];
-  theFilterTypePopup.choices = [uniqueFilterNames copy];
+  //[self listCIFiltersAndShowInputKeys: YES];
+  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
+  theFilterTypePopup.choices = [theFiltersList.uniqueFilterNames copy];
   theFilterTypePopup.delegate = self;
   theFilterTypePopup.selectedIndex = 77;
-  currentFilterName = uniqueFilterNames[77];
+  currentFilterName = theFiltersList.uniqueFilterNames[77];
   [self doSetup];
   [self showImage];
 }
@@ -639,6 +709,7 @@
 - (void) userSelectedRow: (NSInteger) row
                   sender: (id) sender;
 {
+  NSArray *uniqueFilterNames = [FiltersList sharedFiltersList].uniqueFilterNames;
   NSLog(@"User selected row %ld (%@)", (long)row, uniqueFilterNames[row]);
   currentFilterName = uniqueFilterNames[row];
   [self doSetup];

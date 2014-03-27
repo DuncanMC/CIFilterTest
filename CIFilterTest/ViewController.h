@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "TableViewSelectionProtocol.h"
 
+@class FiltersList;
+
 #define K_VIEW_BASE_TAG   100
 #define K_LABEL_BASE_TAG  10
 #define K_VALUE_BASE_TAG  20
@@ -43,7 +45,6 @@
   CIVector        *defaultCenterPoint;
   CGFloat         timeValue;
   int             conrtrolIndex;
-  NSMutableArray  *uniqueFilterNames;
   
   //iVars used to handle textField editing and keyboard animation
   __weak UITextField* textFieldToEdit;
