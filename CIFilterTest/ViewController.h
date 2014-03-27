@@ -36,6 +36,9 @@
   __weak IBOutlet UIButton *animateButton;
   __weak IBOutlet PopupMenuControl *theFilterTypePopup;
   
+  
+  CIFilter        *_clampFilter;
+  CIFilter        *_cropFilter;
   UIImage         *imageToEdit;
   UIImage         *secondImage;
   NSString        *currentFilterName;

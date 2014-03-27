@@ -22,6 +22,24 @@
 #pragma mark - Custom instance methods
 //------------------------------------------------------------------------------------------------------
 
+- (CIFilter *) clampFilter;
+{
+  if (!_clampFilter)
+    _clampFilter = [CIFilter filterWithName: @"CIAffineClamp"];
+  //CIAttributeTypeTransform
+  return _clampFilter;
+}
+
+- (CIFilter *) cropFilter;
+{
+  if (!_cropFilter)
+    _cropFilter = [CIFilter filterWithName: @"CICrop"];
+  //CIAttributeTypeTransform
+  return _cropFilter;
+}
+
+//------------------------------------------------------------------------------------------------------
+
 - (void) listCIFiltersAndShowInputKeys: (BOOL) listFilterKeys;
 {
   
@@ -247,12 +265,57 @@
 
   if (useFilterSwitch.isOn)
   {
+    if ([currentFilterName isEqualToString: @"CIGaussianBlur"])
+    {
+      // NSLog(@"new image is bigger");
+      CIFilter *clampFilter = [self clampFilter];
+      
+//      CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+      
+      
+      CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
+      [clampFilter setValue: sourceCIImage
+                       forKey: kCIInputImageKey];
+
+      
+      [clampFilter setValue:[NSValue valueWithBytes: &CGAffineTransformIdentity
+                                        objCType:@encode(CGAffineTransform)]
+                  forKey:@"inputTransform"];
+      
+      
+      
+      sourceCIImage = [clampFilter valueForKey: kCIOutputImageKey];
+      [currentFilter setValue: sourceCIImage
+                       forKey: kCIInputImageKey];
+
+      
+    }
+
     outputImage = [currentFilter valueForKey: kCIOutputImageKey];
+    CGSize newSize = outputImage.extent.size;
+    
+    if (TRUE)
+      if (newSize.width > imageToEdit.size.width || newSize.height > imageToEdit.size.height)
+      {
+        // NSLog(@"new image is bigger");
+        CIFilter *cropFilter = [self cropFilter];
+        
+        CGRect boundsRect = CGRectMake(0, 0, imageToEdit.size.width, imageToEdit.size.height);
+        
+        [cropFilter setValue:outputImage forKey: @"inputImage"];
+        
+        CIVector *rectVector = [CIVector vectorWithCGRect: boundsRect];
+        
+        [cropFilter setValue: rectVector
+                      forKey: @"inputRectangle"];
+        outputImage = [cropFilter valueForKey: kCIOutputImageKey];
+        
+        
+      }
     outputUIImage = [UIImage imageWithCIImage: outputImage];
   }
   else
   {
-    outputImage = [currentFilter valueForKey: kCIInputImageKey];
     outputUIImage = imageToEdit;
   }
   
@@ -388,6 +451,7 @@
 
   }
   
+
   /*
   if ([currentFilterName isEqualToString: @"CIBumpDistortion"] ||
       [currentFilterName isEqualToString: @"CIBumpDistortionLinear"] ||
