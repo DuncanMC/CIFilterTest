@@ -24,7 +24,7 @@
 @property (nonatomic, strong) NSArray* namesArray;
 @property (nonatomic, weak)   id<TableViewSelectionProtocol> delegate;
 @property (nonatomic)         NSInteger selectedItemIndex;
-//@property (nonatomic, weak)   IBOutlet UILabel *listHeader;
+@property (nonatomic, strong) NSIndexPath *selectedItemIndexPath;
 @property (nonatomic, copy)   NSString *headerString;
 @property (nonatomic, assign) BOOL dontAllow90DegreeRotation;
 @property (nonatomic, copy)   NSString *cellIdentifier;

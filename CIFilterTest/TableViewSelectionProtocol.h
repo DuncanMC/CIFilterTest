@@ -11,4 +11,7 @@
 @protocol TableViewSelectionProtocol <NSObject>
 - (void) userSelectedRow: (NSInteger) row 
                   sender: (id) sender;
+
+- (void) userSelectedIndexPath: (NSIndexPath *) indexPath
+                  sender: (id) sender;
 @end

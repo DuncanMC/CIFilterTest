@@ -615,8 +615,11 @@
   FiltersList *theFiltersList = [FiltersList sharedFiltersList];
   theFilterTypePopup.choices = [theFiltersList.uniqueFilterNames copy];
   theFilterTypePopup.delegate = self;
-  theFilterTypePopup.selectedIndex = 77;
   currentFilterName = theFiltersList.uniqueFilterNames[77];
+  
+  NSIndexPath *filterIndexPath = [theFiltersList indexPathForFilterNamed: currentFilterName];
+  
+  theFilterTypePopup.selectedItemIndexPath = filterIndexPath;
   [self doSetup];
   [self showImage];
 }
@@ -716,6 +719,22 @@
   [self showImage];
 
 }
+
+
+- (void) userSelectedIndexPath: (NSIndexPath *) indexPath
+                  sender: (id) sender;
+{
+  
+  
+//  NSLog(@"User selected row %ld (%@)", (long)row, uniqueFilterNames[row]);
+  currentFilterName = [[FiltersList sharedFiltersList] filterNameForIndexPath: indexPath];
+  [self doSetup];
+  [self showImage];
+  
+}
+
+
+//-----------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark -	UITextFieldDelegate methods
 //-----------------------------------------------------------------------------------------------------------

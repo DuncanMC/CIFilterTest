@@ -39,6 +39,7 @@
 
 }
 
+@property (nonatomic, strong) NSIndexPath *selectedItemIndexPath;
 @property (nonatomic) NSUInteger selectedIndex;
 @property (nonatomic, strong) NSMutableArray *choices;
 @property (nonatomic, strong) UIPopoverController* thePopover;

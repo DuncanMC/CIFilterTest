@@ -12,7 +12,10 @@
 #import "MyTypes.h"
 //#import "PopoverButton.h"
 
-//#define kPopoverDismissedNotice  @"PopoverDismissedNotice"
+#import "FiltersList.h"
+#import "FilterCategoryInfo.h"
+#import "FilterRecord.h"
+
 
 @implementation PopupMenuControl
 
@@ -27,6 +30,29 @@
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark - property methods
 //-----------------------------------------------------------------------------------------------------------
+
+- (void) setSelectedItemIndexPath:(NSIndexPath *)newSelectedIndexPath;
+{
+  FiltersList *theFilterList = [FiltersList sharedFiltersList];
+  _selectedItemIndexPath = newSelectedIndexPath;
+  
+  
+  NSString* title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
+  if (choices && title)
+  {
+    popupLabel.text = title;
+    
+    
+  }
+  
+  FilterCategoryInfo *theSelectedCategory = theFilterList.filterCategoriesExcludingDupes[_selectedItemIndexPath.section];
+  theSelectedCategory.expandThisCategory = YES;
+  if (!delegate)
+  {
+    //NSLog(@"In %s, no delegate defined!", __PRETTY_FUNCTION__);
+    return;
+  }
+}
 
 - (void) setSelectedIndex:(NSUInteger)newSelectedIndex;
 {
@@ -149,7 +175,7 @@
   thePopoverViewController.headerString = self.headerString;
   thePopoverViewController.namesArray = theArray;
   thePopoverViewController.delegate = self;
-  thePopoverViewController.selectedItemIndex = self.selectedIndex;
+  thePopoverViewController.selectedItemIndexPath = self.selectedItemIndexPath;
   if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) 
   {
     //presentViewController: animated: completion
@@ -174,6 +200,56 @@
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark - TableViewSelectionProtocol methods
 //-----------------------------------------------------------------------------------------------------------
+
+- (void) userSelectedIndexPath: (NSIndexPath *) indexPath
+                        sender: (id) sender;
+{
+  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    [[UIApplication sharedApplication].keyWindow.rootViewController dismissViewControllerAnimated: TRUE
+                                                                                       completion:
+     ^{
+       NSIndexPath *result = indexPath;
+       int adjustedRow = (int) indexPath.row;
+       if (adjustedRow != -1)
+       {
+         BOOL changed = [_selectedItemIndexPath compare: indexPath] != NSOrderedSame;
+         if (adjustedRow == -2)
+           result = [NSIndexPath indexPathForItem: 0 inSection: indexPath.section];
+         _selectedItemIndexPath = result;
+         if (changed)
+           [delegate userSelectedIndexPath: result sender: self];
+            
+       }
+     }];
+  else
+  {
+    [thePopover dismissPopoverAnimated: TRUE];
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter postNotificationName: kPopoverDismissedNotice object: self];
+    
+    if (indexPath.row != -1)
+    {
+      NSIndexPath *result = indexPath;
+      int adjustedRow = (int) indexPath.row;
+      BOOL changed = [_selectedItemIndexPath compare: indexPath] != NSOrderedSame;
+      if (adjustedRow == -2)
+        result = [NSIndexPath indexPathForItem: 0 inSection: indexPath.section];
+      _selectedItemIndexPath = result;
+      if (changed)
+      {
+        [delegate userSelectedIndexPath: result
+                                 sender: self ];
+        self.selectedItemIndexPath = result;
+      }
+      
+      
+      
+    }
+  }
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
 
 - (void) userSelectedRow: (NSInteger) row
                   sender: (id) sender;

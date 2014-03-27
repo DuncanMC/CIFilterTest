@@ -7,6 +7,10 @@
 //
 
 #import "SelectFilterController.h"
+#import "FiltersList.h"
+#import "FilterCategoryInfo.h"
+#import "FilterRecord.h"
+
 //#import "PopupListItem.h"
 
 #define kCartTag 100
@@ -17,11 +21,34 @@
 
 @implementation SelectFilterController
 
+//-----------------------------------------------------------------------------------------------------------
+#pragma mark - property  methods
+//-----------------------------------------------------------------------------------------------------------
+
+- (void) setSelectedItemIndexPath:(NSIndexPath *) newValue;
+{
+  NSUInteger section = newValue.section;
+  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
+  FilterCategoryInfo *theSelectedCategory = theFiltersList.filterCategoriesExcludingDupes[section];
+  theSelectedCategory.expandThisCategory = YES;
+  [super setSelectedItemIndexPath: newValue];
+}
+
+//-----------------------------------------------------------------------------------------------------------
+#pragma mark - instance  methods
+//-----------------------------------------------------------------------------------------------------------
+
+- (void) viewWillAppear:(BOOL)animated
+{
+  theTableView.dataSource = [FiltersList sharedFiltersList];
+  [super viewWillAppear: animated];
+}
 
 - (void) doInitSetup
 {
-  [super doInitSetup];
   self.cellIdentifier = @"FilterCell";
+  [FiltersList sharedFiltersList].cellIdentfier = self.cellIdentifier;
+  [super doInitSetup];
 }
 
 
@@ -62,6 +89,40 @@
 //{
 //  return 80;
 //}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  if (indexPath.row == 0)
+  {
+    FiltersList *theFilterList = [FiltersList sharedFiltersList];
+    FilterCategoryInfo *theSelectedCategory = theFilterList.filterCategoriesExcludingDupes[indexPath.section];
+    BOOL expandThisCategory = !theSelectedCategory.expandThisCategory;
+    theSelectedCategory.expandThisCategory = expandThisCategory;
+    int count = theSelectedCategory.filterRecordsWithNoDuplicates.count;
+    NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity: count];
+    NSUInteger section = indexPath.section;
+    for (int index = 1; index <= count; index++)
+    {
+      NSIndexPath *anIndexPath = [NSIndexPath indexPathForItem: index inSection: section];
+      [indexPaths addObject: anIndexPath];
+    }
+    
+    if (expandThisCategory)
+    {
+      [theTableView insertRowsAtIndexPaths: indexPaths withRowAnimation: UITableViewRowAnimationAutomatic];
+      
+    }
+    else
+      [theTableView deleteRowsAtIndexPaths: indexPaths withRowAnimation: UITableViewRowAnimationAutomatic];
+    
+    return nil;
+    
+  }
+  else
+    return indexPath;
+}
 
 //-----------------------------------------------------------------------------------------------------------
 

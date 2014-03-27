@@ -15,6 +15,34 @@
 static FiltersList* theFiltersList = nil;
 
 //-----------------------------------------------------------------------------------------------------------
+#pragma mark -	instance methods
+//-----------------------------------------------------------------------------------------------------------
+
+- (NSString *) filterNameForIndexPath: (NSIndexPath *) indexPath;
+{
+  FilterCategoryInfo *selectedCategory = (FilterCategoryInfo*)_filterCategoriesExcludingDupes[indexPath.section];
+  
+  FilterRecord *theRecord = selectedCategory.filterRecordsWithNoDuplicates[indexPath.row-1];
+  
+  NSString* title =  theRecord.filterName;
+
+  return title;
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (NSString *) filterDisplayNameForIndexPath: (NSIndexPath *) indexPath;
+{
+  FilterCategoryInfo *selectedCategory = (FilterCategoryInfo*)_filterCategoriesExcludingDupes[indexPath.section];
+  
+  FilterRecord *theRecord = selectedCategory.filterRecordsWithNoDuplicates[indexPath.row-1];
+  
+  NSString* title =  theRecord.filterDisplayName;
+  
+  return title;
+}
+
+//-----------------------------------------------------------------------------------------------------------
 #pragma mark -	Object lifecycle methods
 //-----------------------------------------------------------------------------------------------------------
 
@@ -131,21 +159,84 @@ static FiltersList* theFiltersList = nil;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-  return  nil;
+  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
+  UITableViewCell* cell = [tableView dequeueReusableCellWithIdentifier: self.cellIdentfier];
+  if (!cell)
+    cell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault reuseIdentifier: self.cellIdentfier];
+
+  FilterCategoryInfo *thisCategory = theFiltersList.filterCategoriesExcludingDupes[indexPath.section];
+  
+  if (indexPath.row == 0)
+  {
+    cell.textLabel.text = thisCategory.categoryName;
+    CGFloat pointsize =cell.textLabel.font.pointSize;
+    cell.textLabel.font = [UIFont boldSystemFontOfSize: pointsize];
+    cell.textLabel.textColor = [UIColor lightTextColor];
+    cell.contentView.backgroundColor = [UIColor darkGrayColor];
+  }
+  else
+  {
+    CGFloat pointsize =cell.textLabel.font.pointSize;
+    cell.textLabel.font = [UIFont systemFontOfSize: pointsize];
+    NSString *filterName = ((FilterRecord *)thisCategory.filterRecordsWithNoDuplicates[indexPath.row - 1]).filterDisplayName;
+    cell.textLabel.text = [NSString stringWithFormat: @"  %@", filterName];
+    cell.textLabel.textColor = [UIColor darkTextColor];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+  }
+  return  cell;
 }
 
 //-----------------------------------------------------------------------------------------------------------
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-  return 0;
+  int result;
+  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
+  FilterCategoryInfo *theCategory = ((FilterCategoryInfo *)theFiltersList.filterCategoriesExcludingDupes[section]);
+  if (theCategory.expandThisCategory)
+    result = theCategory.filterRecordsWithNoDuplicates.count+1;
+  else
+    result = 1;
+  return result;
 }
 
 //-----------------------------------------------------------------------------------------------------------
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 {
-  return 0;
+  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
+
+  int result = theFiltersList.filterCategoriesExcludingDupes.count;
+  return result;
+}
+
+
+- (NSIndexPath *) indexPathForFilterNamed: (NSString *) filterName;
+{
+  FilterCategoryInfo *aCategory;
+  FilterRecord *aFilterRectord;
+  NSIndexPath *result = nil;
+  int row=0;
+  int section = 0;
+  BOOL found = NO;
+  
+  for (section = 0; section < _filterCategoriesExcludingDupes.count; section++)
+  {
+    aCategory = _filterCategoriesExcludingDupes[section];
+    for (row = 0; row < aCategory.filterRecordsWithNoDuplicates.count; row++)
+    {
+      aFilterRectord = aCategory.filterRecordsWithNoDuplicates[row];
+      if ([aFilterRectord.filterName isEqualToString: filterName])
+      {
+        found = YES;
+        result = [NSIndexPath indexPathForRow: row+1 inSection: section];
+        break;
+      }
+    }
+    if (found)
+      break;
+  }
+  return result;
 }
 
 @end

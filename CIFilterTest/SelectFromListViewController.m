@@ -55,10 +55,19 @@
 #pragma mark - property  methods
 //-----------------------------------------------------------------------------------------------------------
 
+- (void) setSelectedItemIndexPath:(NSIndexPath *) newValue;
+{
+  _selectedItemIndexPath  = newValue;
+  //  [self showSelectedItemAnimated: FALSE];
+  [self showSelectedIndexPathAnimated: FALSE];
+}
+
+//-----------------------------------------------------------------------------------------------------------
 - (void) setSelectedItemIndex:(NSInteger) newValue;
 {
   selectedItemIndex = newValue;
-  [self showSelectedItemAnimated: FALSE];
+//  [self showSelectedItemAnimated: FALSE];
+  [self showSelectedIndexPathAnimated: FALSE];
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -72,7 +81,8 @@
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
 //  [self sizeTableToContainerView];
-  [self showSelectedItemAnimated: TRUE];
+//  [self showSelectedItemAnimated: TRUE];
+  [self showSelectedIndexPathAnimated: TRUE];
 }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -114,6 +124,19 @@
 }
 
 //-----------------------------------------------------------------------------------------------------------
+- (void) showSelectedIndexPathAnimated: (BOOL) animated
+{
+  
+  [theTableView selectRowAtIndexPath: _selectedItemIndexPath
+                            animated: animated
+                      scrollPosition: UITableViewScrollPositionMiddle];
+  
+  [theTableView scrollToRowAtIndexPath: _selectedItemIndexPath atScrollPosition:UITableViewScrollPositionNone animated: animated];
+  
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
 
 - (void) showSelectedItemAnimated: (BOOL) animated
 {
@@ -192,19 +215,24 @@
 //  listHeader.text = self.headerString;
 //  [theTableView scrollToNearestSelectedRowAtScrollPosition: UITableViewScrollPositionNone animated: FALSE];
 //  [self sizeTableToContainerView];
-  [self showSelectedItemAnimated: NO];
+//  [self showSelectedItemAnimated: NO];
+  [self showSelectedIndexPathAnimated: NO];
 }
 
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark - table view methods
 //-----------------------------------------------------------------------------------------------------------
 
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   NSInteger row = [indexPath row];
   selectedItemIndex = row;
-  [delegate userSelectedRow: row 
-                     sender: self];
+//  [delegate userSelectedRow: row 
+//                     sender: self];
+  if (indexPath.row != 0)
+    [delegate userSelectedIndexPath: indexPath
+                             sender: self];
 }
 
 //-----------------------------------------------------------------------------------------------------------

@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString *categoryName;
 @property (nonatomic, strong) NSMutableArray *filterRecords;
 @property (nonatomic, strong) NSArray *filterRecordsWithNoDuplicates;
+@property (nonatomic, assign) BOOL expandThisCategory;
 
 
 @end
