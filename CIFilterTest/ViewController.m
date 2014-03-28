@@ -11,6 +11,7 @@
 #import "FiltersList.h"
 #import "FilterCategoryInfo.h"
 #import "FilterRecord.h"
+#import "WTColorPickerButton.h"
 
 @interface ViewController ()
 
@@ -207,9 +208,67 @@
  */
 
 //------------------------------------------------------------------------------------------------------
-- (void) addControlWithKey: (NSString *)aKey;
+
+- (void) addColorWellControlWithKey: (NSString *)aKey;
 {
-  int index = conrtrolIndex++;
+  int index = colorWellControlIndex++;
+  colorWellKeys[index] = aKey;
+  
+  int colorWellTag = index + K_COLORWELL_BASE_TAG;
+  WTColorPickerButton *colorPicker = (WTColorPickerButton *)[self.view viewWithTag: colorWellTag];
+  
+  if (aKey.length == 0)
+  {
+    colorPicker.hidden = YES;
+    return;
+  }
+  
+  
+  NSDictionary *attributes = currentFilter.attributes;
+  NSDictionary *thisAttribute = attributes[aKey];
+  if (!thisAttribute)
+  {
+    NSLog(@"can't find attribute");
+    return;
+  }
+  CIColor *defaultCIColor  = (CIColor *)thisAttribute[@"CIAttributeDefault"];
+  CGFloat red, green, blue, alpha;
+  
+  red = defaultCIColor.red;
+  green = defaultCIColor.green;
+  blue = defaultCIColor.blue;
+  alpha = defaultCIColor.alpha;
+  UIColor *defaultUIColor = [UIColor colorWithRed: red
+                                            green: green
+                                             blue: blue
+                                            alpha: alpha];
+
+  colorPicker.currentColor = defaultUIColor;
+  colorPicker.hidden = NO;
+  colorPicker.buttonTitle = aKey;
+
+  
+//  CGFloat minValue = [thisAttribute[@"CIAttributeSliderMin"] floatValue];
+//  CGFloat maxValue = [thisAttribute[@"CIAttributeSliderMax"] floatValue];
+//  CGFloat defaultValue  = [thisAttribute[@"CIAttributeDefault"] floatValue];
+//  
+//  aSlider.minimumValue = minValue;
+//  aSlider.maximumValue = maxValue;
+//  aSlider.value = defaultValue;
+//  
+//  sliderLabel.text = aKey;
+//  
+//  minLabel.text = [NSString stringWithFormat: @"%.2f", minValue];
+//  maxLabel.text = [NSString stringWithFormat: @"%.2f", maxValue];
+//  currentValueTextView.text = [NSString stringWithFormat: @"%.2f", defaultValue];
+  
+}
+
+//------------------------------------------------------------------------------------------------------
+
+- (void) addSliderControlWithKey: (NSString *)aKey;
+{
+  int index = sliderControlIndex++;
   sliderKeys[index] = aKey;
   
   int sliderTag = index + K_SLIDER_BASE_TAG;
@@ -262,7 +321,7 @@
 {
   CIImage *outputImage;
   UIImage *outputUIImage;
-
+  
   if (useFilterSwitch.isOn)
   {
     if ([currentFilterName isEqualToString: @"CIGaussianBlur"])
@@ -270,48 +329,65 @@
       // NSLog(@"new image is bigger");
       CIFilter *clampFilter = [self clampFilter];
       
-//      CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+      //      CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
       
       
       CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
       [clampFilter setValue: sourceCIImage
-                       forKey: kCIInputImageKey];
-
+                     forKey: kCIInputImageKey];
+      
       
       [clampFilter setValue:[NSValue valueWithBytes: &CGAffineTransformIdentity
-                                        objCType:@encode(CGAffineTransform)]
-                  forKey:@"inputTransform"];
+                                           objCType:@encode(CGAffineTransform)]
+                     forKey:@"inputTransform"];
       
       
       
       sourceCIImage = [clampFilter valueForKey: kCIOutputImageKey];
       [currentFilter setValue: sourceCIImage
                        forKey: kCIInputImageKey];
-
+      
       
     }
-
-    outputImage = [currentFilter valueForKey: kCIOutputImageKey];
-    CGSize newSize = outputImage.extent.size;
     
-    if (TRUE)
-      if (newSize.width > imageToEdit.size.width || newSize.height > imageToEdit.size.height)
-      {
-        // NSLog(@"new image is bigger");
-        CIFilter *cropFilter = [self cropFilter];
-        
-        CGRect boundsRect = CGRectMake(0, 0, imageToEdit.size.width, imageToEdit.size.height);
-        
-        [cropFilter setValue:outputImage forKey: @"inputImage"];
-        
-        CIVector *rectVector = [CIVector vectorWithCGRect: boundsRect];
-        
-        [cropFilter setValue: rectVector
-                      forKey: @"inputRectangle"];
-        outputImage = [cropFilter valueForKey: kCIOutputImageKey];
-        
-        
-      }
+    outputImage = [currentFilter valueForKey: kCIOutputImageKey];
+    CGSize newSize;
+    
+    newSize = outputImage.extent.size;
+    if (newSize.width < imageToEdit.size.width || newSize.height < imageToEdit.size.height)
+    {
+      CIFilter *transformFilter = [CIFilter filterWithName: @"CIAffineTransform"];
+      
+      CGFloat scale =imageToEdit.size.width/newSize.width;
+      
+      CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
+      [transformFilter setValue:[NSValue valueWithBytes: &transform
+                                               objCType:@encode(CGAffineTransform)]
+                         forKey:@"inputTransform"];
+      [transformFilter setValue:outputImage forKey: @"inputImage"];
+      
+      outputImage = [transformFilter valueForKey: kCIOutputImageKey];
+      
+    }
+    newSize = outputImage.extent.size;
+    
+    if (newSize.width > imageToEdit.size.width || newSize.height > imageToEdit.size.height)
+    {
+      // NSLog(@"new image is bigger");
+      CIFilter *cropFilter = [self cropFilter];
+      
+      CGRect boundsRect = CGRectMake(0, 0, imageToEdit.size.width, imageToEdit.size.height);
+      
+      [cropFilter setValue:outputImage forKey: @"inputImage"];
+      
+      CIVector *rectVector = [CIVector vectorWithCGRect: boundsRect];
+      
+      [cropFilter setValue: rectVector
+                    forKey: @"inputRectangle"];
+      outputImage = [cropFilter valueForKey: kCIOutputImageKey];
+      
+      
+    }
     outputUIImage = [UIImage imageWithCIImage: outputImage];
   }
   else
@@ -326,12 +402,21 @@
 
 - (void) clearControls;
 {
-  conrtrolIndex = 0;
-  for (int index = 0; index < K_MAX_SLIDERS; index++)
+  sliderControlIndex = 0;
+  colorWellControlIndex = 0;
+  
+  int index;
+  for (index = 0; index < K_MAX_SLIDERS; index++)
   {
     UIView *controlsView = [self.view viewWithTag: K_VIEW_BASE_TAG + index];
     controlsView.hidden = YES;
     sliderKeys[index] = nil;
+  }
+  for (index = 0; index < K_MAX_COLORWELLS; index++)
+  {
+    UIView *colorWellView = [self.view viewWithTag: K_COLORWELL_BASE_TAG + index];
+    colorWellView.hidden = YES;
+    colorWellKeys[index] = nil;
   }
 }
 
@@ -340,6 +425,8 @@
 - (void) doSetup;
 {
   
+  scaleUpImage = NO;
+
   
   //CIHoleDistortion, CIBumpDistortion, CIBumpDistortionLinear, CIHoleDistortion, CIGaussianBlur, CIPinchDistortion, CIBarsSwipeTransition
   
@@ -351,7 +438,9 @@
   
   NSDictionary *attributes = currentFilter.attributes;
   //NSLog(@"Filter %@ attributes = %@", currentFilterName, attributes);
-  NSString *filterName = attributes[@"CIAttributeFilterDisplayName"];
+  NSString *filterName;
+//  filterName = attributes[kCIAttributeFilterDisplayName];
+  filterName = attributes[kCIAttributeFilterName];
   filterNameLabel.text = filterName;
 
   animateButton.enabled = [attributes objectForKey: @"inputTime"] != nil;
@@ -366,31 +455,18 @@
 
   }
 
-  if ([attributes objectForKey: kCIInputColorKey])
+  if ([currentFilterName isEqualToString: @"CIQRCodeGenerator"])
   {
-    CIColor *inputColor = [CIColor colorWithRed: 1.0 green: 0 blue: 0 alpha: 1.0];
-    [currentFilter setValue: inputColor
-                     forKey: kCIInputColorKey];
+    NSString *theQRString = @"http://appstore.com/facedancer";
+    //dataUsingEncoding
+    NSData *theQRData = [theQRString dataUsingEncoding: NSASCIIStringEncoding];
     
+    [currentFilter setValue: theQRData
+                     forKey: @"inputMessage"];
+    [currentFilter setValue: @"M"
+                     forKey: @"inputCorrectionLevel"];
+    scaleUpImage = YES;
   }
-
-  if ([attributes objectForKey: @"inputColor0"])
-  {
-    CIColor *inputColor = [CIColor colorWithRed: 1.0 green: 0 blue: 0 alpha: 1.0];
-    [currentFilter setValue: inputColor
-                     forKey: @"inputColor0"];
-    
-  }
-
-  if ([attributes objectForKey: @"inputColor1"])
-  {
-    CIColor *inputColor = [CIColor colorWithRed: 0 green: 1.0 blue: 0 alpha: 1.0];
-    [currentFilter setValue: inputColor
-                     forKey: @"inputColor1"];
-    
-  }
-
-
   
   //inputMaskImage
   if ([attributes objectForKey: kCIInputMaskImageKey])
@@ -445,9 +521,14 @@
   for (NSString *thisKey in inputKeys)
   {
     NSDictionary *thisInputDict = [attributes objectForKey: thisKey];
-    //Find all keys that contain slider information add add them to the controls
-    if (thisInputDict[kCIAttributeSliderMax] != nil)
-      [self addControlWithKey: thisKey];
+    //This si a color key, so set up one of the color controls to use it.
+    if ([thisKey rangeOfString: @"inputColor"].location != NSNotFound)
+    {
+      [self addColorWellControlWithKey: thisKey];
+    }
+    else if (thisInputDict[kCIAttributeSliderMax] != nil)
+      //Find all keys that contain slider information add add them to the controls
+      [self addSliderControlWithKey: thisKey];
 
   }
   
@@ -458,49 +539,49 @@
       [currentFilterName isEqualToString: @"CIPinchDistortion"] ||
       [currentFilterName isEqualToString: @"CIGaussianBlur"]      )
   {
-    [self addControlWithKey: @"inputRadius"];
-    [self addControlWithKey: @"inputScale"];
-    [self addControlWithKey: @"inputAngle"];
+    [self addSliderControlWithKey: @"inputRadius"];
+    [self addSliderControlWithKey: @"inputScale"];
+    [self addSliderControlWithKey: @"inputAngle"];
   }
   else if ([currentFilterName isEqualToString: @"CISharpenLuminance"])
   {
-    [self addControlWithKey: @"inputSharpness"];
+    [self addSliderControlWithKey: @"inputSharpness"];
   }
   else if ([currentFilterName isEqualToString: @"CIUnsharpMask"])
   {
-    [self addControlWithKey: @"inputRadius"];
-    [self addControlWithKey: @"inputIntensity"];
+    [self addSliderControlWithKey: @"inputRadius"];
+    [self addSliderControlWithKey: @"inputIntensity"];
   }
   else if ([currentFilterName isEqualToString: @"CIBarsSwipeTransition"] ||
            [currentFilterName isEqualToString: @"CIDissolveTransition"]
            )
   {
-    [self addControlWithKey: @"inputTime"];
-    [self addControlWithKey: @"inputAngle"];
-    [self addControlWithKey: @"inputWidth"];
-    [self addControlWithKey: @"inputBarOffset"];
+    [self addSliderControlWithKey: @"inputTime"];
+    [self addSliderControlWithKey: @"inputAngle"];
+    [self addSliderControlWithKey: @"inputWidth"];
+    [self addSliderControlWithKey: @"inputBarOffset"];
   }
   else if ([currentFilterName isEqualToString: @"CICopyMachineTransition"] ||
            [currentFilterName isEqualToString: @"CISwipeTransition"]
             )
   {
-    [self addControlWithKey: @"inputTime"];
-    [self addControlWithKey: @"inputAngle"];
-    [self addControlWithKey: @"inputWidth"];
-    [self addControlWithKey: @"inputOpacity"];
+    [self addSliderControlWithKey: @"inputTime"];
+    [self addSliderControlWithKey: @"inputAngle"];
+    [self addSliderControlWithKey: @"inputWidth"];
+    [self addSliderControlWithKey: @"inputOpacity"];
   }
   else if ([currentFilterName isEqualToString: @"CIModTransition"])
   {
-    [self addControlWithKey: @"inputTime"];
-    [self addControlWithKey: @"inputAngle"];
-    [self addControlWithKey: @"inputRadius"];
-    [self addControlWithKey: @"inputCompression"];
+    [self addSliderControlWithKey: @"inputTime"];
+    [self addSliderControlWithKey: @"inputAngle"];
+    [self addSliderControlWithKey: @"inputRadius"];
+    [self addSliderControlWithKey: @"inputCompression"];
   }
   else if ([currentFilterName isEqualToString: @"CIDisintegrateWithMaskTransition"])
   {
-    [self addControlWithKey: @"inputTime"];
-    [self addControlWithKey: @"inputShadowRadius"];
-    [self addControlWithKey: @"inputShadowDensity"];
+    [self addSliderControlWithKey: @"inputTime"];
+    [self addSliderControlWithKey: @"inputShadowRadius"];
+    [self addSliderControlWithKey: @"inputShadowDensity"];
   }
    */
 
@@ -697,6 +778,8 @@
 }
 
 //------------------------------------------------------------------------------------------------------
+#pragma mark - IBAction methods
+//------------------------------------------------------------------------------------------------------
 
 - (IBAction)handleUseFilterSwitch:(UISwitch *)sender
 {
@@ -757,9 +840,11 @@
 
 - (IBAction)handleAnimateButton:(UIButton *)sender
 {
-  //NSLog(@"Starting animation");
   totalDuration = 3;
   steps = 60;
+  #if (TARGET_IPHONE_SIMULATOR)
+    steps = 10;
+  #endif
   stepDuration = totalDuration/steps;
 
   timeValue = 0;
@@ -769,9 +854,34 @@
 }
 
 //-----------------------------------------------------------------------------------------------------------
+
+- (IBAction)colorWellChanged:(WTColorPickerButton *)sender
+{
+  NSInteger index = sender.tag - K_COLORWELL_BASE_TAG;
+  NSString *colorKey = colorWellKeys[index];
+  
+  UIColor *newColor = sender.currentColor;
+  
+  if (colorKey.length != 0)
+  {
+    CIColor *newCIColor = [[CIColor  alloc]  initWithColor: newColor];
+    
+    CIColor *oldCIColor = [currentFilter valueForKey: colorKey];
+    
+    if (![newCIColor isEqual: oldCIColor])
+    {
+      [currentFilter setValue: newCIColor
+                       forKey: colorKey];
+      [self showImage];
+    }
+  }
+  
+}
+
+
+//-----------------------------------------------------------------------------------------------------------
 #pragma mark -	TableViewSelectionProtocol methods
 //-----------------------------------------------------------------------------------------------------------
-//
 
 - (void) userSelectedRow: (NSInteger) row
                   sender: (id) sender;

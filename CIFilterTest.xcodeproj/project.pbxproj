@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		886A6ADB7CA84D0D9E55566E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC6DDFEECD6E4BCF8683E9AF /* libPods.a */; };
 		AE30882218E0718500C90B4E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE30882118E0718500C90B4E /* Foundation.framework */; };
 		AE30882418E0718500C90B4E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE30882318E0718500C90B4E /* CoreGraphics.framework */; };
 		AE30882618E0718500C90B4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE30882518E0718500C90B4E /* UIKit.framework */; };
@@ -31,6 +32,9 @@
 		AEF8F69418E471E400412EE6 /* FiltersList.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F69318E471E400412EE6 /* FiltersList.m */; };
 		AEF8F69718E4728600412EE6 /* FilterCategoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F69618E4728600412EE6 /* FilterCategoryInfo.m */; };
 		AEF8F69A18E472D100412EE6 /* FilterRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F69918E472D100412EE6 /* FilterRecord.m */; };
+		AEF8F69E18E5B11400412EE6 /* WTColorPickerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F69D18E5B11400412EE6 /* WTColorPickerButton.m */; };
+		AEF8F6A218E5B46600412EE6 /* WTColorPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F6A018E5B46600412EE6 /* WTColorPickerVC.m */; };
+		AEF8F6A318E5B46600412EE6 /* WTColorPickerVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F6A118E5B46600412EE6 /* WTColorPickerVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		AE30881E18E0718500C90B4E /* CIFilterTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIFilterTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE30882118E0718500C90B4E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AE30882318E0718500C90B4E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -82,6 +87,12 @@
 		AEF8F69618E4728600412EE6 /* FilterCategoryInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterCategoryInfo.m; sourceTree = "<group>"; };
 		AEF8F69818E472D100412EE6 /* FilterRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterRecord.h; sourceTree = "<group>"; };
 		AEF8F69918E472D100412EE6 /* FilterRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FilterRecord.m; sourceTree = "<group>"; };
+		AEF8F69C18E5B11400412EE6 /* WTColorPickerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTColorPickerButton.h; sourceTree = "<group>"; };
+		AEF8F69D18E5B11400412EE6 /* WTColorPickerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTColorPickerButton.m; sourceTree = "<group>"; };
+		AEF8F69F18E5B46600412EE6 /* WTColorPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTColorPickerVC.h; sourceTree = "<group>"; };
+		AEF8F6A018E5B46600412EE6 /* WTColorPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTColorPickerVC.m; sourceTree = "<group>"; };
+		AEF8F6A118E5B46600412EE6 /* WTColorPickerVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WTColorPickerVC.xib; sourceTree = "<group>"; };
+		FC6DDFEECD6E4BCF8683E9AF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +103,7 @@
 				AE30882418E0718500C90B4E /* CoreGraphics.framework in Frameworks */,
 				AE30882618E0718500C90B4E /* UIKit.framework in Frameworks */,
 				AE30882218E0718500C90B4E /* Foundation.framework in Frameworks */,
+				886A6ADB7CA84D0D9E55566E /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +127,7 @@
 				AE30884918E0718500C90B4E /* CIFilterTestTests */,
 				AE30882018E0718500C90B4E /* Frameworks */,
 				AE30881F18E0718500C90B4E /* Products */,
+				2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -134,6 +147,7 @@
 				AE30882318E0718500C90B4E /* CoreGraphics.framework */,
 				AE30882518E0718500C90B4E /* UIKit.framework */,
 				AE30884318E0718500C90B4E /* XCTest.framework */,
+				FC6DDFEECD6E4BCF8683E9AF /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -149,6 +163,7 @@
 				AE30883918E0718500C90B4E /* ViewController.h */,
 				AE30883A18E0718500C90B4E /* ViewController.m */,
 				AE30883C18E0718500C90B4E /* Images.xcassets */,
+				AEF8F6A418E5B4C500412EE6 /* WTColorPicker */,
 				AE30882818E0718500C90B4E /* Supporting Files */,
 			);
 			path = CIFilterTest;
@@ -216,6 +231,18 @@
 			name = "CIFilter info data structure classes";
 			sourceTree = "<group>";
 		};
+		AEF8F6A418E5B4C500412EE6 /* WTColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				AEF8F69F18E5B46600412EE6 /* WTColorPickerVC.h */,
+				AEF8F6A018E5B46600412EE6 /* WTColorPickerVC.m */,
+				AEF8F6A118E5B46600412EE6 /* WTColorPickerVC.xib */,
+				AEF8F69C18E5B11400412EE6 /* WTColorPickerButton.h */,
+				AEF8F69D18E5B11400412EE6 /* WTColorPickerButton.m */,
+			);
+			name = WTColorPicker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -223,9 +250,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AE30885318E0718500C90B4E /* Build configuration list for PBXNativeTarget "CIFilterTest" */;
 			buildPhases = (
+				E1BE0423D2814B2091E54557 /* Check Pods Manifest.lock */,
 				AE30881A18E0718500C90B4E /* Sources */,
 				AE30881B18E0718500C90B4E /* Frameworks */,
 				AE30881C18E0718500C90B4E /* Resources */,
+				42A50D902F2C4B63A8DB8CC9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -295,6 +324,7 @@
 				AEF8F68E18E3A54D00412EE6 /* SelectFilterController_iPad.xib in Resources */,
 				AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */,
 				AE30883818E0718500C90B4E /* Main_iPad.storyboard in Resources */,
+				AEF8F6A318E5B46600412EE6 /* WTColorPickerVC.xib in Resources */,
 				AEF8F69018E3AA2600412EE6 /* FilterCell.xib in Resources */,
 				AE30883D18E0718500C90B4E /* Images.xcassets in Resources */,
 				AE30882C18E0718500C90B4E /* InfoPlist.strings in Resources */,
@@ -311,13 +341,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		42A50D902F2C4B63A8DB8CC9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E1BE0423D2814B2091E54557 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AE30881A18E0718500C90B4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				AE30883B18E0718500C90B4E /* ViewController.m in Sources */,
+				AEF8F6A218E5B46600412EE6 /* WTColorPickerVC.m in Sources */,
 				AE30883218E0718500C90B4E /* AppDelegate.m in Sources */,
+				AEF8F69E18E5B11400412EE6 /* WTColorPickerButton.m in Sources */,
 				AE30882E18E0718500C90B4E /* main.m in Sources */,
 				AEF8F68718E3A39000412EE6 /* PopupListItem.m in Sources */,
 				AEF8F69A18E472D100412EE6 /* FilterRecord.m in Sources */,
@@ -449,6 +514,7 @@
 		};
 		AE30885418E0718500C90B4E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -464,6 +530,7 @@
 		};
 		AE30885518E0718500C90B4E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;

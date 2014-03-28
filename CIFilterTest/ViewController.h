@@ -12,6 +12,7 @@
 #import "TableViewSelectionProtocol.h"
 
 @class FiltersList;
+@class WTColorPickerButton;
 
 #define K_VIEW_BASE_TAG   100
 #define K_LABEL_BASE_TAG  10
@@ -20,9 +21,10 @@
 #define K_SLIDER_BASE_TAG 40
 #define K_MAX_BASE_TAG    50
 
-
+#define K_COLORWELL_BASE_TAG 1000
 //---The number of defined settings sliders.
 #define K_MAX_SLIDERS 5
+#define K_MAX_COLORWELLS 2
 
 @interface ViewController : UIViewController <UITextFieldDelegate, TableViewSelectionProtocol>
 
@@ -43,11 +45,15 @@
   UIImage         *secondImage;
   NSString        *currentFilterName;
   CIFilter        *currentFilter;
-  NSString        *sliderKeys[5];
+  NSString        *sliderKeys[K_MAX_SLIDERS];
+  NSString        *colorWellKeys[K_MAX_COLORWELLS];
   NSTimeInterval  start;
   CIVector        *defaultCenterPoint;
   CGFloat         timeValue;
-  int             conrtrolIndex;
+  int             sliderControlIndex;
+  int             colorWellControlIndex;
+  
+  BOOL            scaleUpImage;
   
   //iVars used to handle textField editing and keyboard animation
   __weak UITextField* textFieldToEdit;
@@ -64,9 +70,14 @@
   CGFloat stepDuration;
 }
 
+//------------------------------------------------------------------------------------------------------
+#pragma mark - IBAction methods
+//------------------------------------------------------------------------------------------------------
+
 - (IBAction)handleUseFilterSwitch:(UISwitch *)sender;
 - (IBAction)handlePositionSelector:(UISegmentedControl *)sender;
 - (IBAction)handleSlider:(UISlider *)sender;
 - (IBAction)handleAnimateButton:(UIButton *)sender;
+- (IBAction)colorWellChanged:(WTColorPickerButton *)sender;
 
 @end

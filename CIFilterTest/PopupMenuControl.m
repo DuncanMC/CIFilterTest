@@ -36,13 +36,14 @@
   FiltersList *theFilterList = [FiltersList sharedFiltersList];
   _selectedItemIndexPath = newSelectedIndexPath;
   
+  NSString* title;
+  title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
+  NSString *filterName =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
   
-  NSString* title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
+  NSLog(@"Filter name = \"%@\"", filterName);
   if (choices && title)
   {
     popupLabel.text = title;
-    
-    
   }
   
   FilterCategoryInfo *theSelectedCategory = theFilterList.filterCategoriesExcludingDupes[_selectedItemIndexPath.section];
