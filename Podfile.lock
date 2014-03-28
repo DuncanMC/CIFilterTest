@@ -1,0 +1,10 @@
+PODS:
+  - NKOColorPickerView (0.2)
+
+DEPENDENCIES:
+  - NKOColorPickerView
+
+SPEC CHECKSUMS:
+  NKOColorPickerView: 3d4a70a52ad2a11555640d1ad56a8b5d4b1f7f26
+
+COCOAPODS: 0.29.0
