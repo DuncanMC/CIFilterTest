@@ -61,6 +61,7 @@
   id showKeyboardNotificaiton;
   id hideKeyboardNotificaiton;
 
+  CGSize sourceImageExtent;
   CGFloat keyboardShiftAmount;
   CGFloat keyboardSlideDuration;
   NSUInteger keyboardAnimationCurve;

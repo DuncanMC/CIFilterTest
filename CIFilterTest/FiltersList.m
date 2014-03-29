@@ -190,7 +190,7 @@ static FiltersList* theFiltersList = nil;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-  int result;
+  NSInteger result;
   FiltersList *theFiltersList = [FiltersList sharedFiltersList];
   FilterCategoryInfo *theCategory = ((FilterCategoryInfo *)theFiltersList.filterCategoriesExcludingDupes[section]);
   if (theCategory.expandThisCategory)
@@ -206,7 +206,7 @@ static FiltersList* theFiltersList = nil;
 {
   FiltersList *theFiltersList = [FiltersList sharedFiltersList];
 
-  int result = theFiltersList.filterCategoriesExcludingDupes.count;
+  NSInteger result = theFiltersList.filterCategoriesExcludingDupes.count;
   return result;
 }
 

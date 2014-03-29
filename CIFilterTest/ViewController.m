@@ -354,11 +354,11 @@
     CGSize newSize;
     
     newSize = outputImage.extent.size;
-    if (newSize.width < imageToEdit.size.width || newSize.height < imageToEdit.size.height)
+    if (newSize.width < sourceImageExtent.width || newSize.height < sourceImageExtent.height)
     {
       CIFilter *transformFilter = [CIFilter filterWithName: @"CIAffineTransform"];
       
-      CGFloat scale =imageToEdit.size.width/newSize.width;
+      CGFloat scale =sourceImageExtent.width/newSize.width;
       
       CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
       [transformFilter setValue:[NSValue valueWithBytes: &transform
@@ -371,12 +371,12 @@
     }
     newSize = outputImage.extent.size;
     
-    if (newSize.width > imageToEdit.size.width || newSize.height > imageToEdit.size.height)
+    if (newSize.width > sourceImageExtent.width || newSize.height > sourceImageExtent.height)
     {
       // NSLog(@"new image is bigger");
       CIFilter *cropFilter = [self cropFilter];
       
-      CGRect boundsRect = CGRectMake(0, 0, imageToEdit.size.width, imageToEdit.size.height);
+      CGRect boundsRect = CGRectMake(0, 0, sourceImageExtent.width, sourceImageExtent.height);
       
       [cropFilter setValue:outputImage forKey: @"inputImage"];
       
@@ -450,6 +450,7 @@
   {
     imageToEdit = [UIImage imageNamed: @"Sample image"];
     CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
+    sourceImageExtent = sourceCIImage.extent.size;
     [currentFilter setValue: sourceCIImage
                      forKey: kCIInputImageKey];
 
@@ -494,8 +495,8 @@
   if ([attributes objectForKey: @"inputPoint"])
   {
     
-    CIVector *imageCenterVector = [CIVector vectorWithX: imageToEdit.size.width/2.0
-                                                      Y: imageToEdit.size.height/2.0];
+    CIVector *imageCenterVector = [CIVector vectorWithX: sourceImageExtent.width/2.0
+                                                      Y: sourceImageExtent.height/2.0];
     [currentFilter setValue: imageCenterVector
                      forKey: @"inputPoint"];
 
@@ -802,7 +803,7 @@
       x = 0;
       break;
     case 2:
-      x = imageToEdit.size.width/2.0;
+      x = sourceImageExtent.width/2.0;
       break;
   }
   if (index == 0)
@@ -814,7 +815,7 @@
   else
   {
     CIVector *imageCenterVector = [CIVector vectorWithX: x
-                                                      Y: imageToEdit.size.height/2.0];
+                                                      Y: sourceImageExtent.height/2.0];
   [currentFilter setValue: imageCenterVector forKey: @"inputCenter"];
   }
 

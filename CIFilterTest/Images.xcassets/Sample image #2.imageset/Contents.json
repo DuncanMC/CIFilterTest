@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Fish.png"
+      "filename" : "Daffodil center.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Daffodil center@2x.png"
     }
   ],
   "info" : {

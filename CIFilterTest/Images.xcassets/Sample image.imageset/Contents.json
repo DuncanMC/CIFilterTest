@@ -3,11 +3,12 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "Curved path 600x600.png"
+      "filename" : "Sample image.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "Sample image@2x.png"
     }
   ],
   "info" : {

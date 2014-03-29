@@ -100,7 +100,7 @@
     FilterCategoryInfo *theSelectedCategory = theFilterList.filterCategoriesExcludingDupes[indexPath.section];
     BOOL expandThisCategory = !theSelectedCategory.expandThisCategory;
     theSelectedCategory.expandThisCategory = expandThisCategory;
-    int count = theSelectedCategory.filterRecordsWithNoDuplicates.count;
+    NSUInteger count = theSelectedCategory.filterRecordsWithNoDuplicates.count;
     NSMutableArray *indexPaths = [NSMutableArray arrayWithCapacity: count];
     NSUInteger section = indexPath.section;
     for (int index = 1; index <= count; index++)
