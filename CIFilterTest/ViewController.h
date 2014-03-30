@@ -23,7 +23,7 @@
 
 #define K_COLORWELL_BASE_TAG 1000
 //---The number of defined settings sliders.
-#define K_MAX_SLIDERS 5
+#define K_MAX_SLIDERS 6
 #define K_MAX_COLORWELLS 2
 
 @interface ViewController : UIViewController <UITextFieldDelegate, TableViewSelectionProtocol>

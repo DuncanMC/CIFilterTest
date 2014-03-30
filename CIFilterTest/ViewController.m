@@ -212,7 +212,13 @@
 - (void) addColorWellControlWithKey: (NSString *)aKey;
 {
   int index = colorWellControlIndex++;
+  if (index < K_MAX_COLORWELLS)
   colorWellKeys[index] = aKey;
+  else
+  {
+    NSLog(@"Too many color wells!");
+    return;
+  }
   
   int colorWellTag = index + K_COLORWELL_BASE_TAG;
   WTColorPickerButton *colorPicker = (WTColorPickerButton *)[self.view viewWithTag: colorWellTag];
@@ -269,7 +275,13 @@
 - (void) addSliderControlWithKey: (NSString *)aKey;
 {
   int index = sliderControlIndex++;
-  sliderKeys[index] = aKey;
+  if (index < K_MAX_SLIDERS)
+    sliderKeys[index] = aKey;
+  else
+  {
+    NSLog(@"Too many sliders!");
+    return;
+  }
   
   int sliderTag = index + K_SLIDER_BASE_TAG;
   UIView *containerView = [self.view viewWithTag: index + K_VIEW_BASE_TAG];
@@ -329,9 +341,6 @@
       // NSLog(@"new image is bigger");
       CIFilter *clampFilter = [self clampFilter];
       
-      //      CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-      
-      
       CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
       [clampFilter setValue: sourceCIImage
                      forKey: kCIInputImageKey];
@@ -346,8 +355,6 @@
       sourceCIImage = [clampFilter valueForKey: kCIOutputImageKey];
       [currentFilter setValue: sourceCIImage
                        forKey: kCIInputImageKey];
-      
-      
     }
     
     outputImage = [currentFilter valueForKey: kCIOutputImageKey];
@@ -489,6 +496,17 @@
     
     [currentFilter setValue: secondCIImage
                      forKey: kCIInputTargetImageKey];
+    
+  }
+
+  if ([attributes objectForKey: kCIInputBackgroundImageKey])
+  {
+    secondImage = [UIImage imageNamed: @"Sample image #2"];
+    CIImage *secondCIImage = [CIImage imageWithCGImage: secondImage.CGImage];
+    
+    
+    [currentFilter setValue: secondCIImage
+                     forKey: kCIInputBackgroundImageKey];
     
   }
 
@@ -757,7 +775,7 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-  //[self listCIFiltersAndShowInputKeys: YES];
+  [self listCIFiltersAndShowInputKeys: YES];
   FiltersList *theFiltersList = [FiltersList sharedFiltersList];
   theFilterTypePopup.choices = [theFiltersList.uniqueFilterNames copy];
   theFilterTypePopup.delegate = self;

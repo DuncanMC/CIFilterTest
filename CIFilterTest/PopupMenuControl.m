@@ -37,7 +37,8 @@
   _selectedItemIndexPath = newSelectedIndexPath;
   
   NSString* title;
-  title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
+//  title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
+  title =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
   NSString *filterName =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
   
   NSLog(@"Filter name = \"%@\"", filterName);
