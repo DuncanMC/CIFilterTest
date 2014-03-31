@@ -43,7 +43,9 @@
 
 - (void) listCIFiltersAndShowInputKeys: (BOOL) listFilterKeys;
 {
-  
+  NSString *iOSVersion = [[UIDevice currentDevice] systemVersion];
+  printf("CI filters from iOS version %s:\n\n", [iOSVersion cStringUsingEncoding: NSUTF8StringEncoding]);
+
   FiltersList *theFiltersList = [FiltersList sharedFiltersList];
   for (FilterCategoryInfo *aCategory in theFiltersList.filterCategoriesExcludingDupes)
   {

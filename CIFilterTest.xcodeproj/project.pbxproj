@@ -24,6 +24,7 @@
 		AE30885018E0718500C90B4E /* CIFilterTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE30884F18E0718500C90B4E /* CIFilterTestTests.m */; };
 		AED3CEF918E9AE9E004BB316 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEF818E9AE9E004BB316 /* README.md */; };
 		AED3CEFB18E9AF00004BB316 /* CIFilters and input keys.txt in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */; };
+		AED3CEFD18E9B378004BB316 /* test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEFC18E9B378004BB316 /* test.rtf */; };
 		AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */; };
 		AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68118E3A35F00412EE6 /* SelectFromListViewController.m */; };
 		AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68218E3A35F00412EE6 /* SelectFromListViewController.xib */; };
@@ -72,6 +73,7 @@
 		AE30884F18E0718500C90B4E /* CIFilterTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIFilterTestTests.m; sourceTree = "<group>"; };
 		AED3CEF818E9AE9E004BB316 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CIFilters and input keys.txt"; sourceTree = "<group>"; };
+		AED3CEFC18E9B378004BB316 /* test.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = test.rtf; sourceTree = "<group>"; };
 		AEF8F67C18E394D300412EE6 /* PopupMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMenuControl.h; sourceTree = "<group>"; };
 		AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMenuControl.m; sourceTree = "<group>"; };
 		AEF8F67E18E394D300412EE6 /* TableViewSelectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSelectionProtocol.h; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 		AED3CEF718E9AE6F004BB316 /* Documentation */ = {
 			isa = PBXGroup;
 			children = (
+				AED3CEFC18E9B378004BB316 /* test.rtf */,
 				AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */,
 				AED3CEF818E9AE9E004BB316 /* README.md */,
 			);
@@ -339,6 +342,7 @@
 				AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */,
 				AE30883818E0718500C90B4E /* Main_iPad.storyboard in Resources */,
 				AEF8F6A318E5B46600412EE6 /* WTColorPickerVC.xib in Resources */,
+				AED3CEFD18E9B378004BB316 /* test.rtf in Resources */,
 				AEF8F69018E3AA2600412EE6 /* FilterCell.xib in Resources */,
 				AE30883D18E0718500C90B4E /* Images.xcassets in Resources */,
 				AED3CEF918E9AE9E004BB316 /* README.md in Resources */,
