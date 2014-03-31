@@ -336,7 +336,10 @@
   
   if (useFilterSwitch.isOn)
   {
-    if ([currentFilterName isEqualToString: @"CIGaussianBlur"])
+    if ([currentFilterName isEqualToString: @"CIGaussianBlur"]
+        ||
+        [currentFilterName isEqualToString: @"CIGloom"]
+        )
     {
       // NSLog(@"new image is bigger");
       CIFilter *clampFilter = [self clampFilter];
