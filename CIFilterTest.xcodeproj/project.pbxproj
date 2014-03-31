@@ -22,7 +22,8 @@
 		AE30884618E0718500C90B4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE30882518E0718500C90B4E /* UIKit.framework */; };
 		AE30884E18E0718500C90B4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE30884C18E0718500C90B4E /* InfoPlist.strings */; };
 		AE30885018E0718500C90B4E /* CIFilterTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE30884F18E0718500C90B4E /* CIFilterTestTests.m */; };
-		AED3CEF618E9A5B9004BB316 /* Documentation in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEF518E9A5B9004BB316 /* Documentation */; };
+		AED3CEF918E9AE9E004BB316 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEF818E9AE9E004BB316 /* README.md */; };
+		AED3CEFB18E9AF00004BB316 /* CIFilters and input keys.txt in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */; };
 		AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */; };
 		AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68118E3A35F00412EE6 /* SelectFromListViewController.m */; };
 		AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68218E3A35F00412EE6 /* SelectFromListViewController.xib */; };
@@ -69,7 +70,8 @@
 		AE30884B18E0718500C90B4E /* CIFilterTestTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CIFilterTestTests-Info.plist"; sourceTree = "<group>"; };
 		AE30884D18E0718500C90B4E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE30884F18E0718500C90B4E /* CIFilterTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CIFilterTestTests.m; sourceTree = "<group>"; };
-		AED3CEF518E9A5B9004BB316 /* Documentation */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Documentation; sourceTree = "<group>"; };
+		AED3CEF818E9AE9E004BB316 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CIFilters and input keys.txt"; sourceTree = "<group>"; };
 		AEF8F67C18E394D300412EE6 /* PopupMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMenuControl.h; sourceTree = "<group>"; };
 		AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMenuControl.m; sourceTree = "<group>"; };
 		AEF8F67E18E394D300412EE6 /* TableViewSelectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSelectionProtocol.h; sourceTree = "<group>"; };
@@ -125,7 +127,7 @@
 		AE30881518E0718500C90B4E = {
 			isa = PBXGroup;
 			children = (
-				AED3CEF518E9A5B9004BB316 /* Documentation */,
+				AED3CEF718E9AE6F004BB316 /* Documentation */,
 				AE30882718E0718500C90B4E /* CIFilterTest */,
 				AE30884918E0718500C90B4E /* CIFilterTestTests */,
 				AE30882018E0718500C90B4E /* Frameworks */,
@@ -199,6 +201,15 @@
 				AE30884C18E0718500C90B4E /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AED3CEF718E9AE6F004BB316 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */,
+				AED3CEF818E9AE9E004BB316 /* README.md */,
+			);
+			name = Documentation;
 			sourceTree = "<group>";
 		};
 		AEF8F68918E3A47C00412EE6 /* PopupMenuControl files */ = {
@@ -330,8 +341,9 @@
 				AEF8F6A318E5B46600412EE6 /* WTColorPickerVC.xib in Resources */,
 				AEF8F69018E3AA2600412EE6 /* FilterCell.xib in Resources */,
 				AE30883D18E0718500C90B4E /* Images.xcassets in Resources */,
+				AED3CEF918E9AE9E004BB316 /* README.md in Resources */,
 				AE30882C18E0718500C90B4E /* InfoPlist.strings in Resources */,
-				AED3CEF618E9A5B9004BB316 /* Documentation in Resources */,
+				AED3CEFB18E9AF00004BB316 /* CIFilters and input keys.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
