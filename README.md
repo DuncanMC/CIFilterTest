@@ -15,4 +15,3 @@ Note the the project is for iPad only, and runs **MUCH** bettter on an actual de
 
 This project includes a method, `listCIFiltersAndShowInputKeys:`, which queries the CIFilter class and write a formatted list of available filters to the debug console. If you pass in YES for the listFilterKeys parameter then it also logs information about the input parameters for each filter. Click [this link](CIFilters and input keys.txt) to see the output from this function from iOS 7.1.
 
-This is a [test link to an rtf file](test.rtf)

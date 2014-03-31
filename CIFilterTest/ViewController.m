@@ -902,6 +902,11 @@
   
 }
 
+- (IBAction)pointButtonChanged:(PointButton *)sender
+{
+  NSLog(@"Entering %s", __PRETTY_FUNCTION__);
+}
+
 
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark -	TableViewSelectionProtocol methods

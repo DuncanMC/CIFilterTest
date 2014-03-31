@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "TableViewSelectionProtocol.h"
 
+@class PointButton;
+
 @class FiltersList;
 @class WTColorPickerButton;
 
@@ -37,7 +39,7 @@
   __weak IBOutlet UILabel *filterNameLabel;
   __weak IBOutlet UIButton *animateButton;
   __weak IBOutlet PopupMenuControl *theFilterTypePopup;
-  
+  __weak IBOutlet UIView *imageContainerView;
   
   CIFilter        *_clampFilter;
   CIFilter        *_cropFilter;
@@ -80,5 +82,6 @@
 - (IBAction)handleSlider:(UISlider *)sender;
 - (IBAction)handleAnimateButton:(UIButton *)sender;
 - (IBAction)colorWellChanged:(WTColorPickerButton *)sender;
+- (IBAction)pointButtonChanged:(PointButton *)sender;
 
 @end

@@ -25,6 +25,9 @@
 		AED3CEF918E9AE9E004BB316 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEF818E9AE9E004BB316 /* README.md */; };
 		AED3CEFB18E9AF00004BB316 /* CIFilters and input keys.txt in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */; };
 		AED3CEFD18E9B378004BB316 /* test.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AED3CEFC18E9B378004BB316 /* test.rtf */; };
+		AED3CF0118EA021D004BB316 /* PointButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0018EA021D004BB316 /* PointButton.m */; };
+		AED3CF0418EA0236004BB316 /* PointView.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0318EA0236004BB316 /* PointView.m */; };
+		AED3CF0718EA0497004BB316 /* WTToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0518EA0497004BB316 /* WTToggleButton.m */; };
 		AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */; };
 		AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68118E3A35F00412EE6 /* SelectFromListViewController.m */; };
 		AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68218E3A35F00412EE6 /* SelectFromListViewController.xib */; };
@@ -74,6 +77,12 @@
 		AED3CEF818E9AE9E004BB316 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CIFilters and input keys.txt"; sourceTree = "<group>"; };
 		AED3CEFC18E9B378004BB316 /* test.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = test.rtf; sourceTree = "<group>"; };
+		AED3CEFF18EA021D004BB316 /* PointButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointButton.h; sourceTree = "<group>"; };
+		AED3CF0018EA021D004BB316 /* PointButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointButton.m; sourceTree = "<group>"; };
+		AED3CF0218EA0236004BB316 /* PointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointView.h; sourceTree = "<group>"; };
+		AED3CF0318EA0236004BB316 /* PointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointView.m; sourceTree = "<group>"; };
+		AED3CF0518EA0497004BB316 /* WTToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTToggleButton.m; sourceTree = "<group>"; };
+		AED3CF0618EA0497004BB316 /* WTToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTToggleButton.h; sourceTree = "<group>"; };
 		AEF8F67C18E394D300412EE6 /* PopupMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMenuControl.h; sourceTree = "<group>"; };
 		AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMenuControl.m; sourceTree = "<group>"; };
 		AEF8F67E18E394D300412EE6 /* TableViewSelectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSelectionProtocol.h; sourceTree = "<group>"; };
@@ -162,6 +171,7 @@
 		AE30882718E0718500C90B4E /* CIFilterTest */ = {
 			isa = PBXGroup;
 			children = (
+				AED3CEFE18EA0200004BB316 /* Custom UI classes */,
 				AE30883018E0718500C90B4E /* AppDelegate.h */,
 				AE30883118E0718500C90B4E /* AppDelegate.m */,
 				AEF8F69118E471B500412EE6 /* CIFilter info data structure classes */,
@@ -213,6 +223,19 @@
 				AED3CEF818E9AE9E004BB316 /* README.md */,
 			);
 			name = Documentation;
+			sourceTree = "<group>";
+		};
+		AED3CEFE18EA0200004BB316 /* Custom UI classes */ = {
+			isa = PBXGroup;
+			children = (
+				AED3CF0618EA0497004BB316 /* WTToggleButton.h */,
+				AED3CF0518EA0497004BB316 /* WTToggleButton.m */,
+				AED3CEFF18EA021D004BB316 /* PointButton.h */,
+				AED3CF0018EA021D004BB316 /* PointButton.m */,
+				AED3CF0218EA0236004BB316 /* PointView.h */,
+				AED3CF0318EA0236004BB316 /* PointView.m */,
+			);
+			name = "Custom UI classes";
 			sourceTree = "<group>";
 		};
 		AEF8F68918E3A47C00412EE6 /* PopupMenuControl files */ = {
@@ -400,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE30883B18E0718500C90B4E /* ViewController.m in Sources */,
+				AED3CF0118EA021D004BB316 /* PointButton.m in Sources */,
 				AEF8F6A218E5B46600412EE6 /* WTColorPickerVC.m in Sources */,
 				AE30883218E0718500C90B4E /* AppDelegate.m in Sources */,
 				AEF8F69E18E5B11400412EE6 /* WTColorPickerButton.m in Sources */,
@@ -407,10 +431,12 @@
 				AEF8F68718E3A39000412EE6 /* PopupListItem.m in Sources */,
 				AEF8F69A18E472D100412EE6 /* FilterRecord.m in Sources */,
 				AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */,
+				AED3CF0718EA0497004BB316 /* WTToggleButton.m in Sources */,
 				AEF8F69418E471E400412EE6 /* FiltersList.m in Sources */,
 				AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */,
 				AEF8F69718E4728600412EE6 /* FilterCategoryInfo.m in Sources */,
 				AEF8F68C18E3A53F00412EE6 /* SelectFilterController.m in Sources */,
+				AED3CF0418EA0236004BB316 /* PointView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

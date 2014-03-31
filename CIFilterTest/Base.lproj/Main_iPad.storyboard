@@ -12,15 +12,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="X6s-sr-zAF">
-                                <rect key="frame" x="84" y="69" width="600" height="600"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="9Jr-GY-V9X">
                                 <rect key="frame" x="270" y="682" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -353,11 +344,38 @@
                                     <action selector="colorWellChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="4lA-fH-tqy"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" id="wQu-Xd-Aa3" userLabel="imageContainerView">
+                                <rect key="frame" x="84" y="70" width="600" height="600"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="X6s-sr-zAF">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZNM-tm-rIm" customClass="PointButton">
+                                <rect key="frame" x="51" y="700" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pointButtonChanged:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z6Q-ne-AnO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="animateButton" destination="tBJ-OC-nwT" id="73w-xW-IzA"/>
+                        <outlet property="imageContainerView" destination="wQu-Xd-Aa3" id="vj1-kf-BvS"/>
                         <outlet property="positionSelector" destination="dlS-E7-soB" id="mV2-Tb-wlE"/>
                         <outlet property="theFilterTypePopup" destination="yWU-t1-SfN" id="YU1-c0-yaf"/>
                         <outlet property="theImageView" destination="X6s-sr-zAF" id="3yx-6N-9eG"/>
