@@ -13,5 +13,4 @@ This project now uses a Cocoapod to add support for iOS color pickers.
 
 Note the the project is for iPad only, and runs **MUCH** bettter on an actual device. (Apparently the simulator implementation of Core Image is quite slow.)
 
-The program also includes a method `listCIFiltersAndShowInputKeys:` that will display a formatted list all available Core Image Filters, grouped by category. If you ask for input keys it will list all the input keys for each filter. It currently displays this information to the debug console, but it would be easy to modify it to save the information to a text file in the documents directory.
-
+This project includes a method, `listCIFiltersAndShowInputKeys:`, which queries the CIFilter class and write a formatted list of available filters to the debug console. If you pass in YES for the listFilterKeys parameter then it also logs information about the input parameters for each filter. Click [this link](CIFilters in iOS 7.md) to see the output from this function from iOS 7.1.
