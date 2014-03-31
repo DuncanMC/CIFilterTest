@@ -22,21 +22,21 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="9Jr-GY-V9X">
-                                <rect key="frame" x="270" y="688" width="51" height="31"/>
+                                <rect key="frame" x="270" y="682" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <connections>
                                     <action selector="handleUseFilterSwitch:" destination="BYZ-38-t0r" eventType="valueChanged" id="HO6-hh-NF7"/>
                                 </connections>
                             </switch>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use filter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sbg-RO-0Vd">
-                                <rect key="frame" x="150" y="693" width="100" height="21"/>
+                                <rect key="frame" x="150" y="687" width="100" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="dlS-E7-soB">
-                                <rect key="frame" x="270" y="730" width="215" height="29"/>
+                                <rect key="frame" x="270" y="722" width="215" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Default"/>
@@ -48,14 +48,14 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dOa-bm-nj5">
-                                <rect key="frame" x="150" y="732" width="100" height="21"/>
+                                <rect key="frame" x="150" y="724" width="100" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" tag="100" contentMode="scaleToFill" id="1jO-E5-E7v">
-                                <rect key="frame" x="150" y="767" width="600" height="30"/>
+                                <rect key="frame" x="150" y="762" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BC2-Bt-FBT">
@@ -98,7 +98,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" tag="101" contentMode="scaleToFill" id="J0j-kh-k7N">
-                                <rect key="frame" x="150" y="805" width="600" height="30"/>
+                                <rect key="frame" x="150" y="800" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JSY-cy-nZw">
@@ -141,7 +141,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" tag="102" contentMode="scaleToFill" id="LiM-PK-aFl">
-                                <rect key="frame" x="150" y="840" width="600" height="30"/>
+                                <rect key="frame" x="150" y="835" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bhI-ge-5wY">
@@ -184,7 +184,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" tag="103" contentMode="scaleToFill" id="9P5-7J-veG">
-                                <rect key="frame" x="150" y="875" width="600" height="30"/>
+                                <rect key="frame" x="150" y="870" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="eoS-42-xFS">
@@ -227,7 +227,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <view hidden="YES" tag="104" contentMode="scaleToFill" id="bhc-N8-xiP">
-                                <rect key="frame" x="150" y="910" width="600" height="30"/>
+                                <rect key="frame" x="150" y="905" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="14" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jeb-ox-tC8">
@@ -269,8 +269,45 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <view hidden="YES" tag="105" contentMode="scaleToFill" id="Zo5-YC-qi9">
+                                <rect key="frame" x="150" y="939" width="600" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="15" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Kgx-sq-yfp">
+                                        <rect key="frame" x="0.0" y="5" width="180" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="100.00" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="17" id="B0Z-7T-C3c" userLabel="CurrentValue">
+                                        <rect key="frame" x="182" y="0.0" width="65" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="35" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Cry-Lw-CWu" userLabel="Min">
+                                        <rect key="frame" x="255" y="5" width="55" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <slider opaque="NO" tag="45" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" id="Qdk-Ic-MMI">
+                                        <rect key="frame" x="312" y="0.0" width="228" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                    </slider>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="55" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100.00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h6a-Ga-sJt" userLabel="Max">
+                                        <rect key="frame" x="543" y="5" width="55" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tBJ-OC-nwT">
-                                <rect key="frame" x="345" y="967" width="170" height="30"/>
+                                <rect key="frame" x="345" y="979" width="170" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Animate transition">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
