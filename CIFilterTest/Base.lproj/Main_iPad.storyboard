@@ -324,8 +324,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="b7O-N3-mpZ" customClass="WTColorPickerButton">
-                                <rect key="frame" x="51" y="863" width="40" height="40"/>
+                            <button opaque="NO" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="b7O-N3-mpZ" userLabel="ColorButton1" customClass="WTColorPickerButton">
+                                <rect key="frame" x="51" y="959" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -334,8 +334,8 @@
                                     <action selector="colorWellChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="6ZY-Iu-2HU"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Jju-26-7Q5" customClass="WTColorPickerButton">
-                                <rect key="frame" x="51" y="767" width="40" height="40"/>
+                            <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="Jju-26-7Q5" userLabel="ColorButton0" customClass="WTColorPickerButton">
+                                <rect key="frame" x="51" y="887" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -360,14 +360,34 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZNM-tm-rIm" customClass="PointButton">
+                            <button opaque="NO" tag="300" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ZNM-tm-rIm" userLabel="PoinButton0" customClass="PointButton">
                                 <rect key="frame" x="51" y="700" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="pointButtonChanged:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Z6Q-ne-AnO"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" tag="301" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="nuQ-i6-ZvF" userLabel="PointButton1" customClass="PointButton">
+                                <rect key="frame" x="51" y="771" width="40" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="pointButtonChanged:" destination="BYZ-38-t0r" eventType="touchUpInside" id="u1r-kC-lPX"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -376,10 +396,13 @@
                     <connections>
                         <outlet property="animateButton" destination="tBJ-OC-nwT" id="73w-xW-IzA"/>
                         <outlet property="imageContainerView" destination="wQu-Xd-Aa3" id="vj1-kf-BvS"/>
+                        <outlet property="pointButton0" destination="ZNM-tm-rIm" id="XHO-MU-eop"/>
                         <outlet property="positionSelector" destination="dlS-E7-soB" id="mV2-Tb-wlE"/>
                         <outlet property="theFilterTypePopup" destination="yWU-t1-SfN" id="YU1-c0-yaf"/>
                         <outlet property="theImageView" destination="X6s-sr-zAF" id="3yx-6N-9eG"/>
                         <outlet property="useFilterSwitch" destination="9Jr-GY-V9X" id="4EO-yV-HVX"/>
+                        <outletCollection property="thePointButtons" destination="ZNM-tm-rIm" id="727-DD-d9o"/>
+                        <outletCollection property="thePointButtons" destination="nuQ-i6-ZvF" id="Fbf-CU-8eV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -6,15 +6,17 @@
 //  Copyright (c) 2014 WareTo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
-typedef void (^pointChangedBlock)(CGPoint point);
+#import <UIKit/UIKit.h>
+#import "PointViewDelegateProtocol.h"
 
 @interface PointView : UIView
 
-@property (nonatomic, strong) pointChangedBlock thePointChangedBlock;
 
+//------------------------------------------------------------------------------------------------------
 
-- (id) initWithCenter: (CGPoint) center andPointChangedBlock: (pointChangedBlock) thePointChangedBlock;
+@property (nonatomic, weak) id <PointViewDelegateProtocol> delegate;
+
+- (id) initWithDelegate: (id <PointViewDelegateProtocol>) delegate;
 
 @end

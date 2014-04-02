@@ -12,6 +12,8 @@
 #import "FilterCategoryInfo.h"
 #import "FilterRecord.h"
 #import "WTColorPickerButton.h"
+#import "PointButton.h"
+#import "Defines.h"
 
 @interface ViewController ()
 
@@ -89,7 +91,7 @@
         NSArray *outputKeys = [aFilter outputKeys];
         if (outputKeys.count)
         {
-          if (outputKeys.count >= 1 && ![outputKeys[0] isEqualToString: @"outputImage"])
+          if (outputKeys.count >= 1 && ![outputKeys[0] isEqualToString: kCIOutputImageKey])
           {
             NSLog(@"output keys!");
             printf("\t\tOutput keys:");
@@ -189,7 +191,7 @@
           NSArray *outputKeys = [aFilter outputKeys];
           if (outputKeys.count)
           {
-            if (outputKeys.count >= 1 && ![outputKeys[0] isEqualToString: @"outputImage"])
+            if (outputKeys.count >= 1 && ![outputKeys[0] isEqualToString: kCIOutputImageKey)
             {
               NSLog(@"output keys!");
               printf("\t\tOutput keys:");
@@ -211,11 +213,86 @@
 
 //------------------------------------------------------------------------------------------------------
 
+- (void) addPointButtonWithKey: (NSString *)aKey;
+{
+  int index = pointButtonIndex++;
+  if (index < K_MAX_POINTBUTTONS)
+    pointButtonKeys[index] = aKey;
+  else
+  {
+    NSLog(@"Too many color wells!");
+    return;
+  }
+  
+  int pointButtonTag = index + K_POINTBUTTON_BASE_TAG;
+  PointButton *aPointButton = (PointButton *)[self.view viewWithTag: pointButtonTag];
+  
+  aPointButton.buttonTitle = aKey;
+
+  
+  if (aKey.length == 0)
+  {
+    aPointButton.hidden = YES;
+    return;
+  }
+  
+  
+  NSDictionary *attributes = currentFilter.attributes;
+  NSDictionary *thisAttribute = attributes[aKey];
+  if (!thisAttribute)
+  {
+    NSLog(@"can't find attribute");
+    return;
+  }
+  
+  NSValue *pointNSValue = ((NSValue *)thisAttribute[@"CIAttributeDefault"]);
+  CGPoint defaultCenter;
+  CGFloat scale = 1.0;
+  
+  if (imageToEdit)
+    scale = imageToEdit.scale;
+  if (pointNSValue)
+  {
+    defaultCenter  = pointNSValue.CGPointValue;
+    defaultCenter.x /= scale;
+    defaultCenter.y /= scale;
+  }
+  else
+    defaultCenter = CGPointMake( CGRectGetMidX(imageContainerView.bounds),
+                                CGRectGetMidY(imageContainerView.bounds));
+  
+  aPointButton.pointCenter = defaultCenter;
+  
+  aPointButton.hidden = NO;
+  aPointButton.enabled = YES;
+  
+  aPointButton.thePointChangedBlock = ^(CGPoint newPoint)
+  {
+    //NSLog(@"Centerpoint moved to %@", NSStringFromCGPoint( newPoint));
+    
+//    CGSize imageSize = imageToEdit.size;
+//    CGSize imageViewSize = imageContainerView.bounds.size;
+    
+//    CGFloat xScale = imageSize.width*imageToEdit.scale / imageViewSize.width;
+//    CGFloat yScale = imageSize.height*imageToEdit.scale / imageViewSize.height;
+    CIVector *pointVector = [CIVector vectorWithX: newPoint.x * imageToEdit.scale
+                                               Y: newPoint.y * imageToEdit.scale
+                             ];
+    [currentFilter setValue: pointVector
+                     forKey: aKey];
+    [self showImage];
+
+  };
+  
+}
+
+//------------------------------------------------------------------------------------------------------
+
 - (void) addColorWellControlWithKey: (NSString *)aKey;
 {
   int index = colorWellControlIndex++;
   if (index < K_MAX_COLORWELLS)
-  colorWellKeys[index] = aKey;
+    colorWellKeys[index] = aKey;
   else
   {
     NSLog(@"Too many color wells!");
@@ -255,21 +332,6 @@
   colorPicker.hidden = NO;
   colorPicker.buttonTitle = aKey;
 
-  
-//  CGFloat minValue = [thisAttribute[@"CIAttributeSliderMin"] floatValue];
-//  CGFloat maxValue = [thisAttribute[@"CIAttributeSliderMax"] floatValue];
-//  CGFloat defaultValue  = [thisAttribute[@"CIAttributeDefault"] floatValue];
-//  
-//  aSlider.minimumValue = minValue;
-//  aSlider.maximumValue = maxValue;
-//  aSlider.value = defaultValue;
-//  
-//  sliderLabel.text = aKey;
-//  
-//  minLabel.text = [NSString stringWithFormat: @"%.2f", minValue];
-//  maxLabel.text = [NSString stringWithFormat: @"%.2f", maxValue];
-//  currentValueTextView.text = [NSString stringWithFormat: @"%.2f", defaultValue];
-  
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -416,6 +478,7 @@
 {
   sliderControlIndex = 0;
   colorWellControlIndex = 0;
+  pointButtonIndex = 0;
   
   int index;
   for (index = 0; index < K_MAX_SLIDERS; index++)
@@ -430,6 +493,14 @@
     colorWellView.hidden = YES;
     colorWellKeys[index] = nil;
   }
+  //pointButtonKeys K_MAX_POINTBUTTONS
+  for (index = 0; index < K_MAX_COLORWELLS; index++)
+  {
+    PointButton *aPointButton= (PointButton *) [self.view viewWithTag: K_POINTBUTTON_BASE_TAG + index];
+    aPointButton.hidden = YES;
+    aPointButton.selected = NO;
+    pointButtonKeys[index] = nil;
+  }
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -437,6 +508,9 @@
 - (void) doSetup;
 {
   
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  [defaults setObject: currentFilterName forKey: K_DEFAULT_FILTERNAME];
+  [defaults synchronize];
   scaleUpImage = NO;
 
   
@@ -458,11 +532,10 @@
   animateButton.enabled = [attributes objectForKey: @"inputTime"] != nil;
   positionSelector.selectedSegmentIndex = 0;
 
+  CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
+  sourceImageExtent = sourceCIImage.extent.size;
   if ([attributes objectForKey: kCIInputImageKey])
   {
-    imageToEdit = [UIImage imageNamed: @"Sample image"];
-    CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
-    sourceImageExtent = sourceCIImage.extent.size;
     [currentFilter setValue: sourceCIImage
                      forKey: kCIInputImageKey];
 
@@ -553,63 +626,17 @@
     else if (thisInputDict[kCIAttributeSliderMax] != nil)
       //Find all keys that contain slider information add add them to the controls
       [self addSliderControlWithKey: thisKey];
-
+    else if ([thisInputDict[kCIAttributeType] isEqualToString: kCIAttributeTypePosition])
+    {
+      if ([thisKey rangeOfString: @"inputPoint"].location != NSNotFound ||
+          [thisKey isEqualToString: kCIInputCenterKey]
+          )
+        NSLog(@"\"%@\" is a point key", thisKey);
+      [self addPointButtonWithKey: thisKey];
+    }
   }
   
-
-  /*
-  if ([currentFilterName isEqualToString: @"CIBumpDistortion"] ||
-      [currentFilterName isEqualToString: @"CIBumpDistortionLinear"] ||
-      [currentFilterName isEqualToString: @"CIPinchDistortion"] ||
-      [currentFilterName isEqualToString: @"CIGaussianBlur"]      )
-  {
-    [self addSliderControlWithKey: @"inputRadius"];
-    [self addSliderControlWithKey: @"inputScale"];
-    [self addSliderControlWithKey: @"inputAngle"];
-  }
-  else if ([currentFilterName isEqualToString: @"CISharpenLuminance"])
-  {
-    [self addSliderControlWithKey: @"inputSharpness"];
-  }
-  else if ([currentFilterName isEqualToString: @"CIUnsharpMask"])
-  {
-    [self addSliderControlWithKey: @"inputRadius"];
-    [self addSliderControlWithKey: @"inputIntensity"];
-  }
-  else if ([currentFilterName isEqualToString: @"CIBarsSwipeTransition"] ||
-           [currentFilterName isEqualToString: @"CIDissolveTransition"]
-           )
-  {
-    [self addSliderControlWithKey: @"inputTime"];
-    [self addSliderControlWithKey: @"inputAngle"];
-    [self addSliderControlWithKey: @"inputWidth"];
-    [self addSliderControlWithKey: @"inputBarOffset"];
-  }
-  else if ([currentFilterName isEqualToString: @"CICopyMachineTransition"] ||
-           [currentFilterName isEqualToString: @"CISwipeTransition"]
-            )
-  {
-    [self addSliderControlWithKey: @"inputTime"];
-    [self addSliderControlWithKey: @"inputAngle"];
-    [self addSliderControlWithKey: @"inputWidth"];
-    [self addSliderControlWithKey: @"inputOpacity"];
-  }
-  else if ([currentFilterName isEqualToString: @"CIModTransition"])
-  {
-    [self addSliderControlWithKey: @"inputTime"];
-    [self addSliderControlWithKey: @"inputAngle"];
-    [self addSliderControlWithKey: @"inputRadius"];
-    [self addSliderControlWithKey: @"inputCompression"];
-  }
-  else if ([currentFilterName isEqualToString: @"CIDisintegrateWithMaskTransition"])
-  {
-    [self addSliderControlWithKey: @"inputTime"];
-    [self addSliderControlWithKey: @"inputShadowRadius"];
-    [self addSliderControlWithKey: @"inputShadowDensity"];
-  }
-   */
-
-  if (![attributes objectForKey: @"inputCenter"])
+  if (![attributes objectForKey: kCIInputCenterKey])
   {
     positionSelector.enabled = NO;
   }
@@ -617,7 +644,7 @@
   {
     positionSelector.enabled = YES;
 
-    defaultCenterPoint = [currentFilter valueForKey: @"inputCenter"];
+    defaultCenterPoint = [currentFilter valueForKey: kCIInputCenterKey];
   }
   if ([currentFilterName isEqualToString: @"CIBumpDistortion"])
     NSLog(@"After creating CIBumpDistortion filter, default inputCenter = %@\n", defaultCenterPoint);
@@ -696,6 +723,15 @@
 - (void)viewDidLoad
 {
   [super viewDidLoad];
+  
+  
+  imageToEdit = [UIImage imageNamed: @"Sample image"];
+
+  for (PointButton *aPointButton in thePointButtons)
+  {
+    aPointButton.pointContainerView = imageContainerView;
+  }
+  
   showKeyboardNotificaiton = [[NSNotificationCenter defaultCenter] addObserverForName: UIKeyboardWillShowNotification
                               
                                                                                object: nil
@@ -780,11 +816,12 @@
 
 - (void) viewWillAppear:(BOOL)animated
 {
-  [self listCIFiltersAndShowInputKeys: YES];
   FiltersList *theFiltersList = [FiltersList sharedFiltersList];
   theFilterTypePopup.choices = [theFiltersList.uniqueFilterNames copy];
   theFilterTypePopup.delegate = self;
-  currentFilterName = theFiltersList.uniqueFilterNames[77];
+  
+  NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+  currentFilterName = [defaults stringForKey: K_DEFAULT_FILTERNAME];
   
   NSIndexPath *filterIndexPath = [theFiltersList indexPathForFilterNamed: currentFilterName];
   
@@ -815,13 +852,15 @@
 - (IBAction)handlePositionSelector:(UISegmentedControl *)sender
 {
   CGFloat x = 0;
+  CGFloat y = sourceImageExtent.height/2.0;
   NSInteger index = positionSelector.selectedSegmentIndex;
+  CIVector *imageCenterVector;
+  BOOL useDefaultCenter = NO;
   switch (index)
   {
     case 0:
-      [currentFilter setValue: defaultCenterPoint forKey: @"inputCenter"];
-      [self showImage];
-      return;
+      useDefaultCenter = YES;
+      break;
     case 1:
       x = 0;
       break;
@@ -829,20 +868,45 @@
       x = sourceImageExtent.width/2.0;
       break;
   }
-  if (index == 0)
+  if (useDefaultCenter)
   {
-    //Recreate the initial state (bug), where there is no inputCenter key in the dictionary
-    NSLog(@"Deleting the inputCenter key from the filter.");
-    [currentFilter setValue: nil forKey: @"inputCenter"];
+    imageCenterVector = defaultCenterPoint;
   }
   else
   {
-    CIVector *imageCenterVector = [CIVector vectorWithX: x
-                                                      Y: sourceImageExtent.height/2.0];
-  [currentFilter setValue: imageCenterVector forKey: @"inputCenter"];
+    imageCenterVector = [CIVector vectorWithX: x
+                                            Y: y];
   }
-
+  x = imageCenterVector.CGPointValue.x;
+  y = imageCenterVector.CGPointValue.y;
+  [currentFilter setValue: imageCenterVector forKey: kCIInputCenterKey];
+  
   [self showImage];
+  
+  BOOL found = NO;
+  for ( index = 0; index < K_MAX_POINTBUTTONS; index++)
+  {
+    NSString *pointKeyString = pointButtonKeys[index];
+    if ([pointKeyString isEqualToString: kCIInputCenterKey])
+    {
+      found = YES;
+      break;
+    }
+  }
+  if (found)
+  {
+    NSInteger pointButtonTag = K_POINTBUTTON_BASE_TAG + index;
+    PointButton *thePointButton = (PointButton *) [self.view viewWithTag: pointButtonTag];
+    if (useDefaultCenter && defaultCenterPoint == nil)
+    {
+      thePointButton.selected =NO;
+      thePointButton.hidden = YES;
+    }
+    else
+      thePointButton.hidden = NO;
+    CGPoint newCenter = CGPointMake(x/2, y/2);
+    thePointButton.pointCenter = newCenter;
+  }
 }
 
 //------------------------------------------------------------------------------------------------------

@@ -23,14 +23,20 @@
 #define K_SLIDER_BASE_TAG 40
 #define K_MAX_BASE_TAG    50
 
-#define K_COLORWELL_BASE_TAG 1000
+#define K_COLORWELL_BASE_TAG 200
+
+#define K_POINTBUTTON_BASE_TAG 300
+
 //---The number of defined settings sliders.
 #define K_MAX_SLIDERS 6
 #define K_MAX_COLORWELLS 2
+#define K_MAX_POINTBUTTONS 4
 
 @interface ViewController : UIViewController <UITextFieldDelegate, TableViewSelectionProtocol>
 
 {
+    IBOutletCollection(PointButton) NSArray *thePointButtons;
+  
   __weak IBOutlet UIImageView *theImageView;
   __weak IBOutlet UISwitch *useFilterSwitch;
   __weak IBOutlet UISegmentedControl *positionSelector;
@@ -40,6 +46,7 @@
   __weak IBOutlet UIButton *animateButton;
   __weak IBOutlet PopupMenuControl *theFilterTypePopup;
   __weak IBOutlet UIView *imageContainerView;
+  __weak IBOutlet PointButton *pointButton0;
   
   CIFilter        *_clampFilter;
   CIFilter        *_cropFilter;
@@ -49,11 +56,13 @@
   CIFilter        *currentFilter;
   NSString        *sliderKeys[K_MAX_SLIDERS];
   NSString        *colorWellKeys[K_MAX_COLORWELLS];
+  NSString        *pointButtonKeys[K_MAX_POINTBUTTONS];
   NSTimeInterval  start;
   CIVector        *defaultCenterPoint;
   CGFloat         timeValue;
   int             sliderControlIndex;
   int             colorWellControlIndex;
+  int             pointButtonIndex;
   
   BOOL            scaleUpImage;
   

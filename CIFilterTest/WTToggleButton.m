@@ -18,7 +18,8 @@
 - (void) setSelectedImageName: (NSString *) newValue;
 {
   _selectedImageName = [newValue copy];
-  self.selectedImage = [UIImage imageNamed: _selectedImageName];
+  UIImage *theImage = [UIImage imageNamed: _selectedImageName];
+  self.selectedImage = theImage;
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -26,7 +27,8 @@
 - (void) setNotSelectedImageName: (NSString *) newValue;
 {
   _notSelectedImageName = [newValue copy];
-  self.notSelectedImage = [UIImage imageNamed: _notSelectedImageName];
+  UIImage *theImage =  [UIImage imageNamed: _notSelectedImageName];
+  self.notSelectedImage = theImage;
 }
 
 //------------------------------------------------------------------------------------------------------

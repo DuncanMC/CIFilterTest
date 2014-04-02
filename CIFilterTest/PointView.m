@@ -7,6 +7,7 @@
 //
 
 #import "PointView.h"
+#import "Utils.h"
 
 @implementation PointView
 
@@ -21,8 +22,62 @@
 
 - (void) doInitSetup;
 {
-  UIBezierPath *path = [UIBezierPath bezierPathWithRect: self.layer.bounds];
-  ((CAShapeLayer*)self.layer).path = path.CGPath;
+  CAShapeLayer *theLayer = (CAShapeLayer *)self.layer;
+
+  CGRect boxRect;
+  CGRect secondRect;
+  
+  boxRect = [Utils centerRect: CGRectMake(0, 0, 20, 20) inRect: theLayer.bounds];
+  secondRect = [Utils centerRect: CGRectMake(0, 0, 3, 3) inRect: theLayer.bounds];
+  
+  UIBezierPath *path;
+  UIBezierPath *secondPath;
+  
+  path = [UIBezierPath bezierPathWithRect: boxRect];
+  secondPath = [UIBezierPath bezierPathWithRect: secondRect];
+  
+  [path appendPath: secondPath];
+  
+
+  secondRect = [Utils centerRect: CGRectMake(0, 0, 30, 30) inRect: theLayer.bounds];
+  secondPath = [UIBezierPath bezierPathWithRect: secondRect];
+  [path appendPath: secondPath];
+
+  theLayer.lineWidth = 2.0;
+  
+  theLayer.path = path.CGPath;
+  theLayer.fillColor = [UIColor clearColor].CGColor;
+  theLayer.strokeColor = [UIColor blackColor].CGColor;
+  
+//  theLayer.borderWidth = 1;
+//  theLayer.borderColor = [UIColor lightGrayColor].CGColor;
+  //---------------
+  CAShapeLayer *whiteShapeLayer = [CAShapeLayer layer];
+  whiteShapeLayer.frame = theLayer.bounds;
+  boxRect = [Utils centerRect: CGRectMake(0, 0, 18, 18) inRect: theLayer.bounds];
+  path = [UIBezierPath bezierPathWithRect: boxRect];
+
+  secondRect = [Utils centerRect: CGRectMake(0, 0, 22, 22) inRect: theLayer.bounds];
+  secondPath = [UIBezierPath bezierPathWithRect: secondRect];
+  [path appendPath: secondPath];
+
+  
+  secondRect = [Utils centerRect: CGRectMake(0, 0, 5, 5) inRect: theLayer.bounds];
+  secondPath = [UIBezierPath bezierPathWithRect: secondRect];
+  [path appendPath: secondPath];
+  
+  secondRect = [Utils centerRect: CGRectMake(0, 0, 32, 32) inRect: theLayer.bounds];
+  secondPath = [UIBezierPath bezierPathWithRect: secondRect];
+  [path appendPath: secondPath];
+
+  secondRect = [Utils centerRect: CGRectMake(0, 0, 28, 28) inRect: theLayer.bounds];
+  secondPath = [UIBezierPath bezierPathWithRect: secondRect];
+  [path appendPath: secondPath];
+
+  whiteShapeLayer.path = path.CGPath;
+  whiteShapeLayer.fillColor = [UIColor clearColor].CGColor;
+  whiteShapeLayer.strokeColor = [UIColor whiteColor].CGColor;
+  [theLayer addSublayer: whiteShapeLayer];
 }
 
 //------------------------------------------------------------------------------------------------------
@@ -38,14 +93,13 @@
 
 //------------------------------------------------------------------------------------------------------
 
-- (id) initWithCenter: (CGPoint) center andPointChangedBlock: (pointChangedBlock) thePointChangedBlock;
+- (id) initWithDelegate: (id <PointViewDelegateProtocol>) delegate;
 {
-  CGRect frame = CGRectMake(center.x, center.y, 0, 0);
-  frame = CGRectInset(frame, 20, 20);
+  CGRect frame = CGRectMake(0, 0, 50, 50);
   self = [self initWithFrame: frame];
   if (!self)
     return nil;
-  self.thePointChangedBlock = thePointChangedBlock;
+  self.delegate = delegate;
   [self doInitSetup];
   return self;
 }
