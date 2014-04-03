@@ -15,6 +15,7 @@
 #import "PointButton.h"
 #import "FourCornersButton.h"
 #import "Defines.h"
+#import "RectButton.h"
 
 @interface ViewController ()
 
@@ -485,6 +486,10 @@
   theFourCornersButton.hidden = YES;
   theFourCornersButton.selected = NO;
   
+  theExtentButton.hidden = YES;
+  theExtentButton.selected = NO;
+
+  
   int index;
   for (index = 0; index < K_MAX_SLIDERS; index++)
   {
@@ -518,20 +523,15 @@
   [defaults synchronize];
   scaleUpImage = NO;
 
-  
-  //CIHoleDistortion, CIBumpDistortion, CIBumpDistortionLinear, CIHoleDistortion, CIGaussianBlur, CIPinchDistortion, CIBarsSwipeTransition
-  
-  
   currentFilter = [CIFilter filterWithName: currentFilterName];
   [currentFilter setDefaults];
-  
 
-  
+  //Get the attributes for this filter
   NSDictionary *attributes = currentFilter.attributes;
   //NSLog(@"Filter %@ attributes = %@", currentFilterName, attributes);
   NSString *filterName;
-//  filterName = attributes[kCIAttributeFilterDisplayName];
-  filterName = attributes[kCIAttributeFilterName];
+  filterName = attributes[kCIAttributeFilterDisplayName];
+//  filterName = attributes[kCIAttributeFilterName];
   filterNameLabel.text = filterName;
 
   animateButton.enabled = [attributes objectForKey: @"inputTime"] != nil;
@@ -539,13 +539,10 @@
 
   CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
   sourceImageExtent = sourceCIImage.extent.size;
-  if ([attributes objectForKey: kCIInputImageKey])
-  {
-    [currentFilter setValue: sourceCIImage
-                     forKey: kCIInputImageKey];
-
-  }
-
+  
+  //-----------------------------------
+  //Special-cased code for QR Code
+  //-----------------------------------
   if ([currentFilterName isEqualToString: @"CIQRCodeGenerator"])
   {
     NSString *theQRString = @"http://appstore.com/facedancer";
@@ -557,6 +554,18 @@
     [currentFilter setValue: @"M"
                      forKey: @"inputCorrectionLevel"];
     scaleUpImage = YES;
+  }
+  
+  //-----------------------------------
+  //Handle the image keys
+  //-----------------------------------
+  
+  //inputImageKey
+  if ([attributes objectForKey: kCIInputImageKey])
+  {
+    [currentFilter setValue: sourceCIImage
+                     forKey: kCIInputImageKey];
+    
   }
   
   //inputMaskImage
@@ -571,7 +580,8 @@
     
   }
 
-  if ([attributes objectForKey: @"inputTargetImage"])
+  //inputTargetImage
+  if ([attributes objectForKey: kCIInputTargetImageKey])
   {
     secondImage = [UIImage imageNamed: @"Sample image #2"];
     CIImage *secondCIImage = [CIImage imageWithCGImage: secondImage.CGImage];
@@ -582,6 +592,7 @@
     
   }
 
+  //inputBackgroundImageKey
   if ([attributes objectForKey: kCIInputBackgroundImageKey])
   {
     secondImage = [UIImage imageNamed: @"Sample image #2"];
@@ -608,6 +619,11 @@
   
   NSMutableArray *inputKeys = [[currentFilter inputKeys] mutableCopy];
   
+  //-------------------------------------
+  // Handle the floating-point attributes
+  // managed by sliders
+  //-------------------------------------
+  
   //If this filter as an "inputTime" key, and it's not the first item, move it to the first position
   NSUInteger index = [inputKeys indexOfObject: kCIInputTimeKey];
   if (index != NSNotFound && index != 0)
@@ -619,6 +635,12 @@
     [inputKeys replaceObjectAtIndex: index
                          withObject: key0];
   }
+  
+  
+  //-------------------------------------
+  // Handle the attributes that use a
+  // single point location
+  //-------------------------------------
   
   for (NSString *thisKey in inputKeys)
   {
@@ -643,12 +665,18 @@
     }
   }
   
+  //---------------------------------------------
+  // See if this filter uses
+  // topLeft/topRight/bottomLeft/bottomRight keys
+  //---------------------------------------------
+  
   if (
       [inputKeys containsObject: K_TOPLEFT_INPUT_KEY] &&
       [inputKeys containsObject: K_TOPRIGHT_INPUT_KEY] &&
       [inputKeys containsObject: K_BOTTOMLEFT_INPUT_KEY] &&
       [inputKeys containsObject: K_BOTTOMLEFT_INPUT_KEY]
       )
+    
   {
     NSLog(@"Filter %@ contains four corners", currentFilterName);
     theFourCornersButton.hidden = NO;
@@ -659,20 +687,12 @@
                            K_BOTTOMRIGHT_INPUT_KEY];
     theFourCornersButton.pointKeys = pointKeys;
     
-//    NSArray *pointsArray =@[
-//                            [NSValue valueWithCGPoint: [attributes[pointKeys[0]][kCIAttributeDefault] CGPointValue]],
-//                            [NSValue valueWithCGPoint: [attributes[pointKeys[1]][kCIAttributeDefault] CGPointValue]],
-//                            [NSValue valueWithCGPoint: [attributes[pointKeys[2]][kCIAttributeDefault] CGPointValue]],
-//                            [NSValue valueWithCGPoint: [attributes[pointKeys[3]][kCIAttributeDefault] CGPointValue]],
-//                            ];
-//    theFourCornersButton.theCGPointValues = [pointsArray mutableCopy];
-
+    
     CGFloat scale = 1.0;
     
     if (imageToEdit)
       scale = imageToEdit.scale;
-    NSDictionary *attributes = currentFilter.attributes;
-
+    
     for (int index = 0; index< pointKeys.count; index++)
     {
       NSDictionary *thisAttribute = attributes[pointKeys[index]];
@@ -683,28 +703,28 @@
       }
       
       CIVector *pointVector = [currentFilter valueForKey: pointKeys[index] ];
-      CGPoint defaultCenter;
+      CGPoint pointValue;
       if (pointVector)
       {
-        defaultCenter  = pointVector.CGPointValue;
-        defaultCenter.x /= scale;
-        defaultCenter.y /= scale;
+        pointValue  = pointVector.CGPointValue;
+        pointValue.x /= scale;
+        pointValue.y /= scale;
         
-        if (defaultCenter.x < 0)
-          defaultCenter.x = 0;
-        else if (defaultCenter.x > imageContainerView.bounds.size.width)
-          defaultCenter.x = imageContainerView.bounds.size.width;
-
-        if (defaultCenter.y < 0)
-          defaultCenter.y = 0;
-        else if (defaultCenter.y > imageContainerView.bounds.size.height)
-          defaultCenter.y = imageContainerView.bounds.size.height;
-}
+        if (pointValue.x < 0)
+          pointValue.x = 0;
+        else if (pointValue.x > imageContainerView.bounds.size.width)
+          pointValue.x = imageContainerView.bounds.size.width;
+        
+        if (pointValue.y < 0)
+          pointValue.y = 0;
+        else if (pointValue.y > imageContainerView.bounds.size.height)
+          pointValue.y = imageContainerView.bounds.size.height;
+      }
       else
-        defaultCenter = CGPointMake( CGRectGetMidX(imageContainerView.bounds),
+        pointValue = CGPointMake( CGRectGetMidX(imageContainerView.bounds),
                                     CGRectGetMidY(imageContainerView.bounds));
       
-      [theFourCornersButton setCenter: defaultCenter forPointAtIndex: index];
+      [theFourCornersButton setCenter: pointValue forPointAtIndex: index];
       
     }
     
@@ -714,13 +734,6 @@
     
     theFourCornersButton.thePointChangedBlock = ^(CGPoint newPoint, NSString *key)
     {
-      //NSLog(@"Centerpoint moved to %@", NSStringFromCGPoint( newPoint));
-      
-      //    CGSize imageSize = imageToEdit.size;
-      //    CGSize imageViewSize = imageContainerView.bounds.size;
-      
-      //    CGFloat xScale = imageSize.width*imageToEdit.scale / imageViewSize.width;
-      //    CGFloat yScale = imageSize.height*imageToEdit.scale / imageViewSize.height;
       CIVector *pointVector = [CIVector vectorWithX: newPoint.x * imageToEdit.scale
                                                   Y: newPoint.y * imageToEdit.scale
                                ];
@@ -729,11 +742,79 @@
       [self showImage];
       
     };
-
+    
   }
   else
     theFourCornersButton.hidden = YES;
   
+ 
+  //---------------------------------------------
+  // See if this filter uses the inputExtent key
+  //---------------------------------------------
+  
+  if ([inputKeys containsObject: K_INPUT_EXTENT_KEY])
+  {
+    theExtentButton.hidden = NO;
+    
+    CIVector *rectVector = [currentFilter valueForKey:K_INPUT_EXTENT_KEY ];
+    CGRect theExtentRect = [rectVector CGRectValue];
+    NSLog(@"Extent rect = %@", NSStringFromCGRect( theExtentRect));
+    //---
+    NSLog(@"Filter %@ contains four corners", currentFilterName);
+    
+    NSArray *pointKeys = @[K_TOPLEFT_INPUT_KEY,
+                           K_TOPRIGHT_INPUT_KEY,
+                           K_BOTTOMLEFT_INPUT_KEY,
+                           K_BOTTOMRIGHT_INPUT_KEY];
+    theExtentButton.pointKeys = pointKeys;
+    theExtentButton.theKey = K_INPUT_EXTENT_KEY;
+    
+    
+    
+    CGFloat scale = 1.0;
+    
+    if (imageToEdit)
+      scale = imageToEdit.scale;
+
+    theExtentRect.origin.x /= scale;
+    theExtentRect.origin.y /= scale;
+    theExtentRect.size.width /= scale;
+    theExtentRect.size.height /= scale;
+    
+    if (theExtentRect.origin.x < 0)
+      theExtentRect.origin.x = 0;
+    if (CGRectGetMaxX( theExtentRect) > imageContainerView.bounds.size.width)
+      theExtentRect.size.width = imageContainerView.bounds.size.width - theExtentRect.origin.x;
+    
+    if (theExtentRect.origin.y < 0)
+      theExtentRect.origin.y = 0;
+    if (CGRectGetMaxY( theExtentRect) > imageContainerView.bounds.size.height)
+      theExtentRect.size.height = imageContainerView.bounds.size.height - theExtentRect.origin.y;
+    
+    theExtentButton.theExtentRect = theExtentRect;
+    theExtentButton.theRectChangedBlock = ^(CGRect newRect, NSString *key)
+    {
+      newRect.origin.x *= scale;
+      newRect.origin.y *= scale;
+      newRect.size.width *= scale;
+      newRect.size.height *= scale;
+      
+      CIVector *rectVector = [CIVector vectorWithCGRect:newRect
+                               ];
+      [currentFilter setValue: rectVector
+                       forKey: key];
+      [self showImage];
+      
+    };
+
+
+  }
+else
+{
+  theExtentButton.hidden = YES;
+}
+  
+  //Special-case code to show the segmented control for the input center attribute
   if (![attributes objectForKey: kCIInputCenterKey])
   {
     positionSelector.enabled = NO;
@@ -747,6 +828,10 @@
 
     defaultCenterPoint = [currentFilter valueForKey: kCIInputCenterKey];
   }
+  
+  //Debugging. For the bump distorition filter,
+  //Log the default value of CenterPoint that we get from the attributes
+  
   if ([currentFilterName isEqualToString: @"CIBumpDistortion"])
     NSLog(@"After creating CIBumpDistortion filter, default inputCenter = %@\n", defaultCenterPoint);
 }
@@ -833,6 +918,7 @@
     aPointButton.pointContainerView = imageContainerView;
   }
   theFourCornersButton.pointContainerView = imageContainerView;
+  theExtentButton.pointContainerView = imageContainerView;
   
   showKeyboardNotificaiton = [[NSNotificationCenter defaultCenter] addObserverForName: UIKeyboardWillShowNotification
                               

@@ -61,8 +61,7 @@
   //TODO: replace the images below with appropriate graphics
   self.selectedImageName = @"PointButton Image active";
   self.notSelectedImageName = @"PointButton image inactive";
-  self.buttonTitle = @"Four Corners";
-  
+
   _theCGPointValues = [NSMutableArray arrayWithCapacity: 4];
   thePoints = [NSMutableArray arrayWithCapacity: 4];
   for (int index = 0; index < 4; index++)
@@ -129,6 +128,7 @@
                               inView: _pointContainerView];
     
     NSUInteger index = [thePoints indexOfObject: thePoint];
+    
     
     if (_thePointChangedBlock)
       _thePointChangedBlock([self centerForPointAtIndex: index], thePoint.pointKey);

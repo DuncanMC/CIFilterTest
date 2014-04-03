@@ -69,7 +69,8 @@
 //------------------------------------------------------------------------------------------------------
 -(id) initWithCoder:(NSCoder *)aDecoder
 {
-  if (![super initWithCoder: aDecoder])
+  self = [super initWithCoder: aDecoder];
+  if (!self)
     return nil;
   [self doInitSetup];
   return self;

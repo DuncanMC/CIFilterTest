@@ -11,11 +11,12 @@
 #import <UIKit/UIKit.h>
 #import "TableViewSelectionProtocol.h"
 
-@class PointButton;
-@class FourCornersButton;
 
 @class FiltersList;
 @class WTColorPickerButton;
+@class PointButton;
+@class FourCornersButton;
+@class RectButton;
 
 #define K_VIEW_BASE_TAG   100
 #define K_LABEL_BASE_TAG  10
@@ -50,6 +51,7 @@
   __weak IBOutlet PointButton *pointButton0;
   __weak IBOutlet FourCornersButton *theFourCornersButton;
   __weak IBOutlet UIView *positionControlView;
+  __weak IBOutlet RectButton *theExtentButton;
   
   CIFilter        *_clampFilter;
   CIFilter        *_cropFilter;

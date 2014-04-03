@@ -54,7 +54,7 @@
 
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle
 {
-  NSString *className;
+  //NSString *className;
   NSString *thisNibName;
   
   const char* classNameCString;
@@ -63,7 +63,7 @@
   else
   {
     classNameCString = object_getClassName(self);
-    className = [NSString stringWithCString: classNameCString encoding: NSUTF8StringEncoding];
+    //className = [NSString stringWithCString: classNameCString encoding: NSUTF8StringEncoding];
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
     {

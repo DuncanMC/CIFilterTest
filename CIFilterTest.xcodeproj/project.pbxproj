@@ -31,6 +31,7 @@
 		AED3CF0C18EC6A55004BB316 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0B18EC6A55004BB316 /* Utils.m */; };
 		AED3CF0F18ECD135004BB316 /* LabeledToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0E18ECD135004BB316 /* LabeledToggleButton.m */; };
 		AED3CF1218ECD4CC004BB316 /* FourCornersButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF1118ECD4CC004BB316 /* FourCornersButton.m */; };
+		AED3CF1618EDAD1F004BB316 /* RectButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF1518EDAD1F004BB316 /* RectButton.m */; };
 		AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */; };
 		AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AEF8F68118E3A35F00412EE6 /* SelectFromListViewController.m */; };
 		AEF8F68418E3A35F00412EE6 /* SelectFromListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AEF8F68218E3A35F00412EE6 /* SelectFromListViewController.xib */; };
@@ -94,6 +95,8 @@
 		AED3CF1018ECD4CC004BB316 /* FourCornersButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FourCornersButton.h; sourceTree = "<group>"; };
 		AED3CF1118ECD4CC004BB316 /* FourCornersButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FourCornersButton.m; sourceTree = "<group>"; };
 		AED3CF1318ECEFC5004BB316 /* Types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		AED3CF1418EDAD1F004BB316 /* RectButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RectButton.h; sourceTree = "<group>"; };
+		AED3CF1518EDAD1F004BB316 /* RectButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RectButton.m; sourceTree = "<group>"; };
 		AEF8F67C18E394D300412EE6 /* PopupMenuControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMenuControl.h; sourceTree = "<group>"; };
 		AEF8F67D18E394D300412EE6 /* PopupMenuControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMenuControl.m; sourceTree = "<group>"; };
 		AEF8F67E18E394D300412EE6 /* TableViewSelectionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewSelectionProtocol.h; sourceTree = "<group>"; };
@@ -253,6 +256,8 @@
 				AED3CF0018EA021D004BB316 /* PointButton.m */,
 				AED3CF1018ECD4CC004BB316 /* FourCornersButton.h */,
 				AED3CF1118ECD4CC004BB316 /* FourCornersButton.m */,
+				AED3CF1418EDAD1F004BB316 /* RectButton.h */,
+				AED3CF1518EDAD1F004BB316 /* RectButton.m */,
 			);
 			name = "Custom UI classes";
 			sourceTree = "<group>";
@@ -458,6 +463,7 @@
 				AEF8F68318E3A35F00412EE6 /* SelectFromListViewController.m in Sources */,
 				AEF8F69718E4728600412EE6 /* FilterCategoryInfo.m in Sources */,
 				AEF8F68C18E3A53F00412EE6 /* SelectFilterController.m in Sources */,
+				AED3CF1618EDAD1F004BB316 /* RectButton.m in Sources */,
 				AED3CF0418EA0236004BB316 /* PointView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

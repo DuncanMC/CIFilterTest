@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) pointChangedBlock thePointChangedBlock;
 
+- (CGPoint) centerForPointAtIndex: (NSUInteger) index;
 
 - (void) setCenter:(CGPoint)pointCenter forPointAtIndex: (NSUInteger) index;
 

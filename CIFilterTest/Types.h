@@ -12,4 +12,6 @@
 
 typedef void (^pointChangedBlock)(CGPoint point, NSString *key);
 
+typedef void (^rectChangedBlock)(CGRect rect, NSString *key);
+
 #endif
