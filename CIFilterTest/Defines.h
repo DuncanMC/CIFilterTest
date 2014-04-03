@@ -11,6 +11,7 @@
 
 #define K_DEFAULT_FILTERNAME @"DefaultFilterName"
 
+#define K_INPUT_RECT_KEY @"inputRectangle"
 #define K_INPUT_EXTENT_KEY @"inputExtent"
 #define K_TOPLEFT_INPUT_KEY @"inputTopLeft"
 #define K_TOPRIGHT_INPUT_KEY @"inputTopRight"

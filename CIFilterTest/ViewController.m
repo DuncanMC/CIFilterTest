@@ -678,7 +678,7 @@
       )
     
   {
-    NSLog(@"Filter %@ contains four corners", currentFilterName);
+    //NSLog(@"Filter %@ contains four corners", currentFilterName);
     theFourCornersButton.hidden = NO;
     
     NSArray *pointKeys = @[K_TOPLEFT_INPUT_KEY,
@@ -751,23 +751,41 @@
   //---------------------------------------------
   // See if this filter uses the inputExtent key
   //---------------------------------------------
+  BOOL isExtent = [inputKeys containsObject: K_INPUT_EXTENT_KEY];
+  BOOL isInputRect = [inputKeys containsObject: K_INPUT_RECT_KEY];
   
-  if ([inputKeys containsObject: K_INPUT_EXTENT_KEY])
+  if (isExtent ||
+      isInputRect)
   {
-    theExtentButton.hidden = NO;
+
+    NSString *key;
+    if (isExtent)
+      key = K_INPUT_EXTENT_KEY;
+    else
+      key = K_INPUT_RECT_KEY;
     
-    CIVector *rectVector = [currentFilter valueForKey:K_INPUT_EXTENT_KEY ];
+    CIVector *rectVector = [currentFilter valueForKey: key  ];
     CGRect theExtentRect = [rectVector CGRectValue];
-    NSLog(@"Extent rect = %@", NSStringFromCGRect( theExtentRect));
     //---
-    NSLog(@"Filter %@ contains four corners", currentFilterName);
+    //NSLog(@"Filter %@ contains four corners", currentFilterName);
     
     NSArray *pointKeys = @[K_TOPLEFT_INPUT_KEY,
                            K_TOPRIGHT_INPUT_KEY,
                            K_BOTTOMLEFT_INPUT_KEY,
                            K_BOTTOMRIGHT_INPUT_KEY];
     theExtentButton.pointKeys = pointKeys;
-    theExtentButton.theKey = K_INPUT_EXTENT_KEY;
+    
+    
+    if (isExtent)
+    {
+      theExtentButton.buttonTitle = @"Extent";
+      theExtentButton.theKey = K_INPUT_EXTENT_KEY;
+    }
+    else
+    {
+      theExtentButton.buttonTitle = @"Rectangle";
+      theExtentButton.theKey = K_INPUT_RECT_KEY;
+    }
     
     
     
@@ -807,6 +825,7 @@
       
     };
 
+    theExtentButton.hidden = NO;
 
   }
 else

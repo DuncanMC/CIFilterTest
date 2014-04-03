@@ -11,6 +11,10 @@
 
 @interface RectButton : FourCornersButton
 
+{
+  CAShapeLayer *extentRectLayer1;
+  CAShapeLayer *extentRectLayer2;
+}
 @property (nonatomic, assign) CGRect theExtentRect;
 @property (nonatomic, strong) NSString *theKey;
 @property (nonatomic, strong) rectChangedBlock theRectChangedBlock;

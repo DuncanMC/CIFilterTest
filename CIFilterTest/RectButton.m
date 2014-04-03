@@ -17,13 +17,21 @@
 #pragma mark - property methods
 //-----------------------------------------------------------------------------------------------------------
 
+- (void) setSelected:(BOOL)selected;
+{
+  [super setSelected: selected];
+  
+  [self showExtentRect];
+}
+
+//------------------------------------------------------------------------------------------------------
+
 - (void) setTheExtentRect:(CGRect)theExtentRect
 {
   _theExtentRect = theExtentRect;
   
-  //Convert the extent rect to coordinates for the 4 corner points.
   
-   NSLog(@"Starting extent rect  = %@", NSStringFromCGRect(_theExtentRect));
+  //Convert the extent rect to coordinates for the 4 corner points.
   CGFloat maxX = CGRectGetMaxX(theExtentRect);
   CGFloat maxY = CGRectGetMaxY(theExtentRect);
   
@@ -43,7 +51,6 @@
   [self setCenter: CGPointMake(maxX, maxY)
   forPointAtIndex: 1];
   
-  NSLog(@"done setting extent rect");
   }
 
 //-----------------------------------------------------------------------------------------------------------
@@ -69,6 +76,58 @@
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark - custom instance methods
 //-----------------------------------------------------------------------------------------------------------
+
+- (void) createExtentRectLayers;
+{
+  extentRectLayer1 = [CAShapeLayer layer];
+  extentRectLayer2 = [CAShapeLayer layer];
+  extentRectLayer1.frame = self.pointContainerView.layer.bounds;
+  extentRectLayer2.frame = self.pointContainerView.layer.bounds;
+  
+  extentRectLayer1.fillColor = [UIColor clearColor].CGColor;
+  extentRectLayer1.strokeColor = [UIColor blackColor].CGColor;
+  extentRectLayer1.lineWidth = 1;
+
+  extentRectLayer2.fillColor = [UIColor clearColor].CGColor;
+  extentRectLayer2.strokeColor = [UIColor whiteColor].CGColor;
+  extentRectLayer2.lineWidth = 4;
+  
+  NSArray *dashPattern = @[@8, @4];
+  extentRectLayer1.lineDashPattern = dashPattern;
+  extentRectLayer2.lineDashPattern = dashPattern;
+
+  [self.pointContainerView.layer addSublayer: extentRectLayer2];
+  [self.pointContainerView.layer addSublayer: extentRectLayer1];
+}
+
+//-----------------------------------------------------------------------------------------------------------
+
+- (void) showExtentRect;
+{
+  if (!extentRectLayer1)
+    [self createExtentRectLayers];
+  if (self.selected)
+  {
+    CGRect tempRect;
+    CGPoint origin;
+    CGPoint bottomRight;
+    origin = ((PointView*)thePoints[0]).center;
+    bottomRight = ((PointView*)thePoints[3]).center;
+    tempRect.origin = origin;
+    tempRect.size = CGSizeMake(bottomRight.y - origin.y, bottomRight.x = origin.x );
+    tempRect.size = _theExtentRect.size;
+    UIBezierPath *rectPath = [UIBezierPath bezierPathWithRect: tempRect];
+    extentRectLayer1.path = rectPath.CGPath;
+    extentRectLayer2.path = rectPath.CGPath;
+  }
+  else
+  {
+    extentRectLayer1.path = nil;
+    extentRectLayer2.path = nil;
+  }
+}
+
+//------------------------------------------------------------------------------------------------------
 
 - (void) setCenter:(CGPoint)pointCenter forPointAtIndex: (NSUInteger) index;
 {
@@ -158,7 +217,11 @@
     extentRect.origin = origin;
     extentRect.size.width = oppositeCorner.x - origin.x;
     extentRect.size.height = oppositeCorner.y - origin.y;
-    NSLog(@"After moving, new origin = %@", NSStringFromCGRect(extentRect));
+    
+    _theExtentRect = extentRect;
+    [self showExtentRect];
+
+    //NSLog(@"After moving, new origin = %@", NSStringFromCGRect(extentRect));
     if (self.theRectChangedBlock)
     {
       self.theRectChangedBlock(extentRect, _theKey);
