@@ -737,10 +737,13 @@
   if (![attributes objectForKey: kCIInputCenterKey])
   {
     positionSelector.enabled = NO;
+    positionControlView.hidden = YES;
   }
   else
   {
     positionSelector.enabled = YES;
+    positionControlView.hidden = NO;
+
 
     defaultCenterPoint = [currentFilter valueForKey: kCIInputCenterKey];
   }

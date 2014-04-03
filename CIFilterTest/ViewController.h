@@ -49,6 +49,7 @@
   __weak IBOutlet UIView *imageContainerView;
   __weak IBOutlet PointButton *pointButton0;
   __weak IBOutlet FourCornersButton *theFourCornersButton;
+  __weak IBOutlet UIView *positionControlView;
   
   CIFilter        *_clampFilter;
   CIFilter        *_cropFilter;

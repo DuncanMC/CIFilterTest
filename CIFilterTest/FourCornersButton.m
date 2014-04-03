@@ -128,7 +128,7 @@
     [thePanRecognizer setTranslation: CGPointZero
                               inView: _pointContainerView];
     
-    int index = [thePoints indexOfObject: thePoint];
+    NSUInteger index = [thePoints indexOfObject: thePoint];
     
     if (_thePointChangedBlock)
       _thePointChangedBlock([self centerForPointAtIndex: index], thePoint.pointKey);

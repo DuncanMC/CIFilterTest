@@ -26,25 +26,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="dlS-E7-soB">
-                                <rect key="frame" x="270" y="722" width="215" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Default"/>
-                                    <segment title="Left edge"/>
-                                    <segment title="Center"/>
-                                </segments>
-                                <connections>
-                                    <action selector="handlePositionSelector:" destination="BYZ-38-t0r" eventType="valueChanged" id="5i6-8D-G5e"/>
-                                </connections>
-                            </segmentedControl>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dOa-bm-nj5">
-                                <rect key="frame" x="150" y="724" width="100" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view hidden="YES" tag="100" contentMode="scaleToFill" id="1jO-E5-E7v">
                                 <rect key="frame" x="150" y="762" width="600" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -405,6 +386,32 @@
                                     <action selector="pointButtonChanged:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fIA-Nh-xE3"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" id="8uk-jl-kOd" userLabel="positionControlView">
+                                <rect key="frame" x="150" y="721" width="335" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="dlS-E7-soB">
+                                        <rect key="frame" x="120" y="1" width="215" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <segments>
+                                            <segment title="Default"/>
+                                            <segment title="Left edge"/>
+                                            <segment title="Center"/>
+                                        </segments>
+                                        <connections>
+                                            <action selector="handlePositionSelector:" destination="BYZ-38-t0r" eventType="valueChanged" id="5i6-8D-G5e"/>
+                                        </connections>
+                                    </segmentedControl>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Position" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dOa-bm-nj5">
+                                        <rect key="frame" x="0.0" y="3" width="100" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -412,6 +419,7 @@
                         <outlet property="animateButton" destination="tBJ-OC-nwT" id="73w-xW-IzA"/>
                         <outlet property="imageContainerView" destination="wQu-Xd-Aa3" id="vj1-kf-BvS"/>
                         <outlet property="pointButton0" destination="ZNM-tm-rIm" id="XHO-MU-eop"/>
+                        <outlet property="positionControlView" destination="8uk-jl-kOd" id="xDC-0b-i6i"/>
                         <outlet property="positionSelector" destination="dlS-E7-soB" id="mV2-Tb-wlE"/>
                         <outlet property="theFilterTypePopup" destination="yWU-t1-SfN" id="YU1-c0-yaf"/>
                         <outlet property="theFourCornersButton" destination="Geb-vQ-Btt" id="w4D-zh-hcd"/>
