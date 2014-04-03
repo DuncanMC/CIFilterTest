@@ -13,6 +13,7 @@
 #import "FilterRecord.h"
 #import "WTColorPickerButton.h"
 #import "PointButton.h"
+#import "FourCornersButton.h"
 #import "Defines.h"
 
 @interface ViewController ()
@@ -265,8 +266,10 @@
   
   aPointButton.hidden = NO;
   aPointButton.enabled = YES;
+
+  aPointButton.pointKey =aKey;
   
-  aPointButton.thePointChangedBlock = ^(CGPoint newPoint)
+  aPointButton.thePointChangedBlock = ^(CGPoint newPoint, NSString *key)
   {
     //NSLog(@"Centerpoint moved to %@", NSStringFromCGPoint( newPoint));
     
@@ -279,7 +282,7 @@
                                                Y: newPoint.y * imageToEdit.scale
                              ];
     [currentFilter setValue: pointVector
-                     forKey: aKey];
+                     forKey: key];
     [self showImage];
 
   };
@@ -479,6 +482,8 @@
   sliderControlIndex = 0;
   colorWellControlIndex = 0;
   pointButtonIndex = 0;
+  theFourCornersButton.hidden = YES;
+  theFourCornersButton.selected = NO;
   
   int index;
   for (index = 0; index < K_MAX_SLIDERS; index++)
@@ -631,10 +636,103 @@
       if ([thisKey rangeOfString: @"inputPoint"].location != NSNotFound ||
           [thisKey isEqualToString: kCIInputCenterKey]
           )
-        NSLog(@"\"%@\" is a point key", thisKey);
-      [self addPointButtonWithKey: thisKey];
+      {
+        //NSLog(@"\"%@\" is a point key", thisKey);
+        [self addPointButtonWithKey: thisKey];
+      }
     }
   }
+  
+  if (
+      [inputKeys containsObject: K_TOPLEFT_INPUT_KEY] &&
+      [inputKeys containsObject: K_TOPRIGHT_INPUT_KEY] &&
+      [inputKeys containsObject: K_BOTTOMLEFT_INPUT_KEY] &&
+      [inputKeys containsObject: K_BOTTOMLEFT_INPUT_KEY]
+      )
+  {
+    NSLog(@"Filter %@ contains four corners", currentFilterName);
+    theFourCornersButton.hidden = NO;
+    
+    NSArray *pointKeys = @[K_TOPLEFT_INPUT_KEY,
+                           K_TOPRIGHT_INPUT_KEY,
+                           K_BOTTOMLEFT_INPUT_KEY,
+                           K_BOTTOMRIGHT_INPUT_KEY];
+    theFourCornersButton.pointKeys = pointKeys;
+    
+//    NSArray *pointsArray =@[
+//                            [NSValue valueWithCGPoint: [attributes[pointKeys[0]][kCIAttributeDefault] CGPointValue]],
+//                            [NSValue valueWithCGPoint: [attributes[pointKeys[1]][kCIAttributeDefault] CGPointValue]],
+//                            [NSValue valueWithCGPoint: [attributes[pointKeys[2]][kCIAttributeDefault] CGPointValue]],
+//                            [NSValue valueWithCGPoint: [attributes[pointKeys[3]][kCIAttributeDefault] CGPointValue]],
+//                            ];
+//    theFourCornersButton.theCGPointValues = [pointsArray mutableCopy];
+
+    CGFloat scale = 1.0;
+    
+    if (imageToEdit)
+      scale = imageToEdit.scale;
+    NSDictionary *attributes = currentFilter.attributes;
+
+    for (int index = 0; index< pointKeys.count; index++)
+    {
+      NSDictionary *thisAttribute = attributes[pointKeys[index]];
+      if (!thisAttribute)
+      {
+        NSLog(@"can't find attribute");
+        return;
+      }
+      
+      CIVector *pointVector = [currentFilter valueForKey: pointKeys[index] ];
+      CGPoint defaultCenter;
+      if (pointVector)
+      {
+        defaultCenter  = pointVector.CGPointValue;
+        defaultCenter.x /= scale;
+        defaultCenter.y /= scale;
+        
+        if (defaultCenter.x < 0)
+          defaultCenter.x = 0;
+        else if (defaultCenter.x > imageContainerView.bounds.size.width)
+          defaultCenter.x = imageContainerView.bounds.size.width;
+
+        if (defaultCenter.y < 0)
+          defaultCenter.y = 0;
+        else if (defaultCenter.y > imageContainerView.bounds.size.height)
+          defaultCenter.y = imageContainerView.bounds.size.height;
+}
+      else
+        defaultCenter = CGPointMake( CGRectGetMidX(imageContainerView.bounds),
+                                    CGRectGetMidY(imageContainerView.bounds));
+      
+      [theFourCornersButton setCenter: defaultCenter forPointAtIndex: index];
+      
+    }
+    
+    theFourCornersButton.hidden = NO;
+    theFourCornersButton.enabled = YES;
+    
+    
+    theFourCornersButton.thePointChangedBlock = ^(CGPoint newPoint, NSString *key)
+    {
+      //NSLog(@"Centerpoint moved to %@", NSStringFromCGPoint( newPoint));
+      
+      //    CGSize imageSize = imageToEdit.size;
+      //    CGSize imageViewSize = imageContainerView.bounds.size;
+      
+      //    CGFloat xScale = imageSize.width*imageToEdit.scale / imageViewSize.width;
+      //    CGFloat yScale = imageSize.height*imageToEdit.scale / imageViewSize.height;
+      CIVector *pointVector = [CIVector vectorWithX: newPoint.x * imageToEdit.scale
+                                                  Y: newPoint.y * imageToEdit.scale
+                               ];
+      [currentFilter setValue: pointVector
+                       forKey: key];
+      [self showImage];
+      
+    };
+
+  }
+  else
+    theFourCornersButton.hidden = YES;
   
   if (![attributes objectForKey: kCIInputCenterKey])
   {
@@ -731,6 +829,7 @@
   {
     aPointButton.pointContainerView = imageContainerView;
   }
+  theFourCornersButton.pointContainerView = imageContainerView;
   
   showKeyboardNotificaiton = [[NSNotificationCenter defaultCenter] addObserverForName: UIKeyboardWillShowNotification
                               
@@ -966,9 +1065,11 @@
   
 }
 
+//-----------------------------------------------------------------------------------------------------------
+
 - (IBAction)pointButtonChanged:(PointButton *)sender
 {
-  NSLog(@"Entering %s", __PRETTY_FUNCTION__);
+  //NSLog(@"Entering %s", __PRETTY_FUNCTION__);
 }
 
 

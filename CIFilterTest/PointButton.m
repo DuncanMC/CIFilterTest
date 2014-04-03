@@ -8,6 +8,7 @@
 
 #import "PointButton.h"
 #import "PointView.h"
+#import "LabeledToggleButton.h"
 
 @implementation PointButton
 
@@ -15,13 +16,14 @@
 #pragma mark - property methods
 //-----------------------------------------------------------------------------------------------------------
 
-- (void) setButtonTitle:(NSString *)buttonTitle;
+- (void) setPointKey:(NSString *)pointKey
 {
-  _buttonTitle = buttonTitle;
-  customTitleLabel.text = buttonTitle;
+  _pointKey = pointKey;
+  self.thePoint.pointKey = _pointKey;
+
 }
 
-//------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
 
 - (void) setPointContainerView:(UIView *)pointContainerView;
 {
@@ -35,7 +37,7 @@
 {
   if (!_thePoint)
   {
-    _thePoint = [[PointView alloc] initWithDelegate: self];
+    _thePoint = [[PointView alloc] initWithFrame: CGRectMake(0,0, 50, 50)];
     _thePoint.hidden = YES;
   }
   return _thePoint;
@@ -64,16 +66,7 @@
 - (void) doInitSetup
 {
   
-  const CGFloat labelWidth = 120;
-  const CGFloat labelHeight = 23;
-  CGFloat x = CGRectGetMidX(self.bounds) - labelWidth/2;
-  CGFloat y = CGRectGetMaxY(self.bounds) + 3;
-  CGRect labelFrame = CGRectMake(x, y, labelWidth, labelHeight);
-  customTitleLabel = [[UILabel alloc] initWithFrame: labelFrame];
-  customTitleLabel.textAlignment = NSTextAlignmentCenter;
-  customTitleLabel.font = [UIFont systemFontOfSize: 14];
-  customTitleLabel.textColor =[UIColor blueColor];
-  [self addSubview: customTitleLabel];
+  [super doInitSetup];
   
   self.clipsToBounds = NO;
 
@@ -81,7 +74,6 @@
   self.notSelectedImageName = @"PointButton image inactive";
   
   UIPanGestureRecognizer *thePanRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget: self action:@selector(pointHasMoved:)];
-  //thePanRecognizer.delegate = self;
   [self.thePoint addGestureRecognizer: thePanRecognizer];
 }
 
@@ -105,7 +97,7 @@
                               inView: _pointContainerView];
     
     if (_thePointChangedBlock)
-      _thePointChangedBlock(self.pointCenter);
+      _thePointChangedBlock(self.pointCenter, _thePoint.pointKey);
   }
 }
 

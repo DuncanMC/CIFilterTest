@@ -40,9 +40,9 @@
 - (void) doInitSetup
 {
   const CGFloat labelWidth = 120;
-  const CGFloat labelHeight = 23;
+  const CGFloat labelHeight = 21;
   CGFloat x = CGRectGetMidX(self.bounds) - labelWidth/2;
-  CGFloat y = CGRectGetMaxY(self.bounds) + 3;
+  CGFloat y = CGRectGetMaxY(self.bounds);
   CGRect labelFrame = CGRectMake(x, y, labelWidth, labelHeight);
   customTitleLabel = [[UILabel alloc] initWithFrame: labelFrame];
   customTitleLabel.textAlignment = NSTextAlignmentCenter;

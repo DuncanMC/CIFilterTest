@@ -9,19 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "WTToggleButton.h"
 #import "PointView.h"
-#import "PointViewDelegateProtocol.h"
+#import "LabeledToggleButton.h"
 
-typedef void (^pointChangedBlock)(CGPoint point);
+#import "Types.h"
 
-@interface PointButton : WTToggleButton <PointViewDelegateProtocol>
-{
-  UILabel *customTitleLabel;
-}
+@interface PointButton : LabeledToggleButton
 
 @property (nonatomic, strong) PointView *thePoint;
 @property (nonatomic, weak) UIView *pointContainerView;
 @property (nonatomic, assign) CGPoint pointCenter;
-@property (nonatomic, strong) NSString *buttonTitle;
+@property (nonatomic, strong) NSString *pointKey;
 
 @property (nonatomic, strong) pointChangedBlock thePointChangedBlock;
 

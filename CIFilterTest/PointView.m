@@ -93,24 +93,11 @@
 
 //------------------------------------------------------------------------------------------------------
 
-- (id) initWithDelegate: (id <PointViewDelegateProtocol>) delegate;
-{
-  CGRect frame = CGRectMake(0, 0, 50, 50);
-  self = [self initWithFrame: frame];
-  if (!self)
-    return nil;
-  self.delegate = delegate;
-  [self doInitSetup];
-  return self;
-}
-
-//------------------------------------------------------------------------------------------------------
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+      [self doInitSetup];
     }
     return self;
 }

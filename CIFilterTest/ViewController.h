@@ -12,6 +12,7 @@
 #import "TableViewSelectionProtocol.h"
 
 @class PointButton;
+@class FourCornersButton;
 
 @class FiltersList;
 @class WTColorPickerButton;
@@ -47,6 +48,7 @@
   __weak IBOutlet PopupMenuControl *theFilterTypePopup;
   __weak IBOutlet UIView *imageContainerView;
   __weak IBOutlet PointButton *pointButton0;
+  __weak IBOutlet FourCornersButton *theFourCornersButton;
   
   CIFilter        *_clampFilter;
   CIFilter        *_cropFilter;

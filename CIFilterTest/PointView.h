@@ -8,15 +8,11 @@
 
 
 #import <UIKit/UIKit.h>
-#import "PointViewDelegateProtocol.h"
 
 @interface PointView : UIView
 
+@property (nonatomic, strong) NSString *pointKey;
 
-//------------------------------------------------------------------------------------------------------
 
-@property (nonatomic, weak) id <PointViewDelegateProtocol> delegate;
-
-- (id) initWithDelegate: (id <PointViewDelegateProtocol>) delegate;
 
 @end
