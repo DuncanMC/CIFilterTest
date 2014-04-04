@@ -555,6 +555,42 @@
                      forKey: @"inputCorrectionLevel"];
     scaleUpImage = YES;
   }
+  //-----------------------------------
+  //Special-cased code for CIConvolution3X3
+  //-----------------------------------
+  else if ([currentFilterName isEqualToString: @"CIConvolution3X3"])
+  {
+    //Create a sharpening 3x3 matrix
+    CGFloat sharpenWeights[9]=
+    {
+      0, -2,  0,
+     -2,  9, -2,
+      0,  -2, 0
+    };
+    CGFloat embossWeights[9] =
+    { 1,   0, -1,
+      2,   0, -2,
+      1,   0, -1
+    };
+    
+    CGFloat *weights;
+    if (NO)
+    {
+      weights = sharpenWeights;
+    }
+    else
+    {
+      weights = embossWeights;
+      [currentFilter setValue: @(.5)
+                       forKey: @"inputBias"];
+    }
+    CIVector *weightsVector = [CIVector vectorWithValues: weights
+                                                   count: 9];
+    [currentFilter setValue: weightsVector
+                     forKey: @"inputWeights"];
+
+  }
+    //
   
   //-----------------------------------
   //Handle the image keys

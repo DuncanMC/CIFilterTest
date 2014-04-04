@@ -57,7 +57,7 @@ static FiltersList* theFiltersList = nil;
 
 -(id) init;
 {
-  int duplicateCount = 0;
+  __block int duplicateCount = 0;
   
   self = [super init];
   if (!self)
@@ -65,7 +65,8 @@ static FiltersList* theFiltersList = nil;
   _hideDuplicates = YES;
   
   _uniqueFilterNames = [NSMutableArray new];
-  
+  NSMutableArray *missingCategories = [NSMutableArray new];
+
   
   NSArray *categoryNames = @[
                              kCICategoryDistortionEffect,
@@ -94,9 +95,10 @@ static FiltersList* theFiltersList = nil;
   _filterCategoriesExcludingDupes = [NSMutableArray arrayWithCapacity: categoryNames.count];
   
   //loop through the categories of CIFilter
-  for (NSString *aCategoryName in categoryNames)
+  
+  void (^processFilterBlock)(NSString *aCategoryName, BOOL checkForMissingCategories)  =
+  ^(NSString *aCategoryName, BOOL checkForMissingCategories)
   {
-    
     //Create a FilterCategoryInfo object for this category
     FilterCategoryInfo *aCategoryInfo = [[FilterCategoryInfo alloc] init];
     aCategoryInfo.categoryName = aCategoryName;
@@ -108,6 +110,23 @@ static FiltersList* theFiltersList = nil;
       CIFilter *aFilter = [CIFilter filterWithName: aFilterName];
       
       NSDictionary *attributes = [aFilter attributes];
+      //----------------
+      if (checkForMissingCategories)
+      {
+        NSArray *thisFilterCategories = attributes[kCIAttributeFilterCategories];
+        for (NSString *aCategory in thisFilterCategories)
+        {
+          if (![categoryNames containsObject: aCategory])
+          {
+            if (![missingCategories containsObject: aCategory])
+            {
+              NSLog(@"category \"%@\" not in list of categories!", aCategory);
+              [missingCategories addObject: aCategory];
+            }
+          }
+        }
+      }
+      //----------------
       NSString *filterDisplayName = attributes[kCIAttributeFilterDisplayName];
       FilterRecord *aFilterRecord = [[FilterRecord alloc] init];
       aFilterRecord.filterName = aFilterName;
@@ -136,6 +155,20 @@ static FiltersList* theFiltersList = nil;
     
     if (aCategoryInfo.filterRecordsWithNoDuplicates.count > 0)
       [_filterCategoriesExcludingDupes addObject: aCategoryInfo];
+  };
+  
+  
+  //Do a pass through all the categories, adding them to our list.
+  //On this pass, make note of any categories that are not in the categoryNames array
+  for (NSString *aCategoryName in categoryNames)
+  {
+    processFilterBlock(aCategoryName, YES);
+  }
+  
+  //Now process any filter categories that were not in the categoryNames array
+  for (NSString *aCategoryName in missingCategories)
+  {
+    processFilterBlock(aCategoryName, NO);
   }
   
   return self;

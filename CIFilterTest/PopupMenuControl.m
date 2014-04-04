@@ -39,9 +39,9 @@
   NSString* title;
 //  title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
   title =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
-  NSString *filterName =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
+  //NSString *filterName =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
   
-  NSLog(@"Filter name = \"%@\"", filterName);
+  //NSLog(@"Filter name = \"%@\"", filterName);
   if (choices && title)
   {
     popupLabel.text = title;
