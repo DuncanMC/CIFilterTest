@@ -71,6 +71,10 @@
 - (void) doInitSetup;
 {
   [super doInitSetup];
+  self.selectedImageName = @"RectButton image active";
+  self.notSelectedImageName = @"RectButton image inactive";
+
+  
 }
 
 //-----------------------------------------------------------------------------------------------------------

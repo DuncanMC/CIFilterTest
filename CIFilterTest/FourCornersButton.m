@@ -59,8 +59,8 @@
   [super doInitSetup];
   
   //TODO: replace the images below with appropriate graphics
-  self.selectedImageName = @"PointButton Image active";
-  self.notSelectedImageName = @"PointButton image inactive";
+  self.selectedImageName = @"FourCornersButton image active";
+  self.notSelectedImageName = @"FourCornersButton image inactive";
 
   _theCGPointValues = [NSMutableArray arrayWithCapacity: 4];
   thePoints = [NSMutableArray arrayWithCapacity: 4];
