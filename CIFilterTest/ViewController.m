@@ -535,7 +535,8 @@
   filterNameLabel.text = filterName;
 
   animateButton.enabled = [attributes objectForKey: @"inputTime"] != nil;
-  positionSelector.selectedSegmentIndex = 0;
+//  positionSelector.selectedSegmentIndex = 2;
+//  [self handlePositionSelector: positionSelector];
 
   CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
   sourceImageExtent = sourceCIImage.extent.size;
@@ -793,13 +794,26 @@
   if (isExtent ||
       isInputRect)
   {
-
+    
     NSString *key;
     if (isExtent)
       key = K_INPUT_EXTENT_KEY;
     else
       key = K_INPUT_RECT_KEY;
     
+    if (TRUE)
+      //Fix the default extent to include the entire source image instead of a silly 150x150 rectangle.
+      if (isExtent )
+        if (sourceImageExtent.height>0 && sourceImageExtent.width>0)
+        {
+          CGRect extentRect = CGRectMake(0, 0, sourceImageExtent.width, sourceImageExtent.height);
+          CIVector *rectVector = [CIVector vectorWithCGRect: extentRect
+                                  ];
+          [currentFilter setValue: rectVector
+                           forKey: K_INPUT_EXTENT_KEY];
+          
+        }
+
     CIVector *rectVector = [currentFilter valueForKey: key  ];
     CGRect theExtentRect = [rectVector CGRectValue];
     //---
@@ -824,12 +838,11 @@
     }
     
     
-    
     CGFloat scale = 1.0;
     
     if (imageToEdit)
       scale = imageToEdit.scale;
-
+    
     theExtentRect.origin.x /= scale;
     theExtentRect.origin.y /= scale;
     theExtentRect.size.width /= scale;
@@ -854,15 +867,15 @@
       newRect.size.height *= scale;
       
       CIVector *rectVector = [CIVector vectorWithCGRect:newRect
-                               ];
+                              ];
       [currentFilter setValue: rectVector
                        forKey: key];
       [self showImage];
       
     };
-
+    
     theExtentButton.hidden = NO;
-
+    
   }
 else
 {
@@ -877,11 +890,17 @@ else
   }
   else
   {
+    if (!defaultCenterPoint)
+      defaultCenterPoint = [currentFilter valueForKey: kCIInputCenterKey];
     positionSelector.enabled = YES;
     positionControlView.hidden = NO;
+    
+    //Set the center point to the center of the image to begin with
+    positionSelector.selectedSegmentIndex = 2;
+    [self handlePositionSelector: positionSelector];
 
 
-    defaultCenterPoint = [currentFilter valueForKey: kCIInputCenterKey];
+
   }
   
   //Debugging. For the bump distorition filter,
@@ -1240,6 +1259,7 @@ else
   
 //  NSLog(@"User selected row %ld (%@)", (long)row, uniqueFilterNames[row]);
   currentFilterName = [[FiltersList sharedFiltersList] filterNameForIndexPath: indexPath];
+  defaultCenterPoint = nil;
   [self doSetup];
   [self showImage];
   
