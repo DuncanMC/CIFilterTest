@@ -246,8 +246,8 @@
     NSLog(@"can't find attribute");
     return;
   }
-  
-  NSValue *pointNSValue = ((NSValue *)thisAttribute[@"CIAttributeDefault"]);
+  NSValue *pointNSValue = [currentFilter valueForKey: aKey];
+//  NSValue *pointNSValue = ((NSValue *)thisAttribute[@"CIAttributeDefault"]);
   CGPoint defaultCenter;
   CGFloat scale = 1.0;
   
@@ -673,7 +673,24 @@
                          withObject: key0];
   }
   
-  
+  //Special-case code to show the segmented control for the input center attribute
+  if (![attributes objectForKey: kCIInputCenterKey])
+  {
+    positionSelector.enabled = NO;
+    positionControlView.hidden = YES;
+  }
+  else
+  {
+    if (!defaultCenterPoint)
+      defaultCenterPoint = [currentFilter valueForKey: kCIInputCenterKey];
+    positionSelector.enabled = YES;
+    positionControlView.hidden = NO;
+    
+    //Set the center point to the center of the image to begin with
+    positionSelector.selectedSegmentIndex = 2;
+    [self handlePositionSelector: positionSelector];
+  }
+
   //-------------------------------------
   // Handle the attributes that use a
   // single point location
@@ -882,26 +899,6 @@ else
   theExtentButton.hidden = YES;
 }
   
-  //Special-case code to show the segmented control for the input center attribute
-  if (![attributes objectForKey: kCIInputCenterKey])
-  {
-    positionSelector.enabled = NO;
-    positionControlView.hidden = YES;
-  }
-  else
-  {
-    if (!defaultCenterPoint)
-      defaultCenterPoint = [currentFilter valueForKey: kCIInputCenterKey];
-    positionSelector.enabled = YES;
-    positionControlView.hidden = NO;
-    
-    //Set the center point to the center of the image to begin with
-    positionSelector.selectedSegmentIndex = 2;
-    [self handlePositionSelector: positionSelector];
-
-
-
-  }
   
   //Debugging. For the bump distorition filter,
   //Log the default value of CenterPoint that we get from the attributes
@@ -1166,7 +1163,7 @@ else
     }
     else
       thePointButton.hidden = NO;
-    CGPoint newCenter = CGPointMake(x/2, y/2);
+    CGPoint newCenter = CGPointMake(x/imageToEdit.scale, y/imageToEdit.scale);
     thePointButton.pointCenter = newCenter;
   }
 }
