@@ -436,39 +436,38 @@
     newSize = outputImage.extent.size;
     if (newSize.width < sourceImageExtent.width || newSize.height < sourceImageExtent.height)
     {
-      CIFilter *transformFilter = [CIFilter filterWithName: @"CIAffineTransform"];
       
-      CGFloat scale =sourceImageExtent.width/newSize.width;
+      UIImage *tempUIImage = [UIImage imageWithCIImage: outputImage];
       
-      CGAffineTransform transform = CGAffineTransformMakeScale(scale, scale);
-      [transformFilter setValue:[NSValue valueWithBytes: &transform
-                                               objCType:@encode(CGAffineTransform)]
-                         forKey:@"inputTransform"];
-      [transformFilter setValue:outputImage forKey: @"inputImage"];
       
-      outputImage = [transformFilter valueForKey: kCIOutputImageKey];
-      
+      UIGraphicsBeginImageContext(CGSizeMake(sourceImageExtent.width, sourceImageExtent.height));
+      CGContextRef context = UIGraphicsGetCurrentContext();
+      CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+      [tempUIImage drawInRect:CGRectMake(0, 0, sourceImageExtent.width, sourceImageExtent.height)];
+      outputUIImage = UIGraphicsGetImageFromCurrentImageContext();
+      UIGraphicsEndImageContext();
     }
-    newSize = outputImage.extent.size;
-    
-    if (newSize.width > sourceImageExtent.width || newSize.height > sourceImageExtent.height)
+    else
     {
-      // NSLog(@"new image is bigger");
-      CIFilter *cropFilter = [self cropFilter];
-      
-      CGRect boundsRect = CGRectMake(0, 0, sourceImageExtent.width, sourceImageExtent.height);
-      
-      [cropFilter setValue:outputImage forKey: @"inputImage"];
-      
-      CIVector *rectVector = [CIVector vectorWithCGRect: boundsRect];
-      
-      [cropFilter setValue: rectVector
-                    forKey: @"inputRectangle"];
-      outputImage = [cropFilter valueForKey: kCIOutputImageKey];
-      
-      
+      if (newSize.width > sourceImageExtent.width || newSize.height > sourceImageExtent.height)
+      {
+        // NSLog(@"new image is bigger");
+        CIFilter *cropFilter = [self cropFilter];
+        
+        CGRect boundsRect = CGRectMake(0, 0, sourceImageExtent.width, sourceImageExtent.height);
+        
+        [cropFilter setValue:outputImage forKey: @"inputImage"];
+        
+        CIVector *rectVector = [CIVector vectorWithCGRect: boundsRect];
+        
+        [cropFilter setValue: rectVector
+                      forKey: @"inputRectangle"];
+        outputImage = [cropFilter valueForKey: kCIOutputImageKey];
+        
+        
+      }
+      outputUIImage = [UIImage imageWithCIImage: outputImage];
     }
-    outputUIImage = [UIImage imageWithCIImage: outputImage];
   }
   else
   {
