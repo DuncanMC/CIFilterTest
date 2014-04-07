@@ -141,6 +141,7 @@ static FiltersList* theFiltersList = nil;
       else
       {
         [_uniqueFilterNames addObject: aFilterName];
+        NSLog(@"Attributes for filter %@ = %@", aFilterName, aFilter.attributes);
       }
       [aCategoryInfo.filterRecords addObject: aFilterRecord];
     }

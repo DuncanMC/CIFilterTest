@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @protocol TableViewSelectionProtocol <NSObject>
+
+//This method is for table views that use a single-section table view.
+//Not used in this project.
 - (void) userSelectedRow: (NSInteger) row 
                   sender: (id) sender;
 

@@ -37,12 +37,10 @@
   _selectedItemIndexPath = newSelectedIndexPath;
   
   NSString* title;
-//  title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
-  title =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
-  //NSString *filterName =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
+  title =  [theFilterList filterDisplayNameForIndexPath: _selectedItemIndexPath];
+//  title =  [theFilterList filterNameForIndexPath: _selectedItemIndexPath];
   
-  //NSLog(@"Filter name = \"%@\"", filterName);
-  if (choices && title)
+  if (title)
   {
     popupLabel.text = title;
   }
@@ -56,9 +54,12 @@
   }
 }
 
+//This method is for popup menu controls that show single-section table views. Not used in this project
 - (void) setSelectedIndex:(NSUInteger)newSelectedIndex;
 {
   selectedIndex = newSelectedIndex;
+  if (choices.count <= newSelectedIndex)
+    return;
   NSString *anItem = [self.choices objectAtIndex: selectedIndex];
   NSString* title =  anItem;
   if (choices && title)
@@ -343,6 +344,9 @@
 
 - (IBAction) popupTapped
 {
+  //The code below is for popup menu controls that manage a single-section table view. Not used
+  //in this project.
+  
 //NSLog(@"In %s", __PRETTY_FUNCTION__);
 //  if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) 
 //  {

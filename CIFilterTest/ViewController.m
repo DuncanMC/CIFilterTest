@@ -31,7 +31,6 @@
 {
   if (!_clampFilter)
     _clampFilter = [CIFilter filterWithName: @"CIAffineClamp"];
-  //CIAttributeTypeTransform
   return _clampFilter;
 }
 
@@ -401,15 +400,18 @@
 {
   CIImage *outputImage;
   UIImage *outputUIImage;
+  static BOOL doExtend = YES;
   
   if (useFilterSwitch.isOn)
   {
-    if ([currentFilterName isEqualToString: @"CIGaussianBlur"]
-        ||
-        [currentFilterName isEqualToString: @"CIGloom"]
+    if (([currentFilterName isEqualToString: @"CIGaussianBlur"]
+         ||
+         [currentFilterName isEqualToString: @"CIGloom"]
+         ||
+         [currentFilterName isEqualToString: @"CIBloom"])
+        && doExtend
         )
     {
-      // NSLog(@"new image is bigger");
       CIFilter *clampFilter = [self clampFilter];
       
       CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
@@ -514,6 +516,7 @@
 }
 
 //------------------------------------------------------------------------------------------------------
+//Set up the filter named in currentFilterName using default settings
 
 - (void) doSetup;
 {
@@ -535,8 +538,6 @@
   filterNameLabel.text = filterName;
 
   animateButton.enabled = [attributes objectForKey: @"inputTime"] != nil;
-//  positionSelector.selectedSegmentIndex = 2;
-//  [self handlePositionSelector: positionSelector];
 
   CIImage *sourceCIImage = [CIImage imageWithCGImage: imageToEdit.CGImage];
   sourceImageExtent = sourceCIImage.extent.size;
@@ -573,11 +574,22 @@
       2,   0, -2,
       1,   0, -1
     };
+
+    CGFloat fraction = 1.0/9;
+    CGFloat blurweights[9] =
+    { fraction,   fraction,  fraction,
+      fraction,   fraction,  fraction,
+      fraction,   fraction,  fraction
+    };
     
+
     CGFloat *weights;
     if (NO)
     {
       weights = sharpenWeights;
+    } else if (YES)
+    {
+      weights = blurweights;
     }
     else
     {
@@ -590,6 +602,45 @@
     [currentFilter setValue: weightsVector
                      forKey: @"inputWeights"];
 
+  }
+  else if ([currentFilterName isEqualToString: @"CIConvolution7x7"])
+  {
+#define fortynine 49
+    CGFloat onefortyninth = 1.0/fortynine;
+    CGFloat blurweights[49] =
+    {
+      onefortyninth,   onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,
+      onefortyninth,   onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,
+      onefortyninth,   onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,
+      onefortyninth,   onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,
+      onefortyninth,   onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,
+      onefortyninth,   onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,
+      onefortyninth,   onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth,  onefortyninth
+    };
+    CGFloat *weights = blurweights;
+    CIVector *weightsVector = [CIVector vectorWithValues: weights
+                                                   count: fortynine];
+    [currentFilter setValue: weightsVector
+                     forKey: @"inputWeights"];
+
+  }
+  else if ([currentFilterName isEqualToString: @"CIConvolution5X5"])
+  {
+#define twentyfive 25
+    CGFloat fraction = 1.0/twentyfive;
+    CGFloat blurweights[twentyfive] =
+    {
+      fraction,   fraction,  fraction,  fraction,  fraction,
+      fraction,   fraction,  fraction,  fraction,  fraction,
+      fraction,   fraction,  fraction,  fraction,  fraction,
+      fraction,   fraction,  fraction,  fraction,  fraction
+    };
+    CGFloat *weights = blurweights;
+    CIVector *weightsVector = [CIVector vectorWithValues: weights
+                                                   count: twentyfive];
+    [currentFilter setValue: weightsVector
+                     forKey: @"inputWeights"];
+    
   }
     //
   
@@ -656,10 +707,6 @@
   
   NSMutableArray *inputKeys = [[currentFilter inputKeys] mutableCopy];
   
-  //-------------------------------------
-  // Handle the floating-point attributes
-  // managed by sliders
-  //-------------------------------------
   
   //If this filter as an "inputTime" key, and it's not the first item, move it to the first position
   NSUInteger index = [inputKeys indexOfObject: kCIInputTimeKey];
@@ -691,29 +738,36 @@
     [self handlePositionSelector: positionSelector];
   }
 
-  //-------------------------------------
-  // Handle the attributes that use a
-  // single point location
-  //-------------------------------------
   
   for (NSString *thisKey in inputKeys)
   {
     NSDictionary *thisInputDict = [attributes objectForKey: thisKey];
-    //This si a color key, so set up one of the color controls to use it.
+    
+    //This is a color key, so set up one of the color controls to use it.
     if ([thisKey rangeOfString: @"inputColor"].location != NSNotFound)
     {
       [self addColorWellControlWithKey: thisKey];
     }
+    
     else if (thisInputDict[kCIAttributeSliderMax] != nil)
-      //Find all keys that contain slider information add add them to the controls
+    {
+      //-------------------------------------
+      // Handle the floating-point attributes
+      // managed by sliders
+      //-------------------------------------
       [self addSliderControlWithKey: thisKey];
+    }
+    
     else if ([thisInputDict[kCIAttributeType] isEqualToString: kCIAttributeTypePosition])
     {
+      //-------------------------------------
+      // Handle the attributes that use a
+      // single point location
+      //-------------------------------------
       if ([thisKey rangeOfString: @"inputPoint"].location != NSNotFound ||
           [thisKey isEqualToString: kCIInputCenterKey]
           )
       {
-        //NSLog(@"\"%@\" is a point key", thisKey);
         [self addPointButtonWithKey: thisKey];
       }
     }
@@ -1075,13 +1129,16 @@ else
 
 - (void) viewWillAppear:(BOOL)animated
 {
-  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
-  theFilterTypePopup.choices = [theFiltersList.uniqueFilterNames copy];
+//  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
+//  theFilterTypePopup.choices = [theFiltersList.uniqueFilterNames copy];
   theFilterTypePopup.delegate = self;
+  
+  //[self listCIFiltersAndShowInputKeys: YES];
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   currentFilterName = [defaults stringForKey: K_DEFAULT_FILTERNAME];
   
+  FiltersList *theFiltersList = [FiltersList sharedFiltersList];
   NSIndexPath *filterIndexPath = [theFiltersList indexPathForFilterNamed: currentFilterName];
   
   theFilterTypePopup.selectedItemIndexPath = filterIndexPath;
