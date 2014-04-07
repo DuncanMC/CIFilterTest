@@ -4,7 +4,11 @@ This project lets you explore the CoreImage filters offered by the current versi
 
 At launch it interrogates the system for a list of supported filters and adds them to a popup list of filters.
 
-It attempts to set reasonable values for the different parameters, and looks for settings that specify slider settings. When it finds settings that specify slider settings it configures up to 5 sliders with the name of the attribute and its maximum, minimum, and default value.
+It attempts to set reasonable values for the different parameters, and looks for settings that specify slider settings. When it finds settings that specify slider settings it configures up to 6 sliders with the name of the attribute and its maximum, minimum, and default value.
+
+It will also add UI controls to set input points, colors, rectangles, and points for pespective projections.
+
+It has hard-coded settings for a few filters like the QR code generator and the 3x3 and 5x5 convolution filters that use special input types.
 
 This project now uses a Cocoapod to add support for iOS color pickers. 
 

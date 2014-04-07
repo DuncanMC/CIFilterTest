@@ -323,5 +323,3 @@ Category CICategoryVideo:
 		Input keys:	inputImage (CIAttributeTypeImage/CIImage)	inputWeights ((null)/CIVector)	inputBias ((null)/NSNumber)
 	filter CIConvolution9Vertical. (Vertical 9 Convolution)	Categories:  CICategoryVideo,  CICategoryStillImage,  CICategoryBuiltIn
 		Input keys:	inputImage (CIAttributeTypeImage/CIImage)	inputWeights ((null)/CIVector)	inputBias ((null)/NSNumber)
-
-(lldb) 

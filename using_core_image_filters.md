@@ -30,17 +30,17 @@ Once you have selected a filter by name, you load it using `CIFilter` class meth
 
 * The `attributes` property returns a dictionary of key/value pairs with information about the various input and output attributes used with this filter.
 
-* The `CIAttributeFilterCategories` key/value pair contains an array of the `CIFilter` categories that this filter belongs to.
+* Inside the `attributes` property, The `CIAttributeFilterCategories` key/value pair contains an array of the strings listing the `CIFilter` categories that this filter belongs to.
 
 * The `inputKeys` property returns an array of the keys in the `attributes` dictinoary that describe inputs to the filter.
 
 * The `outputKeys` property returns an array of the keys in the `attributes` dictinoary that describe the filter's outputs. As of this writing, this property always contains a single entry, "OutputImageKey" (The output image from the filter.)
 
-The value for each input key in the attributes dictionary is another dictionary containing a variety of objects that tell the caller information about a particular input parameter to the filter.
+If you use one of the entries in the `inputKeys` array to fetch a value from the `attributes` dictionary, you will get another dictionary containing information about that input parameter for the filter.
 
 Core Image filters use Core Image datatypes like CIImage, CIVector,  and CIColor, as well as NSNumber. The entry for each inputKey in the attributes dictionary includes a key/value pair `CIAttributeClass` that tells you the data type of that input parameter, and another key/value pair `CIAttributeClass` that tells you how the parameter is used. (e.g. the inputKey inputCenter has a `CIAttributeClass` of `CIVector` and a `CIAttributeType` of `CIAttributeTypePosition`.)
 
+The attributes entry for many input Key values includes a default value for that input key, and sometimes also contains minimum and maximum value ranges. Note that sometimes the deafult values listed in the attributes dictionary do not match the default values that are actually contained in the filter, and that sometimes the minimum and maximum value ranges are wrong. For example, the CILightTunnel filters lists a default inputRotation value of 9, a CIAttributeSliderMin (minimum value) of 0, and a CIAttributeSliderMax value of 1.570796326794897 (pi/2). However, the actual rotation setting that is installed in the filter is 100, and values ranging from -100 to +100 are perfectly valid to use.
 
-
-
+Also, the settings for the CIBumpDistortion filter list a CIAttributeDefault setting of 150, 150 for the inputCenter attribute (In other words, the default center-point for the bump distortion filter should be (150, 150).) However, the CIBumpDistortion does not have any value set for it's inputCenter property by default, so the filter does nothing. You have to explictly set an inputCenter value before this filter makes any change to the image.
 

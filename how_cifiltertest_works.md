@@ -60,7 +60,7 @@ CIFilterTest has special-case code to load sample data for a few filter types fo
 
 CIFilterTest builds a user interface for the following settings:
 
-* Up to 6 floating point values which are set using a slider (and a UITextField for entering values with the keyboard)
+* Up to 6 floating point values which are set using a slider (and a UITextField for entering values with the keyboard). The CIFilterTest app also attempts to read default, minimum, and maximum values for each floating point attribute and use them to set the default, minimum, and maximum values for each slider.
 
 * Up to 2 color values, which are handled using a custom colorwell button that displays a color picker popup. Handled by a custom subclass of UIButton called WTPickerButton, which uses a popup containing a `WTColorPickerVC` object. The WTColorPickerVC uses an open-source color picker class called `NKOColorPickerView`, which is in the workspace as a CocoaPod.
 
