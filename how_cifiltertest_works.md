@@ -45,7 +45,7 @@ sets up notfication handlers for keyboard show/hide events to shift the content 
 
 In it's `viewWillAppear` method, the `ViewController` class loads the FiltersList singleton. It then loads the last-used filter name from UserDefaults, calls the method `doSetup` to configure that filter using default settings, and then calls the `showImage` method to display an image using the current filter settings.
 
-The `ViewController` has a programmer utility method `- (void) listCIFiltersAndShowInputKeys: (BOOL) listFilterKeys` that will generate a formatted list of all available filters to the debug console. If you set listFilterKeys = YES, it will also display all the input keys for each filter.
+The `ViewController` has a programmer utility method `- (void) listCIFiltersAndShowInputKeys: (BOOL) listFilterKeys` that will generate a formatted list of all available filters to the debug console. If you set listFilterKeys = YES, it will also display all the input keys for each filter. The output of this method is saved in the project for quick reference. Click [**here to view the list of filters and their input keys**](CIFilters and input keys.txt).
 
 
 ###The `doSetup` method:
