@@ -6,7 +6,7 @@
 -------
 CIFilterTest has a set of 3 classes that keep track of information about the list of available filters: `FiltersList`, `FilterCategoryInfo`, and `FilterRecord`.
 
-All 3 classes implement a `-description` method that returns a string describing the contents of the object. Calling `[FiltersList sharedFiltersList] description' returns a formatted log of information about all available filters, grouped by category. 
+All 3 classes implement a `-description` method that returns a string describing the contents of the object. Calling `[FiltersList sharedFiltersList] description` returns a formatted log of information about all available filters, grouped by category. Click [**here to see a discussion on using the `-description` method to create debugger-friendly classes**](Creating debugger-friendly classes.md).
 
 ###FiltersList 
 
@@ -16,9 +16,7 @@ When it is first loaded, the FiltersList object loops through a hard-coded list 
 
 The `FiltersList` singleton keeps an array unique filter names called `uniqueFilterNames`. Each time it finds a filter that hasn't been seen before, it adds it to the `uniqueFilterNames` array. When it is looping through the filter categories, it marks a filter as unique in the first category in which it is found, and sets the `filterIsDuplicate` flag to YES each time it finds the filter listed in an additional filter category. This enables the program to only list each filter once in the grouped `UITableView` of filters
 
-The FiltersList singleton has a method 
-
-The FiltersList singleton also conforms to the `TableViewDataSource` to feed a grouped table view of filter names. 
+The FiltersList singleton also conforms to the `TableViewDataSource` protocol to feed a grouped table view of filter names. 
 
 ###FilterCategoryInfo
 
