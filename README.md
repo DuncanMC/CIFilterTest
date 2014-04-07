@@ -15,3 +15,12 @@ Note the the project is for iPad only, and runs **MUCH** bettter on an actual de
 
 This project includes a method, `listCIFiltersAndShowInputKeys:`, which queries the CIFilter class and write a formatted list of available filters to the debug console. If you pass in YES for the listFilterKeys parameter then it also logs information about the input parameters for each filter. Click [this link](CIFilters and input keys.txt) to see the output from this function from iOS 7.1.
 
+
+Click [**this link for an explanation on using Core Image filters**](using_core_image_filters.md).
+
+Click [**This link for a overview of the program**](how_cifiltertest_works.md)
+
+Click [**here to read an article on shifting a view controller's content view up to make room for the keyboard**](Shifting text views for the keyboard.md).
+
+
+Click [**here for an article on creating debugger-friendly classes**](Creating debugger-friendly classes.md)
