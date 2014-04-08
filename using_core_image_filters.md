@@ -7,7 +7,7 @@ Core Image filters are devided into categories. Most CIFilters belong to more th
 
 The CIFilterTest app is written to ask the system for a list of supported filters, and then presents a list of those filters in a table view grouped by category.
 
-There are 2 methods that let you get lists of avilable filters that match a specific category or category: `+[filterNamesInCategories:]`, and `+[filterNamesInCategory:]`
+There are 2 methods that let you get lists of avilable filters that match a specific category or categories: `+[filterNamesInCategories:]`, and `+[filterNamesInCategory:]`
 
 ###`+ (NSArray *)filterNamesInCategories:(NSArray *)categories`
 

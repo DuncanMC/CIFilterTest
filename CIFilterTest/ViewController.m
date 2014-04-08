@@ -586,7 +586,7 @@
     if (NO)
     {
       weights = sharpenWeights;
-    } else if (YES)
+    } else if (NO)
     {
       weights = blurweights;
     }
