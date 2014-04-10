@@ -271,18 +271,13 @@
   
   aPointButton.thePointChangedBlock = ^(CGPoint newPoint, NSString *key)
   {
-    //NSLog(@"Centerpoint moved to %@", NSStringFromCGPoint( newPoint));
-    
-//    CGSize imageSize = imageToEdit.size;
-//    CGSize imageViewSize = imageContainerView.bounds.size;
-    
-//    CGFloat xScale = imageSize.width*imageToEdit.scale / imageViewSize.width;
-//    CGFloat yScale = imageSize.height*imageToEdit.scale / imageViewSize.height;
     CIVector *pointVector = [CIVector vectorWithX: newPoint.x * imageToEdit.scale
                                                Y: newPoint.y * imageToEdit.scale
                              ];
     [currentFilter setValue: pointVector
                      forKey: key];
+    if ([key isEqualToString: kCIInputCenterKey])
+      positionSelector.selectedSegmentIndex = -1;
     [self showImage];
 
   };
