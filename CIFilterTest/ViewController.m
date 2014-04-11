@@ -16,6 +16,7 @@
 #import "FourCornersButton.h"
 #import "Defines.h"
 #import "RectButton.h"
+#import "ConvolutionPickerButton.h"
 
 @interface ViewController ()
 
@@ -476,6 +477,7 @@
 
 - (void) clearControls;
 {
+  theConvolutionPickerButton.hidden = YES;
   sliderControlIndex = 0;
   colorWellControlIndex = 0;
   pointButtonIndex = 0;
@@ -514,7 +516,7 @@
 
 - (void) doSetup;
 {
-  
+  CGFloat inputBiasValue = 0;
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   [defaults setObject: currentFilterName forKey: K_DEFAULT_FILTERNAME];
   [defaults synchronize];
@@ -522,6 +524,9 @@
 
   currentFilter = [CIFilter filterWithName: currentFilterName];
   [currentFilter setDefaults];
+  
+  [self clearControls];
+
 
   //Get the attributes for this filter
   NSDictionary *attributes = currentFilter.attributes;
@@ -556,6 +561,7 @@
   //-----------------------------------
   else if ([currentFilterName isEqualToString: @"CIConvolution3X3"])
   {
+    
     //Create a sharpening 3x3 matrix
     CGFloat sharpenWeights[9]=
     {
@@ -581,16 +587,28 @@
     if (NO)
     {
       weights = sharpenWeights;
-    } else if (NO)
+      inputBiasValue = 0;
+    } else if (YES)
     {
       weights = blurweights;
+      inputBiasValue = 0;
     }
     else
     {
       weights = embossWeights;
-      [currentFilter setValue: @(.5)
-                       forKey: @"inputBias"];
+      inputBiasValue = .5;
     }
+    [currentFilter setValue: @(inputBiasValue)
+                     forKey: @"inputBias"];
+    //----
+    theConvolutionPickerButton.hidden = NO;
+    theConvolutionPickerButton.matrixSize = threeByThreeSize;
+    
+    theConvolutionPickerButton.threeByThreeMatrix = weights;
+
+    
+    theConvolutionPickerButton.bias = inputBiasValue;
+
     CIVector *weightsVector = [CIVector vectorWithValues: weights
                                                    count: 9];
     [currentFilter setValue: weightsVector
@@ -627,15 +645,67 @@
       fraction,   fraction,  fraction,  fraction,  fraction,
       fraction,   fraction,  fraction,  fraction,  fraction,
       fraction,   fraction,  fraction,  fraction,  fraction,
+      fraction,   fraction,  fraction,  fraction,  fraction,
       fraction,   fraction,  fraction,  fraction,  fraction
     };
     CGFloat *weights = blurweights;
+    
+    //----
+    theConvolutionPickerButton.hidden = NO;
+    theConvolutionPickerButton.matrixSize = fiveByFiveSize;
+    
+    theConvolutionPickerButton.fiveByFiveMatrix = weights;
+
     CIVector *weightsVector = [CIVector vectorWithValues: weights
                                                    count: twentyfive];
     [currentFilter setValue: weightsVector
                      forKey: @"inputWeights"];
     
   }
+  
+  if ([currentFilterName rangeOfString: @"CIConvolution"].location != NSNotFound)
+  {
+    theConvolutionPickerButton.theConvolutionValuesChangedBlock = ^(matrixSizes matrixSize, CGFloat* newMatrix, CGFloat newBias)
+    {
+      NSUInteger matrixCount = 0;
+      if (TRUE)
+      {
+        NSMutableString *matrixString = [NSMutableString new];
+        if (newMatrix != nil)
+        {
+          matrixCount = (matrixSize==threeByThreeSize) ? threeByThreeMatrixSize : fiveByFiveMatrixSize;
+          [matrixString appendString: @"\nMatrix: ("];
+          for (NSUInteger index = 0; index < matrixCount; index++)
+          {
+            [matrixString appendFormat: @"%.3f", newMatrix[index]];
+            if (index <matrixCount-1)
+              [matrixString appendString: @", "];
+            else
+              [matrixString appendString: @")\n"];
+          }
+        }
+        NSLog(@"In theConvolutionValuesChangedBlock. matrixSize = %d. %@newBias = %.3f", matrixSize, matrixString, newBias);
+      }
+      if (matrixCount)
+      {
+        CIVector *weightsVector = [CIVector vectorWithValues: newMatrix
+                                                       count: matrixCount];
+        [currentFilter setValue: weightsVector
+                         forKey: @"inputWeights"];
+        
+        if (matrixSize == threeByThreeSize)
+          theConvolutionPickerButton.threeByThreeMatrix = newMatrix;
+        else
+          theConvolutionPickerButton.fiveByFiveMatrix = newMatrix;
+        theConvolutionPickerButton.bias = newBias;
+      }
+      [currentFilter setValue: @(newBias)
+                       forKey: @"inputBias"];
+      
+      [self showImage];
+    };
+  }
+  
     //
   
   //-----------------------------------
@@ -697,7 +767,6 @@
   }
 
 
-  [self clearControls];
   
   NSMutableArray *inputKeys = [[currentFilter inputKeys] mutableCopy];
   

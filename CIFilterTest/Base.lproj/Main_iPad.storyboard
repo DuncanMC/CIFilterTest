@@ -426,6 +426,13 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="8f0-N8-qkp" customClass="ConvolutionPickerButton">
+                                <rect key="frame" x="152" y="979" width="158" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Edit convolution matrix">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -435,6 +442,7 @@
                         <outlet property="pointButton0" destination="ZNM-tm-rIm" id="XHO-MU-eop"/>
                         <outlet property="positionControlView" destination="8uk-jl-kOd" id="xDC-0b-i6i"/>
                         <outlet property="positionSelector" destination="dlS-E7-soB" id="mV2-Tb-wlE"/>
+                        <outlet property="theConvolutionPickerButton" destination="8f0-N8-qkp" id="J9e-68-rEh"/>
                         <outlet property="theExtentButton" destination="cc4-sq-RVG" id="3FP-A4-UCc"/>
                         <outlet property="theFilterTypePopup" destination="yWU-t1-SfN" id="YU1-c0-yaf"/>
                         <outlet property="theFourCornersButton" destination="Geb-vQ-Btt" id="w4D-zh-hcd"/>
@@ -446,6 +454,315 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-210" y="-266"/>
+        </scene>
+        <!--Convolution EditorVC-->
+        <scene sceneID="eY8-Tl-Dp0">
+            <objects>
+                <viewController storyboardIdentifier="ConvolutionEditor" id="3bA-dx-6t5" customClass="ConvolutionEditorVC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yoh-OK-jgB">
+                        <rect key="frame" x="0.0" y="0.0" width="370" height="350"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="DsF-Ur-2M1" userLabel="ConvoultionValuesView">
+                                <rect key="frame" x="10" y="14" width="350" height="280"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="23" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="vJk-j0-YPU">
+                                        <rect key="frame" x="150" y="90" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="d6G-Ka-XJo"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="54" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="Rda-9J-pWw">
+                                        <rect key="frame" x="220" y="240" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="AEY-dH-hr0"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="f9Y-oV-p8E">
+                                        <rect key="frame" x="220" y="40" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="gMC-LI-lz0"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="24" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="871-t5-mrw">
+                                        <rect key="frame" x="220" y="90" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="aMh-P5-gXp"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="32" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="bkx-v3-0f1">
+                                        <rect key="frame" x="80" y="140" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="McI-H8-cWh"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="31" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="EX7-9K-4M1">
+                                        <rect key="frame" x="10" y="140" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="cug-bL-E4T"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="33" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="BVK-KR-yOB">
+                                        <rect key="frame" x="150" y="140" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="gfs-oe-6Qc"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="51" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="Jvz-ZP-2bR">
+                                        <rect key="frame" x="10" y="240" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="bI3-eE-V9n"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="52" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="hfE-fP-1Dw">
+                                        <rect key="frame" x="80" y="240" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="RG4-g3-gqv"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="55" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="2GH-TM-lpO">
+                                        <rect key="frame" x="290" y="239" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="1ZR-2g-L5b"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="41" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="gsx-5F-BO2">
+                                        <rect key="frame" x="10" y="190" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="nz0-V3-ogm"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="1xy-jN-WN7">
+                                        <rect key="frame" x="150" y="40" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="mrV-Jo-yC9"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="35" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="w31-Op-OH8">
+                                        <rect key="frame" x="290" y="140" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="5xh-Vh-Qdb"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="42" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="oef-wZ-Ljr">
+                                        <rect key="frame" x="80" y="190" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="7FX-ze-PNx"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="43" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="Hq1-aI-KAY">
+                                        <rect key="frame" x="150" y="190" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="StN-Zj-hVa"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="22" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="rCB-pB-aFK">
+                                        <rect key="frame" x="80" y="90" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="63Y-yO-aO1"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="44" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="yxw-s9-HhL">
+                                        <rect key="frame" x="220" y="190" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="0eD-Dm-x6c"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="15" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="zA6-ym-yMV">
+                                        <rect key="frame" x="290" y="40" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="8XG-6A-oGc"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="45" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="fhC-Fs-yza">
+                                        <rect key="frame" x="290" y="190" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="7Ff-hN-dpY"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="25" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="rpc-le-0Yp">
+                                        <rect key="frame" x="290" y="90" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="7Gs-1y-hFo"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="mow-iY-beZ">
+                                        <rect key="frame" x="10" y="40" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="jqy-ES-fnO"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="BF1-g5-gPy">
+                                        <rect key="frame" x="80" y="40" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="fV5-eg-fag"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="21" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="bTf-0H-Ppb">
+                                        <rect key="frame" x="10" y="90" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="Gm3-kX-DQ2"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="34" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="jrz-hK-vFK">
+                                        <rect key="frame" x="220" y="140" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="Ske-9Y-DbE"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="53" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" clearsOnBeginEditing="YES" minimumFontSize="17" id="PkX-9W-uB5">
+                                        <rect key="frame" x="150" y="240" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="ZI4-wu-JVq"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Convolution matrix" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3n6-S4-rAd" userLabel="convolutionValuesTitleView">
+                                        <rect key="frame" x="10" y="10" width="145" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" id="0gj-k2-W4G">
+                                <rect key="frame" x="22" y="302" width="113" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bias" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I1r-Wm-bf4">
+                                        <rect key="frame" x="5" y="8" width="34" height="21"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="1.10" borderStyle="line" minimumFontSize="17" id="RuA-Q8-Vfz">
+                                        <rect key="frame" x="58" y="3" width="50" height="30"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="3bA-dx-6t5" id="gxj-pP-nll"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="oUl-zn-obK">
+                                <rect key="frame" x="165" y="305" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Apply">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleApplyButton:" destination="3bA-dx-6t5" eventType="touchUpInside" id="KGX-T1-QQM"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ex3-vE-W1T">
+                                <rect key="frame" x="252" y="305" width="69" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Normalize">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="handleNormalizeButton:" destination="3bA-dx-6t5" eventType="touchUpInside" id="OMm-7k-eHN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="biasField" destination="RuA-Q8-Vfz" id="3xa-pg-JiB"/>
+                        <outlet property="convolutionValuesTitleView" destination="3n6-S4-rAd" id="6qM-QN-61s"/>
+                        <outlet property="convoultionValuesView" destination="DsF-Ur-2M1" id="9ca-K6-Mhb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Cg-Ip-4Ws" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="709" y="-169"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

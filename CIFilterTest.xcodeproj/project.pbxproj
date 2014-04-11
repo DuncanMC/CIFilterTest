@@ -22,6 +22,9 @@
 		AE30884618E0718500C90B4E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE30882518E0718500C90B4E /* UIKit.framework */; };
 		AE30884E18E0718500C90B4E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE30884C18E0718500C90B4E /* InfoPlist.strings */; };
 		AE30885018E0718500C90B4E /* CIFilterTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE30884F18E0718500C90B4E /* CIFilterTestTests.m */; };
+		AE619CF318F713700086B86C /* ConvolutionEditorVC.m in Sources */ = {isa = PBXBuildFile; fileRef = AE619CF218F713700086B86C /* ConvolutionEditorVC.m */; };
+		AE619CF618F717160086B86C /* WTPopoverButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AE619CF518F717160086B86C /* WTPopoverButton.m */; };
+		AE619CF918F71BAA0086B86C /* ConvolutionPickerButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AE619CF818F71BAA0086B86C /* ConvolutionPickerButton.m */; };
 		AED3CF0118EA021D004BB316 /* PointButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0018EA021D004BB316 /* PointButton.m */; };
 		AED3CF0418EA0236004BB316 /* PointView.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0318EA0236004BB316 /* PointView.m */; };
 		AED3CF0718EA0497004BB316 /* WTToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = AED3CF0518EA0497004BB316 /* WTToggleButton.m */; };
@@ -79,6 +82,12 @@
 		AE3B596F18F31945006A2E05 /* Shifting text views for the keyboard.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Shifting text views for the keyboard.md"; sourceTree = "<group>"; };
 		AE3B597018F31945006A2E05 /* using_core_image_filters.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = using_core_image_filters.md; sourceTree = "<group>"; };
 		AE3B597118F31BA3006A2E05 /* Creating debugger-friendly classes.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Creating debugger-friendly classes.md"; sourceTree = "<group>"; };
+		AE619CF118F713700086B86C /* ConvolutionEditorVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvolutionEditorVC.h; sourceTree = "<group>"; };
+		AE619CF218F713700086B86C /* ConvolutionEditorVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionEditorVC.m; sourceTree = "<group>"; };
+		AE619CF418F717160086B86C /* WTPopoverButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTPopoverButton.h; sourceTree = "<group>"; };
+		AE619CF518F717160086B86C /* WTPopoverButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTPopoverButton.m; sourceTree = "<group>"; };
+		AE619CF718F71BAA0086B86C /* ConvolutionPickerButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConvolutionPickerButton.h; sourceTree = "<group>"; };
+		AE619CF818F71BAA0086B86C /* ConvolutionPickerButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConvolutionPickerButton.m; sourceTree = "<group>"; };
 		AED3CEF818E9AE9E004BB316 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		AED3CEFA18E9AF00004BB316 /* CIFilters and input keys.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "CIFilters and input keys.txt"; sourceTree = "<group>"; };
 		AED3CEFF18EA021D004BB316 /* PointButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointButton.h; sourceTree = "<group>"; };
@@ -185,6 +194,7 @@
 		AE30882718E0718500C90B4E /* CIFilterTest */ = {
 			isa = PBXGroup;
 			children = (
+				AE30883618E0718500C90B4E /* Main_iPad.storyboard */,
 				AED3CF0A18EC6A55004BB316 /* Utils.h */,
 				AED3CF0B18EC6A55004BB316 /* Utils.m */,
 				AED3CF0918EC5CF9004BB316 /* Defines.h */,
@@ -194,7 +204,6 @@
 				AE30883118E0718500C90B4E /* AppDelegate.m */,
 				AEF8F69118E471B500412EE6 /* CIFilter info data structure classes */,
 				AEF8F68918E3A47C00412EE6 /* PopupMenuControl files */,
-				AE30883618E0718500C90B4E /* Main_iPad.storyboard */,
 				AE30883918E0718500C90B4E /* ViewController.h */,
 				AE30883A18E0718500C90B4E /* ViewController.m */,
 				AE30883C18E0718500C90B4E /* Images.xcassets */,
@@ -261,6 +270,12 @@
 				AED3CF1118ECD4CC004BB316 /* FourCornersButton.m */,
 				AED3CF1418EDAD1F004BB316 /* RectButton.h */,
 				AED3CF1518EDAD1F004BB316 /* RectButton.m */,
+				AE619CF118F713700086B86C /* ConvolutionEditorVC.h */,
+				AE619CF218F713700086B86C /* ConvolutionEditorVC.m */,
+				AE619CF418F717160086B86C /* WTPopoverButton.h */,
+				AE619CF518F717160086B86C /* WTPopoverButton.m */,
+				AE619CF718F71BAA0086B86C /* ConvolutionPickerButton.h */,
+				AE619CF818F71BAA0086B86C /* ConvolutionPickerButton.m */,
 			);
 			name = "Custom UI classes";
 			sourceTree = "<group>";
@@ -457,9 +472,11 @@
 				AE30883218E0718500C90B4E /* AppDelegate.m in Sources */,
 				AED3CF0F18ECD135004BB316 /* LabeledToggleButton.m in Sources */,
 				AEF8F69E18E5B11400412EE6 /* WTColorPickerButton.m in Sources */,
+				AE619CF318F713700086B86C /* ConvolutionEditorVC.m in Sources */,
 				AE30882E18E0718500C90B4E /* main.m in Sources */,
 				AEF8F68718E3A39000412EE6 /* PopupListItem.m in Sources */,
 				AEF8F69A18E472D100412EE6 /* FilterRecord.m in Sources */,
+				AE619CF918F71BAA0086B86C /* ConvolutionPickerButton.m in Sources */,
 				AEF8F67F18E394D300412EE6 /* PopupMenuControl.m in Sources */,
 				AED3CF0718EA0497004BB316 /* WTToggleButton.m in Sources */,
 				AEF8F69418E471E400412EE6 /* FiltersList.m in Sources */,
@@ -468,6 +485,7 @@
 				AEF8F68C18E3A53F00412EE6 /* SelectFilterController.m in Sources */,
 				AED3CF1618EDAD1F004BB316 /* RectButton.m in Sources */,
 				AED3CF0418EA0236004BB316 /* PointView.m in Sources */,
+				AE619CF618F717160086B86C /* WTPopoverButton.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

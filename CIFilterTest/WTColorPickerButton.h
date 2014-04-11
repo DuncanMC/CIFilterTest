@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WTPopoverButton.h"
 
-@interface WTColorPickerButton : UIButton <UIPopoverControllerDelegate>
+@interface WTColorPickerButton : WTPopoverButton
 {
   UILabel *customTitleLabel;
 }
