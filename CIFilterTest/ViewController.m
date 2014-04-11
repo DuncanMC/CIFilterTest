@@ -639,14 +639,13 @@
   else if ([currentFilterName isEqualToString: @"CIConvolution5X5"])
   {
 #define twentyfive 25
-    CGFloat fraction = 1.0/twentyfive;
     CGFloat blurweights[twentyfive] =
     {
-      fraction,   fraction,  fraction,  fraction,  fraction,
-      fraction,   fraction,  fraction,  fraction,  fraction,
-      fraction,   fraction,  fraction,  fraction,  fraction,
-      fraction,   fraction,  fraction,  fraction,  fraction,
-      fraction,   fraction,  fraction,  fraction,  fraction
+      0.0000, 0.0125, 0.0250, 0.0125, 0.0000,
+      0.0125, 0.0500, 0.1000, 0.0500, 0.0125,
+      0.0250, 0.1000, 0.2000, 0.1000, 0.0250,
+      0.0125, 0.0500, 0.1000, 0.0500, 0.0125,
+      0.0000, 0.0125, 0.0250, 0.0125, 0.0000
     };
     CGFloat *weights = blurweights;
     
