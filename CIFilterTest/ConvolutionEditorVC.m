@@ -70,6 +70,8 @@ static NSUInteger fiveByFiveMatrixTags[] = {
 
 
 //------------------------------------------------------------------------------------------------------
+#pragma mark - ViewController lifecycle methods
+//------------------------------------------------------------------------------------------------------
 
 - (void)viewDidLoad
 {
@@ -148,6 +150,30 @@ static NSUInteger fiveByFiveMatrixTags[] = {
 }
 
 //------------------------------------------------------------------------------------------------------
+#pragma mark - custom instance methods
+//------------------------------------------------------------------------------------------------------
+
+- (void) displayMatrixValues;
+{
+  CGFloat *currentMatrix;
+  NSUInteger matrixCount;
+  if (self.matrixSize == threeByThreeSize)
+  {
+    matrixCount = threeByThreeMatrixSize;
+    currentMatrix = threeByThreeMatrixArray;
+  }
+  else
+  {
+    currentMatrix = fiveByFiveMatrixArray;
+    matrixCount = fiveByFiveMatrixSize;
+  }
+  for (int index = 0; index < matrixCount; index++)
+  {
+    UITextField *theTextField = convolutionTextFields[index];
+    theTextField.text = [NSString stringWithFormat: @"%.3f", currentMatrix[index]];
+  }
+
+}
 
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark -	UITextFieldDelegate methods
@@ -220,11 +246,30 @@ static NSUInteger fiveByFiveMatrixTags[] = {
 
 - (IBAction)handleNormalizeButton:(UIButton *)sender
 {
-  //Collect input values;
+  //Setup
+  if ([textFieldToEdit isFirstResponder])
+    [textFieldToEdit resignFirstResponder];
   
+  NSUInteger matrixCount = (_matrixSize==threeByThreeSize) ? threeByThreeMatrixSize : fiveByFiveMatrixSize;
   
-  //Add them together
+  //Collect total of input values;
+  CGFloat total = 0;
+  CGFloat *currentMatrix = (_matrixSize==threeByThreeSize) ? threeByThreeMatrixArray : fiveByFiveMatrixArray;
+  for (int index = 0; index<matrixCount; index++)
+  {
+    total += currentMatrix[index];
+  }
   
-  //Divide them all by the total.
-}
+  CGFloat factor = 1/total;
+  
+  //If the weight factor is not 1...
+  if (fabsf(1-factor) > .01)
+  {
+    for (int index = 0; index<matrixCount; index++)
+      currentMatrix[index] *= factor;
+    [self displayMatrixValues];
+  }
+  
+  }
+
 @end
