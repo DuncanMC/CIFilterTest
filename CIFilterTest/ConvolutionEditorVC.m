@@ -260,14 +260,17 @@ static NSUInteger fiveByFiveMatrixTags[] = {
     total += currentMatrix[index];
   }
   
-  CGFloat factor = 1/total;
-  
-  //If the weight factor is not 1...
-  if (fabsf(1-factor) > .01)
+  if (total != 0)
   {
-    for (int index = 0; index<matrixCount; index++)
-      currentMatrix[index] *= factor;
-    [self displayMatrixValues];
+    CGFloat factor = 1/total;
+    
+    //If the weight factor is not 1...
+    if (fabsf(1-factor) > .01)
+    {
+      for (int index = 0; index<matrixCount; index++)
+        currentMatrix[index] *= factor;
+      [self displayMatrixValues];
+    }
   }
   
   }

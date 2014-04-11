@@ -588,7 +588,7 @@
     {
       weights = sharpenWeights;
       inputBiasValue = 0;
-    } else if (YES)
+    } else if (NO)
     {
       weights = blurweights;
       inputBiasValue = 0;
@@ -677,7 +677,7 @@
           [matrixString appendString: @"\nMatrix: ("];
           for (NSUInteger index = 0; index < matrixCount; index++)
           {
-            [matrixString appendFormat: @"%.3f", newMatrix[index]];
+            [matrixString appendFormat: @"%.4f", newMatrix[index]];
             if (index <matrixCount-1)
               [matrixString appendString: @", "];
             else
@@ -1350,6 +1350,12 @@ else
 - (IBAction)pointButtonChanged:(PointButton *)sender
 {
   //NSLog(@"Entering %s", __PRETTY_FUNCTION__);
+}
+
+- (IBAction)handleResetButton:(UIButton *)sender
+{
+  [self doSetup];
+  [self showImage];
 }
 
 

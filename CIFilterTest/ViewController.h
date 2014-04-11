@@ -99,5 +99,6 @@
 - (IBAction)handleAnimateButton:(UIButton *)sender;
 - (IBAction)colorWellChanged:(WTColorPickerButton *)sender;
 - (IBAction)pointButtonChanged:(PointButton *)sender;
+- (IBAction)handleResetButton:(UIButton *)sender;
 
 @end
