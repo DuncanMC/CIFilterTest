@@ -1357,6 +1357,9 @@ else
   [self showImage];
 }
 
+- (IBAction)handleRotateButton:(UIButton *)sender {
+}
+
 
 //-----------------------------------------------------------------------------------------------------------
 #pragma mark -	TableViewSelectionProtocol methods

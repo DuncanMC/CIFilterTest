@@ -231,17 +231,23 @@ static NSUInteger fiveByFiveMatrixTags[] = {
 
 //-----------------------------------------------------------------------------------------------------------
 
-- (IBAction)handleApplyButton:(UIButton *)sender
+- (void) invokeMatrixChangedBlock;
 {
-  if ([textFieldToEdit isFirstResponder])
-    [textFieldToEdit resignFirstResponder];
   CGFloat *theMatrixArray = (_matrixSize == threeByThreeSize) ? threeByThreeMatrixArray : fiveByFiveMatrixArray;
-
+  
   if (_theConvolutionValuesChangedBlock)
     _theConvolutionValuesChangedBlock(_matrixSize, theMatrixArray, self.bias);
   else
     NSLog(@"No convolutionValuesChangedBlock");
+}
 
+//-----------------------------------------------------------------------------------------------------------
+
+- (IBAction)handleApplyButton:(UIButton *)sender
+{
+  if ([textFieldToEdit isFirstResponder])
+    [textFieldToEdit resignFirstResponder];
+  [self invokeMatrixChangedBlock];
 }
 
 - (IBAction)handleNormalizeButton:(UIButton *)sender
@@ -274,5 +280,39 @@ static NSUInteger fiveByFiveMatrixTags[] = {
   }
   
   }
+
+- (IBAction)handleRotateButton:(UIButton *)sender
+{
+  NSUInteger size;
+  if (_matrixSize == threeByThreeSize)
+  {
+    size = 3;
+    CGFloat newMatrix[threeByThreeMatrixSize];
+    for (int y = 0; y < size; y++)
+      for (int x = 0; x < size; x++)
+      {
+        NSUInteger array_index = x + y*size;
+        CGFloat aFloat = threeByThreeMatrixArray[array_index];
+        array_index = size-y-1+x*size;
+        newMatrix[array_index] = aFloat;
+      }
+    for (int index = 0; index < threeByThreeMatrixSize; index++)
+      threeByThreeMatrixArray[index] = newMatrix[index];
+  }
+  else
+  {
+    size = 5;
+    CGFloat newMatrix[fiveByFiveMatrixSize];
+    for (int y = 0; y < size; y++)
+      for (int x = 0; x < size; x++)
+      {
+        CGFloat aFloat = fiveByFiveMatrixArray[x + y*size];
+        newMatrix[size-y-1+x*size] = aFloat;
+      }
+    for (int index = 0; index < fiveByFiveMatrixSize; index++)
+      fiveByFiveMatrixArray[index] = newMatrix[index];
+  }
+  [self displayMatrixValues];
+}
 
 @end

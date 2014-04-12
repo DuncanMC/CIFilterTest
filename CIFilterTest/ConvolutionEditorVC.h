@@ -38,5 +38,6 @@
 
 - (IBAction)handleApplyButton:(UIButton *)sender;
 - (IBAction)handleNormalizeButton:(UIButton *)sender;
+- (IBAction)handleRotateButton:(UIButton *)sender;
 
 @end
