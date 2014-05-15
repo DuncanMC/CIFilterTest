@@ -679,12 +679,12 @@
     theConvolutionPickerButton.theConvolutionValuesChangedBlock = ^(matrixSizes matrixSize, CGFloat* newMatrix, CGFloat newBias)
     {
       NSUInteger matrixCount = 0;
-      if (TRUE)
+      matrixCount = (matrixSize==threeByThreeSize) ? threeByThreeMatrixSize : fiveByFiveMatrixSize;
+      if (FALSE)
       {
         NSMutableString *matrixString = [NSMutableString new];
         if (newMatrix != nil)
         {
-          matrixCount = (matrixSize==threeByThreeSize) ? threeByThreeMatrixSize : fiveByFiveMatrixSize;
           [matrixString appendString: @"\nMatrix: ("];
           for (NSUInteger index = 0; index < matrixCount; index++)
           {
