@@ -607,7 +607,6 @@
     theConvolutionPickerButton.threeByThreeMatrix = weights;
 
     
-    theConvolutionPickerButton.bias = inputBiasValue;
 
     CIVector *weightsVector = [CIVector vectorWithValues: weights
                                                    count: 9];
@@ -667,7 +666,8 @@
     [currentFilter setValue: weightsVector
                      forKey: @"inputWeights"];
     
-    [currentFilter setValue: @(.5)
+    inputBiasValue = .5;
+    [currentFilter setValue: @(inputBiasValue)
                      forKey: @"inputBias"];
 
     
@@ -675,6 +675,7 @@
   
   if ([currentFilterName rangeOfString: @"CIConvolution"].location != NSNotFound)
   {
+    theConvolutionPickerButton.bias = inputBiasValue;
     theConvolutionPickerButton.theConvolutionValuesChangedBlock = ^(matrixSizes matrixSize, CGFloat* newMatrix, CGFloat newBias)
     {
       NSUInteger matrixCount = 0;
