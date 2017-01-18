@@ -58,7 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		57289AF148D2D5A0D441F64B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		62C490DEAE44D4A0AE015BFD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		AE30881E18E0718500C90B4E /* CIFilterTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CIFilterTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE30882118E0718500C90B4E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AE30882318E0718500C90B4E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -158,6 +159,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79E0A7F166386E8B499594C5 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				57289AF148D2D5A0D441F64B /* Pods.debug.xcconfig */,
+				62C490DEAE44D4A0AE015BFD /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		AE30881518E0718500C90B4E = {
 			isa = PBXGroup;
 			children = (
@@ -166,7 +176,7 @@
 				AE30884918E0718500C90B4E /* CIFilterTestTests */,
 				AE30882018E0718500C90B4E /* Frameworks */,
 				AE30881F18E0718500C90B4E /* Products */,
-				2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */,
+				79E0A7F166386E8B499594C5 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -337,6 +347,7 @@
 				AE30881B18E0718500C90B4E /* Frameworks */,
 				AE30881C18E0718500C90B4E /* Resources */,
 				42A50D902F2C4B63A8DB8CC9 /* Copy Pods Resources */,
+				83B92587CD9ED9386802840C /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -439,7 +450,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83B92587CD9ED9386802840C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E1BE0423D2814B2091E54557 /* Check Pods Manifest.lock */ = {
@@ -609,7 +635,7 @@
 		};
 		AE30885418E0718500C90B4E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */;
+			baseConfigurationReference = 57289AF148D2D5A0D441F64B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -618,9 +644,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIFilterTest/CIFilterTest-Prefix.pch";
 				INFOPLIST_FILE = "CIFilterTest/CIFilterTest-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};
@@ -628,7 +655,7 @@
 		};
 		AE30885518E0718500C90B4E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2C4BE2B02D9B4BE68A2E066B /* Pods.xcconfig */;
+			baseConfigurationReference = 62C490DEAE44D4A0AE015BFD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -637,9 +664,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CIFilterTest/CIFilterTest-Prefix.pch";
 				INFOPLIST_FILE = "CIFilterTest/CIFilterTest-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
 				WRAPPER_EXTENSION = app;
 			};

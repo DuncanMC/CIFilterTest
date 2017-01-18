@@ -1,1 +1,357 @@
-<?xml version='1.0' encoding='UTF-8'?><Workspace version='1.0'><FileRef location='group:CIFilterTest.xcodeproj'/><FileRef location='group:Pods/Pods.xcodeproj'/></Workspace>
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:CIFilterTest.xcodeproj">
+   </FileRef>
+   <Group
+      location = "group:CIFilterTest"
+      name = "CIFilterTest">
+      <FileRef
+         location = "group:AppDelegate.h">
+      </FileRef>
+      <FileRef
+         location = "group:AppDelegate.m">
+      </FileRef>
+      <Group
+         location = "group:Base.lproj"
+         name = "Base.lproj">
+         <FileRef
+            location = "group:Main_iPad.storyboard">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:CIFilterTest-Info.plist">
+      </FileRef>
+      <FileRef
+         location = "group:CIFilterTest-Prefix.pch">
+      </FileRef>
+      <FileRef
+         location = "group:ConvolutionEditorVC.h">
+      </FileRef>
+      <FileRef
+         location = "group:ConvolutionEditorVC.m">
+      </FileRef>
+      <FileRef
+         location = "group:ConvolutionPickerButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:ConvolutionPickerButton.m">
+      </FileRef>
+      <FileRef
+         location = "group:Defines.h">
+      </FileRef>
+      <Group
+         location = "group:en.lproj"
+         name = "en.lproj">
+         <FileRef
+            location = "group:InfoPlist.strings">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:FilterCategoryInfo.h">
+      </FileRef>
+      <FileRef
+         location = "group:FilterCategoryInfo.m">
+      </FileRef>
+      <FileRef
+         location = "group:FilterCell.xib">
+      </FileRef>
+      <FileRef
+         location = "group:FilterRecord.h">
+      </FileRef>
+      <FileRef
+         location = "group:FilterRecord.m">
+      </FileRef>
+      <FileRef
+         location = "group:FiltersList.h">
+      </FileRef>
+      <FileRef
+         location = "group:FiltersList.m">
+      </FileRef>
+      <FileRef
+         location = "group:FourCornersButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:FourCornersButton.m">
+      </FileRef>
+      <Group
+         location = "group:Images.xcassets"
+         name = "Images.xcassets">
+         <Group
+            location = "group:AppIcon.appiconset"
+            name = "AppIcon.appiconset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:wareto icon iPad.png">
+            </FileRef>
+            <FileRef
+               location = "group:wareto icon iPad@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:FourCornersButton image active.imageset"
+            name = "FourCornersButton image active.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:FourCornersButton image active.png">
+            </FileRef>
+            <FileRef
+               location = "group:FourCornersButton image active@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:FourCornersButton image inactive.imageset"
+            name = "FourCornersButton image inactive.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:FourCornersButton image inactive.png">
+            </FileRef>
+            <FileRef
+               location = "group:FourCornersButton image inactive@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:LaunchImage.launchimage"
+            name = "LaunchImage.launchimage">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Mask image.imageset"
+            name = "Mask image.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:mask image.png">
+            </FileRef>
+            <FileRef
+               location = "group:mask image@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:PointButton Image active.imageset"
+            name = "PointButton Image active.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:PointButton image active.png">
+            </FileRef>
+            <FileRef
+               location = "group:PointButton image active@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:PointButton image inactive.imageset"
+            name = "PointButton image inactive.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:PointButton image inactive.png">
+            </FileRef>
+            <FileRef
+               location = "group:PointButton image inactive@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Popup menu stretchable.imageset"
+            name = "Popup menu stretchable.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:Popup menu stretchable.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RectButton image active.imageset"
+            name = "RectButton image active.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:RectButton image active.png">
+            </FileRef>
+            <FileRef
+               location = "group:RectButton image active@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:RectButton image inactive.imageset"
+            name = "RectButton image inactive.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:RectButton image inactive.png">
+            </FileRef>
+            <FileRef
+               location = "group:RectButton image inactive@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Rotate.imageset"
+            name = "Rotate.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:Rotate.png">
+            </FileRef>
+            <FileRef
+               location = "group:Rotate@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Sample image #2.imageset"
+            name = "Sample image #2.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:Daffodil center.png">
+            </FileRef>
+            <FileRef
+               location = "group:Daffodil center@2x.png">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Sample image.imageset"
+            name = "Sample image.imageset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+            <FileRef
+               location = "group:Sample image.png">
+            </FileRef>
+            <FileRef
+               location = "group:Sample image@2x.png">
+            </FileRef>
+         </Group>
+      </Group>
+      <FileRef
+         location = "group:LabeledToggleButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:LabeledToggleButton.m">
+      </FileRef>
+      <FileRef
+         location = "group:main.m">
+      </FileRef>
+      <FileRef
+         location = "group:MyTypes.h">
+      </FileRef>
+      <FileRef
+         location = "group:PointButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:PointButton.m">
+      </FileRef>
+      <FileRef
+         location = "group:PointView.h">
+      </FileRef>
+      <FileRef
+         location = "group:PointView.m">
+      </FileRef>
+      <FileRef
+         location = "group:PopupListItem.h">
+      </FileRef>
+      <FileRef
+         location = "group:PopupListItem.m">
+      </FileRef>
+      <FileRef
+         location = "group:PopupMenuControl.h">
+      </FileRef>
+      <FileRef
+         location = "group:PopupMenuControl.m">
+      </FileRef>
+      <FileRef
+         location = "group:RectButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:RectButton.m">
+      </FileRef>
+      <FileRef
+         location = "group:Rotate.png">
+      </FileRef>
+      <FileRef
+         location = "group:Rotate@2x.png">
+      </FileRef>
+      <FileRef
+         location = "group:SelectFilterController.h">
+      </FileRef>
+      <FileRef
+         location = "group:SelectFilterController.m">
+      </FileRef>
+      <FileRef
+         location = "group:SelectFilterController_iPad.xib">
+      </FileRef>
+      <FileRef
+         location = "group:SelectFromListViewController.h">
+      </FileRef>
+      <FileRef
+         location = "group:SelectFromListViewController.m">
+      </FileRef>
+      <FileRef
+         location = "group:SelectFromListViewController.xib">
+      </FileRef>
+      <FileRef
+         location = "group:TableViewSelectionProtocol.h">
+      </FileRef>
+      <FileRef
+         location = "group:Types.h">
+      </FileRef>
+      <FileRef
+         location = "group:Utils.h">
+      </FileRef>
+      <FileRef
+         location = "group:Utils.m">
+      </FileRef>
+      <FileRef
+         location = "group:ViewController.h">
+      </FileRef>
+      <FileRef
+         location = "group:ViewController.m">
+      </FileRef>
+      <FileRef
+         location = "group:WTColorPickerButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:WTColorPickerButton.m">
+      </FileRef>
+      <FileRef
+         location = "group:WTColorPickerVC.h">
+      </FileRef>
+      <FileRef
+         location = "group:WTColorPickerVC.m">
+      </FileRef>
+      <FileRef
+         location = "group:WTColorPickerVC.xib">
+      </FileRef>
+      <FileRef
+         location = "group:WTPopoverButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:WTPopoverButton.m">
+      </FileRef>
+      <FileRef
+         location = "group:WTToggleButton.h">
+      </FileRef>
+      <FileRef
+         location = "group:WTToggleButton.m">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

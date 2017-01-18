@@ -73,7 +73,7 @@
     {
       thisNibName = [NSString stringWithFormat: @"%s%@", classNameCString, @"_iPad"];
     }
-    self = [self initWithNibName: thisNibName bundle:nil];
+    self = [super initWithNibName: thisNibName bundle:nil];
     
   }
   if (!self) return nil;

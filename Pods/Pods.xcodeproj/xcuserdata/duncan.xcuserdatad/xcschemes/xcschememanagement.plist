@@ -4,25 +4,34 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-NKOColorPickerView.xcscheme</key>
+		<key>NKOColorPickerView 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
+		<key>NKOColorPickerView.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>0</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1FE175BF58114FEDA65C63CE</key>
+		<key>278ADDC3D5B27322A07BCDDA0E5CDA97</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6F79469FB69A4D47B23BF12D</key>
+		<key>5BEA5134920FA9A59F15BC3BC8B483C1</key>
 		<dict>
 			<key>primary</key>
 			<true/>

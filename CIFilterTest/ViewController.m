@@ -1134,7 +1134,7 @@ else
                                 UIInterfaceOrientation theStatusBarOrientation = [[UIApplication sharedApplication] statusBarOrientation];
                                 
                                 CGFloat keyboardHeight;
-                                if UIInterfaceOrientationIsLandscape(theStatusBarOrientation)
+                                if (UIInterfaceOrientationIsLandscape(theStatusBarOrientation))
                                   keyboardHeight = keyboardFrame.size.width;
                                 else
                                   keyboardHeight = keyboardFrame.size.height;
@@ -1207,7 +1207,8 @@ else
 //  theFilterTypePopup.choices = [theFiltersList.uniqueFilterNames copy];
   theFilterTypePopup.delegate = self;
   
-  //[self listCIFiltersAndShowInputKeys: YES];
+  [self listCIFiltersAndShowInputKeys: YES];
+  //NSLog(@"%@", [[FiltersList sharedFiltersList] description]);
   
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
   currentFilterName = [defaults stringForKey: K_DEFAULT_FILTERNAME];

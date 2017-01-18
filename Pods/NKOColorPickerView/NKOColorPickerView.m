@@ -151,7 +151,6 @@ CGFloat const NKOPickerViewCrossHairshWidthAndHeight    = 38.f;
 }
 
 - (void)_updateCrosshairPosition
-
 {
     CGPoint hueSatPosition;
     
